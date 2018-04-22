@@ -1,0 +1,1080 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "JustPrint",
+	"name": "JustPrint",
+	"version": {
+		"name": "1.1.26",
+		"code": "98"
+	},
+	"description": "",
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "index.html",
+	"developer": {
+		"name": "",
+		"email": "",
+		"url": "http://justprint.com.cn"
+	},
+	"permissions": {
+
+
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Camera": {
+			"description": "访问摄像头"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+
+		"Device": {},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+		"Geolocation": {
+			"description": "访问位置信息"
+		},
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+		"AlilogPlugin": {
+			"description": "支付宝登录"
+		},
+		"OpenFile":{
+			"description": "文件关联"
+		},
+		"Orientation": {
+			"description": "访问方向感应器"
+		},
+
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+		"Barcode": {
+			"description": "管理二维码扫描插件"
+		},
+
+
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		},
+		"Payment": {},
+		"Messaging": {},
+		"Maps": {},
+		"Statistic": {},"OAuth":{}
+	},
+	"plus": {
+	 "statusbar": {
+        "immersed": true
+    },
+	"popGesture":"close",
+		"splashscreen": {
+			"autoclose": false,
+			"waiting": true
+		},
+		"runmode": "liberate",
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",
+		"distribute": {
+			"plugins": {"oauth":{"weixin":{"appid":"wx5bb2cd8e7ed1476e","appsecret":"ba01019b6980546c93321f61270a9d0b"}},
+				"statics": {
+					"umeng": {
+						"appkey_ios": "5979914cf43e4879840011f7",
+						"channelid_ios": "AppStore",
+						"appkey_android": "5979910175ca353036000f1f",
+						"channelid_android": "MyApp"
+					}
+				},
+				"maps": {
+					"amap": {
+						"appkey_ios": "95f9b5284f9e1a537746a092dd1af2e2",
+						"appkey_android": "1396d572cab1aba22cc8c13e9c61d71f",
+						"description": ""
+					}
+				},
+				"share": {},
+				"payment": {
+					"weixin": {
+						"description": "微信支付",
+						"appid": "wx5bb2cd8e7ed1476e"
+					},
+					"alipay": {
+						"description": "阿里支付",
+						"scheme": ""
+					}
+				}
+			},
+			"apple": {
+				"UIReserveStatusbarOffset": true,
+				"appid": "",
+				"mobileprovision": "",
+				"password": "",
+				"p12": "",
+				"devices": "iphone",
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",
+				"keystore": "",
+				"password": "",
+				"aliasname": "",
+				"minSdkVersion": 19,
+				"ImmersedStatusbar": true,
+				"permissions": ["<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+			},
+			"orientation": [
+				"portrait-primary"
+			],
+			"icons": {
+				"ios": {
+					"prerendered": true,
+					"auto": "",
+					"iphone": {
+						"normal": "unpackage/res/icons/57x57.png",
+						"retina": "unpackage/res/icons/114x114.png",
+						"retina7": "unpackage/res/icons/120x120.png",
+						"spotlight-normal": "unpackage/res/icons/29x29.png",
+						"spotlight-retina": "unpackage/res/icons/58x58.png",
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",
+						"settings-normal": "unpackage/res/icons/29x29.png",
+						"settings-retina": "unpackage/res/icons/58x58.png",
+						"retina8": "unpackage/res/icons/180x180.png",
+						"settings-retina8": "unpackage/res/icons/87x87.png"
+					},
+					"ipad": {
+						"normal": "unpackage/res/icons/72x72.png",
+						"retina": "unpackage/res/icons/144x144.png",
+						"normal7": "unpackage/res/icons/76x76.png",
+						"retina7": "unpackage/res/icons/152x152.png",
+						"spotlight-normal": "unpackage/res/icons/50x50.png",
+						"spotlight-retina": "unpackage/res/icons/100x100.png",
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",
+						"settings-normal": "unpackage/res/icons/29x29.png",
+						"settings-retina": "unpackage/res/icons/58x58.png"
+					}
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png",
+					"ldpi": "unpackage/res/icons/48x48.png",
+					"hdpi": "unpackage/res/icons/72x72.png",
+					"xhdpi": "unpackage/res/icons/96x96.png",
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "",
+						"retina35": "splash/ios640x960.png",
+						"retina40": "splash/ios640x1136.png",
+						"retina55": "splash/ios1242x2208.png",
+						"retina47": "splash/ios750x1334.png"
+					},
+					"ipad": {
+						"portrait": "",
+						"portrait-retina": "",
+						"landscape": "",
+						"landscape-retina": "",
+						"portrait7": "",
+						"portrait-retina7": "",
+						"landscape7": "",
+						"landscape-retina7": ""
+					}
+				},
+				"android": {
+
+
+					"hdpi": "splash/and480x762.png",
+					"xhdpi": "splash/and720x1242.png",
+					"xxhdpi": "splash/and1080x1882.png"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"login.html",
+					"js/mui.js",
+					"fonts/mui.ttf",
+					"css/mui.css",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"css/layer.css",
+					"js/layer.js",
+					"js/template7.min.js.map",
+					"js/init.js",
+					"index.html",
+					"js/index.js",
+					"select_file.html",
+					"js/update.js",
+					"fonts/iconfont2.css",
+					"js/jquery-3.2.1.min.js",
+					"fonts/iconfont2.ttf",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"qr_code.html",
+					"location.html",
+					"copy_profile.html",
+					"dynamic.html",
+					"print_confirm.html",
+					"scan_task.html",
+					"email.html",
+					"copy_record.html",
+					"scan_profile.html",
+					"wallet.html",
+					"print_file.html",
+					"print_profile.html",
+					"print_config.html",
+					"register.html",
+					"recharge.html",
+					"password.html",
+					"personal.html",
+					"print_task.html",
+					"popup.html",
+					"info.html",
+					"doc.html",
+					"file.html",
+					"print_rec.html",
+					"preview.html",
+					"camera.html",
+					"print_email.html",
+					"location2.html",
+					"auth_result.html",
+					"print_photo.html",
+					"paper_print.html"
+				],
+				"priority": 0
+			},
+			"register.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/mui.ttf",
+					"login.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"recharge.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"protocol.html"
+				],
+				"priority": 0
+			},
+			"dynamic.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/mui.ttf",
+					"js/init.js"
+				],
+				"refer": [
+					"scan_profile.html"
+				],
+				"priority": 0
+			},
+			"email.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/mui.ttf",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"password.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/iconfont.css",
+					"js/mui.js",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"scan_profile.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"img/扫描指南.jpg",
+					"img/scan-profile.jpg",
+					"js/init.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"index.html",
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"register.html",
+					"splash/启动页1.png",
+					"css/mui.css",
+					"fonts/iconfont.css",
+					"img/icon-LOGO.svg",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"copy_profile.html",
+					"print_confirm.html",
+					"recharge.html",
+					"dynamic.html",
+					"scan_task.html",
+					"email.html",
+					"password.html",
+					"copy_record.html",
+					"scan_profile.html",
+					"wallet.html",
+					"print_task.html",
+					"print_file.html",
+					"print_profile.html",
+					"print_config.html",
+					"pwd_find.html",
+					"password_find.html",
+					"password_set.html",
+					"bind_phone.html"
+				],
+				"priority": 0
+			},
+			"wallet.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/mui.ttf",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"js/init.js",
+					"i18n/strings_zh.json",
+					"img/refund.png",
+					"img/recharge.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"scan_task.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/mui.ttf",
+					"fonts/iconfont.css",
+					"img/error.png",
+					"img/dft.jpg",
+					"fonts/iconfont.woff",
+					"js/template7.min.js.map",
+					"js/template7.min.js",
+					"css/layer.css",
+					"js/layer.js",
+					"js/init.js",
+					"img/dft-waiting.gif",
+					"js/mui.js",
+					"css/mui.css",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"scan_confirm.html",
+					"email.html",
+					"watch.html"
+				],
+				"priority": 0
+			},
+			"location.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"waiting.html",
+					"js/temp.js",
+					"js/template7.js",
+					"js/template7.js.map",
+					"js/init.js",
+					"img/mark_b.png",
+					"img/mark.png",
+					"img/icon-LOGO.svg",
+					"img/mark_b.svg",
+					"maps_map_sub.html",
+					"map_cover_sub.html",
+					"img/dft.jpg",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"img/printer_dft.png",
+					"img/icon-LOGO.svg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"print_task.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/iconfont.css",
+					"img/dft.jpg",
+					"fonts/iconfont.woff",
+					"img/ffile.png",
+					"img/error.png",
+					"js/template7.min.js",
+					"js/template7.min.js.map",
+					"css/layer.css",
+					"js/layer.js",
+					"js/init.js",
+					"img/dft-waiting.gif",
+					"css/animate.css",
+					"css/mui.css",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"print_config.html",
+					"info.html",
+					"preview.html",
+					"login.html",
+					"index.html"
+				],
+				"priority": 0
+			},
+			"print_confirm.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/mui.ttf",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"img/icon-LOGO.svg",
+					"js/init.js",
+					"img/print-complete.png"
+				],
+				"refer": [
+					"index.html",
+					"shop_list.html",
+					"recharge.html",
+					"wallet.html"
+				],
+				"priority": 0
+			},
+			"print_config.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"js/mui.picker.min.js",
+					"css/mui.picker.min.css",
+					"css/mui.picker.all.css",
+					"js/mui.picker.js",
+					"js/mui.js",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"css/layer.css",
+					"js/layer.js",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"print_confirm.html",
+					"shop_list.html",
+					"preview.html"
+				],
+				"priority": 0
+			},
+			"print_file.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"img/dft.jpg"
+				],
+				"refer": [
+					"print_config.html"
+				],
+				"priority": 0
+			},
+			"copy_profile.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"img/复印指南.jpg",
+					"img/copy-profile.jpg",
+					"js/init.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"personal.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/app.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/iconfont.css",
+					"fonts/iconfont.woff",
+					"js/init.js",
+					"about.html",
+					"css/mui.css",
+					"img/tel.png",
+					"img/invoice.png",
+					"img/out.png",
+					"img/fee.png",
+					"img/email.png",
+					"img/pwd.png",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"password.html",
+					"email.html",
+					"wallet.html",
+					"login.html",
+					"get_invoice.html"
+				],
+				"priority": 0
+			},
+			"copy_record.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"css/style.css",
+					"js/app.js",
+					"js/pro.lib.js",
+					"js/uni.lib.js",
+					"fonts/iconfont.css",
+					"img/dft.jpg",
+					"js/template7.min.js",
+					"img/dft-waiting.gif",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"qr_code.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"js/init.js",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"info.html",
+					"auth_result.html",
+					"invoice.html"
+				],
+				"priority": 0
+			},
+			"print_profile.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"info.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"img/icon-LOGO.svg",
+					"js/init.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"shop_list.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"fonts/iconfont.css",
+					"js/init.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"doc.html": {
+				"resources": [
+					"js/immersed.js"
+				],
+				"refer": [
+					"doc/io.html"
+				],
+				"priority": 0
+			},
+			"file.html": {
+				"resources": [
+					"css/common.css",
+					"js/common.js",
+					"fonts/iconfont.css",
+					"css/style.css",
+					"css/mui.css",
+					"js/app.js",
+					"js/pro.lib.js",
+					"js/uni.lib.js",
+					"js/mui.js",
+					"fonts/mui.ttf",
+					"img/fdisk.png",
+					"img/fup.png",
+					"img/ffile.png",
+					"img/fdir.png"
+				],
+				"refer": [
+					"doc.html"
+				],
+				"priority": 0
+			},
+			"doc/io.html": {
+				"resources": [
+					"doc/res/doc.css",
+					"doc/res/prettify.js",
+					"doc/res/prettify.sons.css",
+					"doc/res/doc.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"preview.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"img/dft.jpg",
+					"waiting.html",
+					"js/init.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"scan_confirm.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"js/init.js"
+				],
+				"refer": [
+					"recharge.html"
+				],
+				"priority": 0
+			},
+			"print_rec.html": {
+				"resources": [
+					"js/mui.min.js",
+					"img/error.png",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"img/ffile.png",
+					"img/dft.jpg",
+					"fonts/iconfont.woff",
+					"fonts/iconfont.css",
+					"css/style.css",
+					"js/template7.min.js",
+					"js/template7.min.js.map",
+					"js/app.js",
+					"js/pro.lib.js",
+					"js/uni.lib.js",
+					"js/init.js",
+					"img/dft-waiting.gif",
+					"i18n/strings_zh.json"
+				],
+				"refer": [
+					"print_config.html",
+					"preview.html"
+				],
+				"priority": 0
+			},
+			"pwd_find.html": {
+				"resources": [
+					"js/app.js",
+					"fonts/iconfont.css",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"js/mui.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"watch.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"password_find.html": {
+				"resources": [
+					"css/mui.min.css",
+					"js/mui.js",
+					"js/app.js",
+					"fonts/iconfont.css",
+					"js/init.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"js/uni.lib.js",
+					"css/style.css"
+				],
+				"refer": [
+					"password_set.html"
+				],
+				"priority": 0
+			},
+			"password_set.html": {
+				"resources": [
+					"js/app.js",
+					"fonts/iconfont.css",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"js/mui.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"camera.html": {
+				"resources": [
+					"js/common.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"print_email.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/init.js",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"email_help.html",
+					"i18n/strings_zh.json"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"about.html": {
+				"resources": [
+					"img/icon-LOGO.svg",
+					"personal.html",
+					"js/app.js",
+					"js/mui.min.js",
+					"js/init.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"img/icon-LOGO.svg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"location2.html": {
+				"resources": [
+					"js/app.js",
+					"js/mui.min.js",
+					"js/init.js",
+					"fonts/mui.ttf",
+					"js/pro.lib.js",
+					"css/mui.min.css",
+					"js/uni.lib.js",
+					"css/style.css",
+					"js/template7.js",
+					"js/template7.js.map"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"maps_map_sub.html": {
+				"resources": [
+					"css/style.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"map_cover_sub.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"auth_result.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"img/icon-LOGO.svg",
+					"css/mui.min.css",
+					"js/app.js",
+					"js/init.js",
+					"js/pro.lib.js",
+					"js/uni.lib.js",
+					"css/style.css",
+					"img/icon.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"select_file.html": {
+				"resources": [
+					"index.html",
+					"i18n/strings_zh.json",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"protocol.html": {
+				"resources": [
+					"Justprint_fee.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"photo_print.html": {
+				"resources": [
+					"css/cropper.min.css",
+					"i18n/strings_zh.json",
+					"img/my_files.jpg",
+					"js/cropper.js",
+					"img/logo.png",
+					"js/swiper.js",
+					"css/mui.css",
+					"css/swiper-3.4.2.min.css",
+					"img/photo_ident2.jpg",
+					"img/photo_ident1.jpg",
+					"img/photo_normal.jpg"
+				],
+				"refer": [
+					"photo_task.html"
+				],
+				"priority": 0
+			},
+			"print_photo.html": {
+				"resources": [
+					"i18n/strings_zh.json",
+					"photo_print.html",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"paper_print.html": {
+				"resources": [
+					"img/rotate_90.png",
+					"css/cropper.min.css",
+					"i18n/strings_zh.json",
+					"img/rotate_left.png",
+					"img/rotate_right.png",
+					"css/mui.min.css",
+					"js/jquery-3.2.1.js",
+					"img/zm_id_card.jpg",
+					"js/cropper.min.js",
+					"js/cropper.js",
+					"img/fm_id_card.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"invoice.html": {
+				"resources": [
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"bind_phone.html": {
+				"resources": [
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"photo_task.html": {
+				"resources": [
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"dynamic",
+				"x.html"
+			]
+		}
+	},
+	"unpackage": [
+	  "x.html"
+	]
+}

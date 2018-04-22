@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link href="fonts/iconfont.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      .u-method-list {
+        padding: 0;
+        margin: 0;
+      }
+      
+      .u-pay-method .title {
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+      }
+      
+      .u-pay-method .mui-input-row {
+        height: 50px;
+      }
+      
+      .u-pay-method .iconfont {
+        font-size: 2em;
+      }
+      
+      .u-pay-method .mui-radio input {
+        top: 9px;
+      }
+      
+      .u-pay-method .mui-radio input:checked:before {
+        color: #00A0E9;
+      }
+      
+      #u-sum-panel {
+        font-size: 16px;
+      }
+      
+      .u-sum-wrap {
+        position: relative;
+        margin-left: 5px;
+      }
+      
+      #u-sum-panel .u-sum-wrap input {
+        font-size: 18px;
+        border-bottom: 1px solid #ddd;
+      }
+      
+      .u-text {
+        width: 80px;
+        text-align: left;
+        white-space: nowrap;
+      }
+      
+      .mui-col-xs-6 {
+        text-align: center;
+      }
+      
+      .fee-btn {
+        height: 50px;
+        width: 120px;
+        border: 1px solid #00A0E9;
+        color: #00A0E9;
+        ;
+      }
+      
+      .ml-10 {
+        margin-top: 10px;
+      }
+      
+      .active {
+        background: #00A0E9;
+        color: #FFF;
+        font-weight: 800;
+      }
+      
+      .mui-bar-tab {
+        bottom: 0;
+        display: table;
+        width: 100%;
+        height: 30px;
+        padding: 0;
+        text-align: center;
+        table-layout: fixed;
+        border-top: 0;
+        border-bottom: 0;
+        background: none;
+        -webkit-touch-callout: none;
+        font-size: 12px;
+      }
+      .mui-pull-left{
+        font-size: 12px;
+      }
+    </style>
+    <!--	初始化方法-->
+    <script src="js/init.js"></script>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+      <h1 class="mui-title">钱包充值</h1>
+    </header>
+    <div class="mui-content u-my-input">
+      <div class="mui-content-padded">
+        <form class="mui-input-group fee">
+          <div class="mui-row">
+            <div class="mui-col-xs-6">
+              <button type="button" class="mui-btn fee-btn" id="mui-fee-btn">2元</button>
+            </div>
+            <div class="mui-col-xs-6">
+              <button type="button" class="mui-btn fee-btn" id="mui-fee-btn">5元</button>
+            </div>
+          </div>
+          <div class="mui-row ml-10">
+            <div class="mui-col-xs-6">
+              <button type="button" class="mui-btn fee-btn" id="mui-fee-btn">10元</button>
+            </div>
+            <div class="mui-col-xs-6">
+              <button type="button" class="mui-btn fee-btn" id="mui-fee-btn">20元</button>
+            </div>
+          </div>
+          <div class="mui-row ml-10">
+            <div class="mui-col-xs-6">
+              <button type="button" class="mui-btn fee-btn" id="mui-fee-btn">50元</button>
+            </div>
+            <div class="mui-col-xs-6">
+              <button type="button" class="mui-btn fee-btn" id="mui-fee-btn">100元</button>
+            </div>
+          </div>
+        </form>
+        <form class="mui-input-group">
+          <div id="u-sum-panel" class="mui-input-row">
+            <span class="u-text" id="other-fee">其他金额</span>
+            <div class="u-sum-wrap">
+              <input type="number" id="u-pay-sum" class="mui-input-clear" placeholder="请输入充值金额">
+            </div>
+            <span class="u-text">元</span>
+          </div>
+        </form>
+        <div class="u-pay-method" style="margin-top: 10px;">
+          <form class="mui-input-group">
+            <div class="title">付款方式</div>
+            <div class="mui-input-row mui-radio">
+              <span class="iconfont icon-zhifubao blue"></span>
+              <label>支付宝</label>
+              <input id="u-ck-alipay" name="pay_method" type="radio" checked>
+            </div>
+            <div class="mui-input-row mui-radio">
+              <span class="iconfont icon-weixin green"></span>
+              <label>微信</label>
+              <input id="u-ck-wxpay" name="pay_method" type="radio">
+            </div>
+          </form>
+        </div>
+        <div class="mui-button-row" style="margin-top: 30px;">
+          <button type="button" id="u-submit-pay" class="mui-btn u-btn-primary mui-btn-full">提 交</button>
+        </div>
+      </div>
+    </div>
+    <nav id="footerBar" class="mui-bar mui-bar-tab">
+      <a style="color:#999999;" onclick="app.showProtocol()">JustPrint账户充值协议</a>
+    </nav>
+    <!-- page code -->
+    <script src="js/mui.min.js"></script>
+    <script src="js/uni.lib.js"></script>
+    <script src="js/pro.lib.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript">
+      var paySum = document.getElementById("u-pay-sum");
+      var subPay = document.getElementById("u-submit-pay");
+      var ckAlipay = document.getElementById("u-ck-alipay");
+      var ckWxpay = document.getElementById("u-ck-wxpay");
+      var feeList = document.getElementsByClassName("fee-btn");
+      var wxpayChanel;
+      var alipayChanel;
+      var openerPara;
+      document.onkeydown = function(e) {
+        if(e && ((mui.os.ios && e.keyCode == 13) || (mui.os.android && e.keyCode == 9))) {
+          submitPay();
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      }
+
+      function getPayChanel() {
+        //设备信息加载完成，先获取微信的支付通道
+        plus.payment.getChannels(function(channels) {
+          for(var i in channels) {
+            if(channels[i].id == "wxpay") {
+              wxpayChanel = channels[i];
+            } else if(channels[i].id == "alipay") {
+              alipayChanel = channels[i];
+            }
+          }
+        }, function(e) {
+          console.log("获取支付通道失败：" + e.message);
+        });
+      }
+      mui.init();
+      mui.plusReady(function() {
+        app.curView.addEventListener("hide", function() {
+          removeNow();
+        });
+        getPayChanel();
+        if (paySum.value != "") {
+        	removeNow();
+        	
+        } else{
+        	feeList[0].classList.add('active');
+        }
+        subPay.addEventListener("tap", function() {
+          submitPay();
+        });
+        window.addEventListener('resize', function() {
+    document.getElementById("footerBar").style.display = document.body.clientHeight <= 400 ? 'none' : 'block';
+}, false);
+        app.onPageLoad(function(para) {
+//        alert(JSON.stringify(para));
+          openerPara = para;
+          if(para.sum) {
+            paySum.value = app.cvtFee(para.sum);
+            document.getElementById("other-fee").innerHTML = "本次需要";
+            document.getElementById("other-fee").style.color = "#FF0000"
+          }else{
+            document.getElementById("other-fee").innerHTML = "其他金额";
+            document.getElementById("other-fee").style.color = "#000000"
+          }
+          if(paySum.value!=""){
+            removeNow();
+          }
+          else{
+            feeList[0].classList.add("active");
+          }
+        });
+        app.onPreload(function() {
+          paySum.value = "";
+        });
+      });
+      mui(".fee-btn").each(function() {
+        this.addEventListener("tap", function() {
+           removeNow();
+          this.classList.add('active');
+        })
+      });
+      paySum.addEventListener('tap',function(){
+          removeNow();
+      });
+      function wxpayAction() {
+        var sum;
+        mui(".fee-btn").each(function() {
+          if(this.classList.contains("active")) {
+            sum = this.innerHTML.replace(/[^0-9]/ig, "");
+          } else {
+            sum = paySum.value;
+          }
+        if(sum) {
+          if(wxpayChanel) {
+            app.pay(wxpayChanel, sum, function(rlt, data) {
+              app.toast("充值成功");
+              if(app.fromView && openerPara.paySucCallback) {
+                app.fromView.evalJS("paySucCallback()");
+              }
+              mui.back();
+            });
+          } else {
+            app.msgBox("微信支付不可用");
+          }
+        }
+         });
+      }
+
+      function alipayAction() {
+        var sum;
+        mui(".fee-btn").each(function() {
+              if(this.classList.contains("active")) {
+                sum = this.innerHTML.replace(/[^0-9]/ig, "");
+              } else {
+                sum = paySum.value;
+              }
+               if(sum) {
+                if(alipayChanel) {
+                  app.pay(alipayChanel, sum, function(rlt, data) {
+                    app.toast("充值成功");
+                    if(app.fromView && openerPara.paySucCallback) {
+                      app.fromView.evalJS("paySucCallback()");
+                    }
+                    mui.back();
+                  });
+                } else {
+                  app.msgBox("支付宝不可用");
+                }
+              }
+             });
+            }
+
+            function checkSum(sum) {
+              if(!isNaN(parseFloat(sum))) {
+                var arr = sum.split('.');
+                var zs = parseInt(arr[0] || 0);
+                var xs = parseInt(arr[1] || 0);
+                if(xs < 100) {
+                  if(xs < 10) xs = "0" + xs;
+                  else xs = (xs + "0").substr(0, 2);
+                  paySum.value = zs + "." + xs;
+                  subPay.classList.remove("mui-disabled");
+                  return;
+                }
+              }
+              subPay.classList.add("mui-disabled");
+              paySum.value = "0.00";
+            }
+
+            function removeNow() { 
+              for(var i = 0; i < feeList.length; i++) {
+                feeList[i].classList.remove('active');
+              }
+            }
+            function submitPay() {
+              
+              if(ckAlipay.checked) {
+                alipayAction();
+              } else if(ckWxpay.checked) {
+                wxpayAction();
+              }
+            }
+    </script>
+  </body>
+
+</html>

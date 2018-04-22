@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">.u-next {
+  flex: none;
+  width: 80px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.u-next:before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /*background: #DDDDDD;*/
+}
+
+.u-next .iconfont {
+  margin: 12px 0 6px 0;
+}
+
+.u-next .iconfont:before {
+  font-size: 30px;
+}
+
+.u-next .mui-btn {
+  font-size: 12px;
+  padding: 3px;
+  min-width: 50px;
+}
+
+.u-next .u-fee {
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+.u-next input.u-checkbox {
+  position: relative;
+  top: 0;
+  right: 0;
+  margin-top: 26%;
+}
+
+
+/*.u-file-info .iconfont {
+				margin-right: 15px;
+			}
+			
+			.u-file-info .iconfont span {
+				font-size: 14px;
+				color: grey;
+			}
+			
+			.u-file-info .iconfont:before {
+				font-size: 20px;
+			}*/
+
+.u-my-wallet {
+  background: #fff;
+  /*padding: 5px 10px;*/
+  font-size: 14px;
+  color: #666;
+  height: 30px;
+  overflow: hidden;
+  line-height: 30px;
+}
+
+.u-my-wallet .iconfont {
+  font-size: 30px;
+  margin-right: 5px;
+}
+
+img.revolve {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.u-action-list {
+  padding: 0;
+  text-align: center;
+}
+
+.u-action-list .u-item-btn {
+  padding: 15px 0;
+  width: 30%;
+}
+
+.u-action-list .u-item-btn a {
+  color: #fff;
+  line-height: 1;
+}
+
+.u-action-list .u-item-btn span {
+  font-size: 24px;
+  display: inline-block;
+}
+
+.u-action-list .u-item-btn:active {
+  opacity: .7;
+}
+
+.u-action-list .u-item-fee {
+  font-size: 16px;
+  line-height: 1;
+  height: 24px;
+  font-size: 22px;
+}
+
+.u-item-fee .u-text {
+  font-size: 12px;
+  color: #999999;
+}
+
+#u-cur-device {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666666;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+
+.u-fee-info {
+  min-height: 25px;
+  padding-top: 5px;
+}
+
+.u-fee-info .fee-item {
+  display: inline-block;
+  margin: 2px;
+  /*border: 1px solid #EEEEEE;*/
+  box-shadow: 0 0 1px #CCCCCC;
+  overflow: hidden;
+  height: 22px;
+}
+
+.fee-item span {
+  font-size: 12px;
+  line-height: 1;
+  padding: 5px;
+}
+
+.fee-item span.name {
+  color: #FFFFFF;
+}
+
+#u-act-sel {
+  font-size: 16px;
+  color: #000000;
+}
+
+#u-act-sel:active {
+  color: #000000;
+  opacity: .9;
+}
+
+.u-txt {
+  height: 50px;
+  line-height: 50px;
+  font-size: 12px;
+  background: #00A0E9;
+  word-wrap: break-word;
+}
+
+.u-cp {
+  font-weight: bold;
+  font-size: 14px;
+  color: darkorange;
+}
+
+#u-cur-fee-std {
+  font-size: 10px;
+  line-height: 16px;
+  color: #999999;
+  text-align: center;
+}
+
+.mui-checkbox input[type=checkbox]:checked:before {
+  color: #00A0E9;
+}
+
+.mui-checkbox input[type=checkbox]:before {
+  content: '\e442';
+  color: #ccc;
+}
+
+.u-del-btn {
+  padding: 10px 14px;
+  font-size: 16px;
+  background: rgb(255, 39, 0);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 0;
+  width: 30%;
+}
+
+.u-sel-all {
+  width: 70%;
+  padding: 10px 14px;
+  font-size: 16px;
+  text-align: center;
+  color: #777;
+}
+
+.u-sel-all:active {
+  background: #F9F9F9;
+}
+
+.botBtn {
+  /*position: absolute;*/
+  width: 100%;
+  height: 30px;
+  display: flex;
+  background: #FFFFFF;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.bot-item {
+  flex: 1;
+  text-align: center;
+  line-height: 35px;
+  border-right: 1px solid #f0f2f5;
+  overflow: hidden;
+}
+
+.bot-item span {
+  color: #666666;
+  font-size: 13px!important;
+}
+
+.getFile {
+  color: rgb(241, 170, 86);
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: block;
+  margin-top: -1px;
+}
+.error{
+  width: 18px;
+  height: 18px;
+  display: block;
+  position: absolute;
+  top:0;
+  bottom:0;
+  left:20%;
+  margin: auto;
+}
+.submit-txt{
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom:0;
+  right:20%;
+  margin: auto;
+}
+.ml-20 {
+  margin-left: 20px;
+}</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+		<script id="tpl-task" class="htm-template" type="text/html">
+      <div class="u-task-list">
+        {{#list}}
+        <div class="u-pr-card u-line-down u-line-top card-{{id}}" style="height:105px;">
+          <div class="u-media" data-id="{{id}}">
+            <a class="preview {{revolve}}">
+              {{#if isImg}}
+              <img class="u-media-object revolve" src="{{src}}" onerror="init.convertImg(this);" />{{else}}
+              <span class='iconfont {{format}}'></span> {{/if}}
+            </a>
+          </div>
+          <div class="u-file-info">
+            <div class="detail">
+              <div class="mui-ellipsis title" style="margin-bottom: 5px;">{{name}}</div>
+              <div class="options grey" style="font-size: 12px;">{{opt}}</div>
+              <p class="time">{{subTime}}</p>
+            </div>
+            <div class="act" data-id="{{id}}">
+              <!--<a class="iconfont icon-yulan green preview {{revolve}}"><span>预览</span></a>
+              <a class="iconfont icon-shanchu red delete"><span>删除</span></a>-->
+              <span class="getFile">取件码:{{num}}</span>
+            </div>
+          </div>
+          <div class="u-next mui-checkbox">
+            <!--<input name="task-check" class="u-checkbox" value="{{id}}" data-fee="{{charge}}" type="checkbox">-->
+            <!--{{#if needPay}}{{/if}}-->
+            <!--<div class="iconfont blue icon-{{#if output}}qujian{{else}}shezhi{{/if}}"></div>-->
+            <!--<div><button type="button" class="mui-btn u-btn-default">{{#if output}}取件{{else}}配置{{/if}}</button></div>-->
+            {{#if output}}
+            <div class="u-fee red" style="font-size:17px;margin-top: 40%;">{{fee}}</div>
+            {{/if}}
+          </div>
+        </div>
+        {{#if getFile}}
+        <div class="botBtn  txt-{{id}}" data-id="{{id}}" style="text-align: center;line-height: 30px;display: block;">
+          <!--扫描机器上打印二维码，不扣费取件-->
+          <span style="font-size: 14px;color:#00A0E9">提交成功,请等待输出</span>
+        </div>
+       {{else}}
+        <div class="botBtn btn-{{id}}"data-id="{{id}}" id="btns-{{id}}">
+            <div class="bot-item" data-id="{{id}}" id="preview">
+              <a class="iconfont icon-yulan green preview {{revolve}}"><span>预览</span></a>
+            </div>
+              <div class="bot-item" data-id="{{id}}" id="delete">
+                <a class="iconfont icon-shanchu red delete"><span id="del">删除</span></a>
+              </div>
+              <div class="bot-item" data-id="{{id}}" id="chose">
+                <!--{{#if outlet}}
+                 <div class="mui-input-row mui-checkbox mui-left" style="height: 100%;">
+                <img src="img/error.png" class="error"/>
+              <span class="submit-txt">不能提交</span>
+          </div>
+          {{else}}-->
+                <div class="mui-input-row mui-checkbox mui-left" style="height: 100%;">
+              <span style="display:block;margin-left:12px;margin-top:-1px!important;">选择</span>
+              <input name="task-check" value="{{id}}" type="checkbox" class="u-checkbox pt-{{id}}" data-fee="{{charge}}"  style="zoom:80%;margin-top:1px;margin-left:15px;">
+          </div>
+          <!-- {{/if}}-->
+              </div>
+          </div>
+          {{/if}}
+        {{/list}}
+      </div>
+    </script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="backbtn"><span style="font-size: 18px;">返回</span></a>
+			<h1 class="mui-title">未打印任务</h1>
+			<a href="#" class="mui-pull-right" id="local" style="color:#FFFFFF;font-size:16px;"><span></span></a>
+			<a href="#" onclick="tosoc()" class="mui-pull-right" id="socan" style="color:#FFFFFF;font-size:16px;">扫一扫</a>
+		</header>
+		<div class="mui-content">
+			<div style="padding-bottom: 60px;">
+				<div id="u-info-panel" class="u-my-wallet mui-hidden">
+				 <span style="margin-left:10px;">账户:<span id="myPid"></span></span> 
+				 <span style="float:right;margin-right:3%;">余额:<span id="u-my-balance" class="orange" style="font-size: 14px;"></span></span>
+				</div>
+				<div id="u-task-list" class="u-file-list init-waiting">
+				</div>
+				<div id="u-dft-panel" class="u-action-list u-flex mui-hidden">
+					<div id="u-sel-all" class="u-sel-all u-act-sel u-all">
+						全选
+					</div>
+					<button class="u-del-btn" onclick="delList()">删除</button>
+				</div>
+			</div>
+			<div id="u-txt-panel" class="u-action-list mui-hidden u-txt" style="color: #FFFFFF;">
+                   如果照片没出来，请再次扫一扫二维码输出
+      </div>
+    </div>
+			<table id="u-submit-panel" class="u-action-list mui-hidden">
+				<tr>
+				  <td>
+				    <a id="u-act-sel" class="u-act-sel u-all">全选</a>
+				  </td>
+					<td class="u-item-fee">
+						<span class="red bold">¥ <span id="u-fee">0.00</span></span>
+						<div class="u-line-top" style="margin:0 15%;"></div>
+						<span class="u-text">您已选择<span class='orange' id="hint">0</span>个打印任务</span>
+						<span id="u-my-balance" class="orange" style="font-size: 16px;"></span>
+						<span id="u-my-subsidy" style="color:darkslateblue;font-size: 12px;"></span>
+					</td>
+					<td class="u-item-btn bg-yellow" onclick="submitClick()" id="sub">
+						<a>取件<span class="mui-icon mui-icon-arrowright"></span></a>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+		<!--template7-->
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/template7.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var myBalance = 0;
+			var mySubsidy = 0;
+			var totalFee = 0;
+			var devSN = null;
+			var isChecked = false;
+			var paySucCallback;
+			var compTask;
+			var flag;
+			var myBal = document.getElementById("u-my-balance");
+			var mySub = document.getElementById("u-my-subsidy");
+			(function() {
+			 compTask = Template7.compile(document.getElementById("tpl-task").innerHTML);
+				mui.init({});
+				mui.plusReady(function() { //初始化
+					mui(".u-act-sel").each(function() {
+						this.addEventListener("tap", function() {
+							if(this.classList.contains("u-all")) {
+								mui(".bot-item input").each(function() {
+									this.checked = true;
+								});
+								this.innerHTML = "反选";
+								this.classList.remove("u-all");
+							} else {
+								mui(".mui-left input").each(function() {
+									if(this.checked) {
+										this.checked = false;
+									} else {
+										this.checked = true;
+									}
+								});
+								this.innerHTML = "全选";
+								this.classList.add("u-all");
+							}
+							isChecked = true;
+							updateFee();
+						});
+					});
+				 document.getElementById("backbtn").addEventListener("tap",function(){
+//             mui.openWindow({
+//              url:"index.html",
+//              id:"index.html"
+//            })
+             app.showPhoto();
+                });
+           plus.key.addEventListener('backbutton',function(){
+//              mui.openWindow({
+//              url:"index.html",
+//              id:"index.html"
+//            })
+              app.showPhoto();
+                 },false)     
+					app.onPageLoad(function(para) {
+//					  alert(JSON.stringify(para));
+						if(para.devSN){
+							devSN = para.devSN;
+							console.log(devSN);
+							if(app.isLogin()){
+							   document.getElementById("myPid").innerHTML =app.cvt.getEncName(pro.acc.pid) ;
+							}
+							app.getBalance(function(fee, bal) {
+								updateMybalance(fee, bal);
+							}, {
+								dev_sn: para.devSN
+							});
+//							var uf;
+//							app.getPrintFeeSTD (function (rlt) {
+////							  console.log(JSON.stringify(rlt.data));
+//								  for (var i = 0; i < rlt.data.length; i++) {
+//                    if (rlt.data[i].dwPaperID == 285) {
+//                        uf = rlt.data[i].dwColorFee + rlt.data[i].dwMaterialFee;
+//                    }
+//                  }
+//							}, {
+//              dev_sn: para.devSN
+//            })
+							proj.print.getPrintTask(function(rlt) {  
+                    var  list = rlt.data;
+                    for(var i = 0; i < list.length; i++) {
+                      if((list[i].dwStatus & 32)>0){
+                      document.getElementById("u-txt-panel").classList.remove("mui-hidden");
+                      document.getElementById("local").classList.add("mui-hidden");
+                      document.getElementById("socan").classList.remove("mui-hidden");
+                      document.getElementById("u-submit-panel").classList.add("mui-hidden");
+                      }else{
+                    document.getElementById("u-submit-panel").classList.remove("mui-hidden");
+                      }
+                    }
+                  },{
+                    dev_sn:devSN,
+                    type:"photo"
+                  }, function(e) {
+                if(e.msg) {
+                  app.msgBox(e.msg);
+                } else {
+                  app.toast("连接异常");
+                }
+                document.getElementById("u-task-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+              })
+							proj.print.preparePrint(para.devSN, function(rlt) {
+									var data = rlt.data;
+									if(data.printer) {
+//										document.getElementById("u-cur-device").innerHTML = data.printer.szName;
+									}
+									if(data.feeSTD && data.feeSTD.length > 0) {
+//										document.getElementById("u-cur-fee-std").innerHTML = "[费率]" + data.feeSTD[0].szName;
+//										calcSTD(data.feeSTD);
+									}
+									
+									document.getElementById("u-info-panel").classList.remove("mui-hidden");
+									
+									document.getElementById("u-act-sel").classList.remove("mui-hidden");
+								   getPrintTask({
+                   dev_sn:devSN,
+                    type:"photo"
+                  });
+								},
+								function(rlt) {
+									app.msgBox(rlt.msg);
+								});
+						} else {
+						  document.getElementById("u-txt-panel").classList.add("mui-hidden");
+							document.getElementById("u-dft-panel").classList.remove("mui-hidden");
+							document.getElementById("u-submit-panel").classList.add("mui-hidden");
+						document.getElementById("local").classList.add("mui-hidden");
+              document.getElementById("socan").classList.remove("mui-hidden");
+							getPrintTask();
+
+						}
+
+						function getPrintTask(extra) {
+							proj.print.getPrintTask(function(rlt) {
+								var list = rlt.data;
+//								console.log(JSON.stringify(list));
+								var arr = [];
+								var today = new Date();
+								for(var i = 0; i < list.length; i++) {
+									var rec = list[i];
+									var task = {};
+									task.id = rec.dwJobId;
+									task.name = rec.szDocument;
+									task.num = rec.dwRandomCode;
+									var format = uni.getExt(task.name);
+									task.isImg = uni.isImg(format);
+//									if(!format || task.isImg) {
+//										task.revolve = "revolve"; //预览翻转显示
+//									}
+//                if(rec.dwStatus == 0){
+//                  task.outlet = true;
+//                }
+									if(task.isImg) {
+										if(rec.szJobFileName) {
+											var ff = rec.szJobFileName.split("\\");
+											var src = pro.mapUrl("temp/" + ff[ff.length - 1] + "_v/b_1.png");
+											task.src = src;
+										}
+									} else {
+										task.format = app.cvt.getFmtIcon(format);
+									}
+									task.opt = getOptions(rec);
+									var subDate = app.cvt.toDate(rec.dwSubmitDate);
+									task.subTime = subDate + " " + app.cvt.toTime(rec.dwSubmitTime);
+									task.leftDay = 7 - uni.compareDate(today, subDate);
+									if(para.devSN) {
+										if((rec.dwStatus & 32) > 0) {
+											task.fee = "已支付";
+											task.getFile = true;
+										} else {
+									   task.fee = "¥ " + app.cvtFee(rec.dwInfoCharges);
+                     task.charge = rec.dwInfoCharges;
+										}
+										task.output = true;
+									}
+									arr.push(task);
+								}
+								var content;
+								if(arr.length > 0) {
+									content = compTask({
+										list: arr
+									});
+								} else {
+									content = "<div class='u-none-data'><p style='margin-top:20px;'>暂无未打印任务</p></div>";
+							    document.getElementById("u-submit-panel").classList.add("mui-hidden");
+								}
+								document.getElementById("u-task-list").innerHTML = content;
+								mui("#u-task-list input[type=checkbox]").each(function(){
+								   this.checked = true;
+								})
+                updateFee();
+								//操作
+								mui("#u-task-list .botBtn").on("change", "input[type=checkbox]", function() {
+									updateFee();
+								});
+								//预览
+               	mui(".botBtn").on("tap", "#preview", function() {
+									var id = parseInt(this.parentNode.dataset.id);
+									var isRev = this.classList.contains("revolve");
+									var task;
+									for(var i = 0; i < list.length; i++) {
+										if(list[i].dwJobId == id) {
+											task = list[i];
+											break;
+										}
+									}
+									var para = {
+										taskID: id,
+										file: task.szJobFileName,
+										color: (task.dwProperty & 8) > 0 ? "1" : "0",
+										isRevolve: isRev
+									}
+									app.showPreview(para);
+								});
+								//选中
+								mui(".botBtn").on("tap", "#chose", function() {
+								  if (flag) {
+								  	 this.getElementsByTagName("input").checked =false;
+								  	 flag = false;
+								  } else{
+								  	this.getElementsByTagName("input").checked = true;
+								  	flag = true;
+								  }
+								 
+								})
+								//删除
+								mui(".botBtn").on("tap", "#delete", function() {
+									var id = parseInt(this.parentNode.dataset.id);
+									app.confirm("确定要删除本打印任务？", function() {
+										delTask(id, function() {
+											app.toast("删除成功");
+											if(mui("#u-task-list input[type=checkbox]").length == 0){
+            document.getElementById("u-task-list").innerHTML = "<div class='u-none-data' id='local'><p style='margin-top:20px;'>暂无打印任务</p></div>";
+          };
+										});
+									});									
+								});
+							},{type:"photo",dev_sn:devSN}, function(e) {
+								if(e.msg) {
+									app.msgBox(e.msg);
+								} else {
+									app.toast("连接异常");
+								}
+								document.getElementById("u-task-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+							});
+						}
+					});
+					app.curView.addEventListener("hide", function() {
+						//状态还原
+						localStorage.removeItem("devsn");
+						document.getElementById("hint").innerHTML = 0;
+						document.getElementById("u-fee").innerHTML = 0.00;
+						document.getElementById("u-info-panel").classList.add("mui-hidden");
+						document.getElementById("u-submit-panel").classList.add("mui-hidden");
+						document.getElementById("u-dft-panel").classList.add("mui-hidden");
+						document.getElementById("u-act-sel").classList.add("mui-hidden");
+						mui(".u-act-sel").each(function(){
+							this.classList.remove("u-all");
+							this.innerHTML="反选";
+						});
+						myBalance = 0;
+						mySubsidy = 0;
+						totalFee = 0;
+						devSN = null;
+						paySucCallback = null;
+					});
+				});
+			})();
+      function local(){
+        	app.showSelectFile();
+         localStorage.setItem('devsn',devSN);
+      }
+      function tosoc() {
+      	plus.webview.currentWebview().close();
+//    	plus.webview.currentWebview().close();
+      	plus.webview.show("qr_code");
+//      app.showQRCode();
+      }
+			function submitClick() {
+				if(devSN) { 
+				  var list = mui("#u-task-list input[type=checkbox]:checked");
+        if(list.length > 0) {
+          isChecked = true;
+        }else{
+          isChecked =false;
+        }
+				  if(isChecked){//输出文件
+				    if(myBalance && totalFee <= myBalance) {
+            outputTaskList();
+          } else {
+            var sum = totalFee - myBalance;
+            paySucCallback = function() {
+              app.getBalance(function(fee, bal) {
+                updateMybalance(fee, bal);
+                if(totalFee <= myBalance) {
+                  outputTaskList();
+                }
+              }, {
+                dev_sn: devSN
+              });
+            };
+            app.confirm("余额不足，需充值¥" + app.cvtFee(sum), function() {
+              app.showRecharge({
+                sum: sum,
+                paySucCallback: true
+              });
+            });
+          }
+				  }else{
+          app.msgBox("请先选择文件");
+        }
+
+				}
+			}
+
+			function updateMybalance(fee, bal) {
+			  myBalance = bal.dwBalance + bal.dwSubsidy;
+				mySubsidy = bal.dwSubsidy;
+				myBal.innerHTML = "¥" + fee;
+				if(bal.dwSubsidy) {
+					comSN = bal.comSN;
+          var numA = parseFloat(fee);
+          var numB = parseFloat(app.cvtFee(bal.dwSubsidy)); 
+//          var  all =parseFloat(fee) + parseFloat(app.cvtFee(bal.dwSubsidy))
+          var all = formatFloat(numA + numB, 1)
+            myBal.innerHTML = "¥" + all;
+				} else {
+					comSN = 0;
+					mySub.innerHTML = "";
+				}
+			}
+     function formatFloat(f, digit) { 
+    var m = Math.pow(100, digit); 
+    return parseInt(f * m, 10) / m; 
+      } 
+			function updateFee() {
+				if(devSN) { //扫过机器才算费
+					totalFee = 0;
+					var times = 0;
+					mui("#u-task-list input[type=checkbox]:checked").each(function() {
+						totalFee += parseInt(this.dataset.fee);
+					  times = totalFee/parseInt(this.dataset.fee);
+					});
+					document.getElementById("hint").innerHTML = times; 
+					document.getElementById("u-fee").innerHTML = app.cvtFee(totalFee);
+				}
+			}
+
+			function outputTaskList() {
+				var list = mui("#u-task-list input[type=checkbox]:checked");
+				if(list.length > 0) {
+					var tasks = [];
+					list.each(function(i) {
+						tasks.push(this.value);
+					});
+					proj.print.outputList({
+						task_list: tasks.join(','),
+						dev_sn: devSN,
+						subsidy: mySubsidy
+					}, function(rlt) {
+						var data = rlt.data;
+						if(data && data.length > 0) {
+							var msg = "";
+							var len = data.length;
+							var hasSuc = false;
+							for(var i = 0; i < len; i++) {
+								msg += len > 1 ? ("<div>任务" + (i + 1) + ":") : "<div class='mui-text-center'>";
+								if(data[i].code > 0) {
+									hasSuc = true;
+									msg += "<span class='green'>成功提交打印机</span>";
+								} else {
+									msg += "<span class='red'>" + data[i].msg + "</span>";
+								}
+								msg += "</div>";
+							}
+							//							layerOpen({
+							//								title: "提交打印",
+							//								content: "<div class='u-rlt-list'>" + msg + "</div>",
+							//								btn: ["确定"],
+							//								event: [function() {
+							//									
+							//								}]
+							//							});
+							
+//							plus.webview.currentWebview().reload();
+							uni.alertDLG("<div class='u-rlt-list'>" + msg + "</div>", "提交结果", function() {
+								if(hasSuc) {
+//									app.showInfo({
+//										title: "提交打印",
+//										icon: "<img src='img/icon-LOGO.svg'>",
+//										msg: "提交完成"
+//									});
+               document.getElementById("u-txt-panel").classList.remove("mui-hidden");
+               document.getElementById("u-submit-panel").classList.add("mui-hidden");
+               document.getElementById("local").classList.add("mui-hidden");
+               document.getElementById("socan").classList.remove("mui-hidden");
+                proj.print.getPrintTask(function(rlt) {
+                var list = rlt.data;
+                var arr = [];
+                var today = new Date();
+                for(var i = 0; i < list.length; i++) {
+                  var rec = list[i];
+                  var task = {};
+                  task.id = rec.dwJobId;
+                  task.name = rec.szDocument;
+                  task.num = rec.dwRandomCode;
+                  var format = uni.getExt(task.name);
+                  task.isImg = uni.isImg(format);
+//                  if(!format || task.isImg) {
+//                    task.revolve = "revolve"; //预览翻转显示
+//                  }
+//                if(rec.dwStatus == 0){
+//                  task.outlet = true;
+//                }
+                  if(task.isImg) {
+                    if(rec.szJobFileName) {
+                      var ff = rec.szJobFileName.split("\\");
+                      var src = pro.mapUrl("temp/" + ff[ff.length - 1] + "_v/b_1.png");
+                      task.src = src;
+                    }
+                  } else {
+                    task.format = app.cvt.getFmtIcon(format);
+                  }
+                  task.opt = getOptions(rec);
+                  var subDate = app.cvt.toDate(rec.dwSubmitDate);
+                  task.subTime = subDate + " " + app.cvt.toTime(rec.dwSubmitTime);
+                  task.leftDay = 7 - uni.compareDate(today, subDate);
+                  if(para.devSN) {
+                    if((rec.dwStatus & 32) > 0) {
+                      task.fee = "已支付";
+                      task.getFile = true;
+                    } else {
+                     task.fee = "¥ " + app.cvtFee(rec.dwInfoCharges);
+                     task.charge = rec.dwInfoCharges;
+                    }
+                    task.output = true;
+                  }
+                  arr.push(task);
+                }
+                var content;
+                if(arr.length > 0) {
+                  content = compTask({
+                    list: arr
+                  });
+                } else {
+                  content = "<div class='u-none-data'><p style='margin-top:20px;'>暂无未打印任务</p></div>";
+                  document.getElementById("u-submit-panel").classList.add("mui-hidden");
+                }
+                document.getElementById("u-task-list").innerHTML = content;
+                mui("#u-task-list input[type=checkbox]").each(function(){
+                   this.checked = true;
+                })
+                updateFee();
+                //操作
+                mui("#u-task-list .botBtn").on("change", "input[type=checkbox]", function() {
+                  updateFee();
+                });
+                //预览
+                mui(".botBtn").on("tap", "#preview", function() {
+                  var id = parseInt(this.parentNode.dataset.id);
+                  var isRev = this.classList.contains("revolve");
+                  var task;
+                  for(var i = 0; i < list.length; i++) {
+                    if(list[i].dwJobId == id) {
+                      task = list[i];
+                      break;
+                    }
+                  }
+                  var para = {
+                    taskID: id,
+                    file: task.szJobFileName,
+                    color: (task.dwProperty & 8) > 0 ? "1" : "0",
+                    isRevolve: isRev
+                  }
+                  app.showPreview(para);
+                });
+                //选中
+                mui(".botBtn").on("tap", "#chose", function() {
+                  if (flag) {
+                     this.getElementsByTagName("input").checked =false;
+                     flag = false;
+                  } else{
+                    this.getElementsByTagName("input").checked = true;
+                    flag = true;
+                  }
+                 
+                })
+                //删除
+                mui(".botBtn").on("tap", "#delete", function() {
+                  var id = parseInt(this.parentNode.dataset.id);
+                  app.confirm("确定要删除本打印任务？", function() {
+                    delTask(id, function() {
+                      app.toast("删除成功");
+                      if(mui("#u-task-list input[type=checkbox]").length == 0){
+            document.getElementById("u-task-list").innerHTML = "<div class='u-none-data' id='local'><p style='margin-top:20px;'>暂无打印任务</p></div>";
+          };
+                    });
+                  });                 
+                });
+              },{type:"photo",dev_sn: devSN}, function(e) {
+                if(e.msg) {
+                  app.msgBox(e.msg);
+                } else {
+                  app.toast("连接异常");
+                }
+                document.getElementById("u-task-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+              });
+								}
+							});
+						}
+					});
+				} else {
+					app.msgBox("请选择要打印的文档");
+				}
+			}
+     
+			function delList() {
+			  var mon;
+				var list = mui("#u-task-list input[type=checkbox]:checked");
+				if(list.length > 0) {
+					app.confirm("是否删除所选？", function() {
+						for(var i = 0; i < list.length; i++) {
+							var id = list[i].value;
+							delTask(id);	
+						}
+					});
+				}
+			}
+       
+			function delTask(id, suc) {
+				proj.print.delPrintTask(id, function() {
+					var my = document.getElementById("u-task-list").querySelector(".card-" + id);
+					var btn = document.getElementById("u-task-list").querySelector(".btn-" + id);
+					var inputEl = document.getElementById("u-task-list").querySelector(".pt-" + id);
+          inputEl.checked = false;
+					btn.parentNode.removeChild(btn);
+					my.parentNode.removeChild(my);
+					suc && suc();
+					updateFee();
+				});
+			}
+
+			function getOptions(task) {
+				var str = "";
+				str += "<span class='u-cp'>" + task.dwCopies + "份</span>  " + task.dwPages + "页"
+				if((task.dwProperty & (2 | 4)) > 0) {
+					str += " | 双面";
+				} else {
+					str += " | 单面";
+				}
+				if((task.dwProperty & 8) > 0) {
+					str += " | 彩色";
+				} else {
+					str += " | 黑白";
+				}
+				if(task.dwPaperID == 9) {
+					str += " | A4";
+				} else if(task.dwPaperID == 8) {
+					str += " | A3";
+				}
+				else if(task.dwPaperID == 285) {
+          str += " | 6寸";
+        }
+				return str;
+			}
+		</script>
+	</body>
+</html>

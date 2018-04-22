@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="fonts/iconfont.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      body {
+        /*background: #00A0E9;*/
+      }
+      
+      .mui-content {
+        /*background: #00A0E9;*/
+      }
+      
+      #u-verify-actions {
+        font-size: 14px;
+        height: 100%;
+      }
+      
+      #u-verify-actions .u-vr-logo {
+        height: 25%;
+        text-align: center;
+        margin-bottom: 5%;
+      }
+      
+      #u-verify-actions .u-vr-logo img {
+        height: 100%;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      
+      .u-vr-buttons {
+        text-align: center;
+      }
+      
+      .u-vr-buttons .mui-btn {
+        width: 30%;
+        padding: 4px;
+      }
+      
+      .u-vr-input {
+        margin: 10px 8%;
+      }
+      
+      .u-vr-input .mui-input-group {
+        background: #FFFFFF;
+        padding: 5px;
+        border-radius: 6px;
+        border: none;
+        box-shadow: 0 2px 2px 0 #ccc;
+      }
+      
+      .mui-btn.u-btn-default {
+        background: #efeff4;
+      }
+      
+      .mui-btn.u-btn-primary {
+        /*border-color: #FFFFFF;*/
+      }
+      
+      .u-vr-input .mui-input-row label {
+        width: 70px;
+      }
+      
+      .u-vr-input .mui-input-row.u-input-verify input {
+        padding-right: 5px;
+      }
+      
+      .u-vr-input .mui-input-row.u-input-verify button {
+        flex: none;
+        width: 80px;
+        font-size: 12px;
+        padding: 10px 0;
+      }
+      
+      .caret-top {
+        width: 0;
+        height: 0;
+        vertical-align: middle;
+        font-size: 0;
+        border-bottom: 8px solid;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+        color: #FFFFFF;
+      }
+      
+      .u-vr-submit {
+        margin-top: 30px;
+        text-align: center;
+      }
+      
+      .u-link {
+        display: block;
+        color: #00A0E9;
+        margin-top: 20px;
+        text-decoration: underline;
+      }
+      
+      a.u-link:active {
+        color: #00A0E9;
+      }
+      
+      .oauth-area {
+        position: absolute;
+        bottom: 20px;
+        left: 0px;
+        text-align: center;
+        width: 100%;
+        padding: 0px;
+        margin: 0px;
+      }
+      
+      .u-vr-other {
+        margin-top: 40px;
+        text-align: center;
+        position: relative;
+      }
+      
+      .icon-wechat {
+        display: inline-block;
+        color: rgb(62, 176, 52);
+        font-size: 35px;
+      }
+      #aliba{
+        color: #1296db;
+        font-size:38px;
+        display: inline-block;
+        margin-left:50px;
+        <!--margin-bottom:10px;-->
+      }
+      .line-left,.line-right{
+        width:35%;
+        height: 1px;
+        position: absolute;
+        top:8px;
+        left:7%;
+        border-top: 1px solid #8F8F94;
+      }
+      .ml-15{
+        margin-left:50.5%;
+      }
+    </style>
+    <!--	初始化方法-->
+    <script src="js/init.js"></script>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav" style="background:#efeff4;">
+      <!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #00A0E9;"></a>-->
+    </header>
+    <div class="mui-content u-my-input" id="u-verify-actions">
+      <div class="u-vr-logo">
+        <img src="img/icon-LOGO.svg">
+      </div>
+      <div class="u-vr-form">
+        <div class="u-vr-buttons">
+          <button type="button" id="tab-login" class="mui-btn u-btn-primary u-btn-login"></button>
+          <span class="u-span u-span-5"></span>
+          <button type="button" id="tab-register" class="mui-btn u-btn-default u-btn-register"></button>
+        </div>
+        <div id='login-form' class="u-vr-input u-vr-login">
+          <div class="caret-top" style="margin-left: 25%;"></div>
+          <form class="mui-input-group" id="u-fm-login">
+            <div class="mui-input-row">
+              <label id="tel"></label>
+              <input type="tel" id="u-login-pid" class="mui-input-clear mui-input account init-none" placeholder="">
+            </div>
+            <div class="mui-input-row">
+              <label id="pwd"></label>
+              <input type="password" id="u-login-pwd" class="mui-input-clear mui-input password init-none" placeholder="">
+            </div>
+            <!--custom-->
+            <!--<div class="mui-input-row u-input-verify">
+							<label>验证码</label>
+							<input type="number" id="u-lg-verify" class="mui-input init-none" placeholder="输入验证码">
+							<button type="button" id="u-lg-get-verify" class="mui-btn u-btn-primary">获取验证码</button>
+						</div>-->
+            <!--end-->
+          </form>
+          <div class="u-vr-submit">
+            <button class="mui-btn u-btn-primary mui-btn-full" onclick="uLogin()" id="my-login"></button>
+            <a class="u-link" onclick="app.showPWDFind()" id="forgetPwd"></a>
+          </div>
+        </div>
+        <div id='register-form' class="u-vr-input u-vr-register" style="display: none;">
+          <div class="caret-top" style="margin-left: 75%;"></div>
+          <form class="mui-input-group">
+            <div class="mui-input-row">
+              <label id="my_tel"></label>
+              <input type="tel" id="u-reg-pid" class="mui-input-clear mui-input init-none" placeholder="">
+            </div>
+            <!--<div class="mui-input-row  mui-password">
+							<label>密码</label>
+							<input type="password" class="mui-input-password password" placeholder="6-32位字母数字组合">
+						</div>-->
+            <div class="mui-input-row u-input-verify">
+              <label id="verify"></label>
+              <input type="number" id="u-reg-verify" class="mui-input init-none" placeholder="">
+              <button type="button" id="u-get-verify" class="mui-btn u-btn-primary"></button>
+            </div>
+          </form>
+          <div class="u-vr-submit">
+            <button class="mui-btn u-btn-primary mui-btn-full" onclick="uRegister()" id="register"></button>
+            <a id="u-protocol" class="u-link"></a>
+          </div>
+        </div>
+      </div>
+      <div class="u-vr-other">
+        <div class="line-left">
+
+        </div>
+        <div class="line-right ml-15">
+
+        </div>
+        <p id="wx"></p>
+        <span class="iconfont icon-wechat" id="wechat"></span>
+        <span class="iconfont icon-zhifubao" id="aliba"></span>
+      </div>
+    </div>
+    <!-- page code -->
+    <script src="js/mui.min.js"></script>
+    <script src="js/uni.lib.js"></script>
+    <script src="js/pro.lib.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript">
+      function oauthAlipay(cd){
+            plus.webview.close(embed);
+            alert(cd);
+          }
+          var embed;
+      var access;
+      var openid;
+      var auths = null;
+      mui.init({
+        preloadPages: [{
+          url: "password.html",
+          id: "password"
+        }]
+      });
+      mui.plusReady(function() {
+       <!--if (localStorage["zhlan"]=="") {-->
+		mui.getJSON("i18n/strings_zh.json", function(data) {
+			localStorage["zhlan"]=JSON.stringify(data);
+			var lan = data;
+        $('#tab-login').html(lan[2000024]);
+        $('#my-login').html(lan[2000024]);
+        $('#tab-register').html(lan[2000025]);
+        $('#register').html(lan[2000025]);
+        $('#tel').html(lan[2000026]);
+        $('#my_tel').html(lan[2000026]);
+        $('#pwd').html(lan[2000027]);
+        $('#forgetPwd').html(lan[2000028]);
+        $('#verify').html(lan[2000029]);
+        $('#u-login-pid').attr("placeholder", lan[2000030]);
+        $('#u-login-pwd').attr("placeholder", lan[2000031]);
+        $('#u-reg-pid').attr("placeholder", lan[2000030]);
+        $('#u-reg-verify').attr("placeholder", lan[2000032]);
+        $('#u-get-verify').html(lan[2000033]);
+        $('#u-protocol').html(lan[2000034]);
+        $('#wx').html(lan[2000186]);
+		})
+		<!--mui.alert(localStorage["zhlan"]);-->
+		 <!--}else{-->
+		 <!--&lt;!&ndash;var lan = JSON.parse(localStorage["zhlan"]);&ndash;&gt;-->
+		 <!--mui.alert(localStorage["zhlan"]);-->
+        <!--$('#tab-login').html(lan[2000024]);-->
+        <!--$('#my-login').html(lan[2000024]);-->
+        <!--$('#tab-register').html(lan[2000025]);-->
+        <!--$('#register').html(lan[2000025]);-->
+        <!--$('#tel').html(lan[2000026]);-->
+        <!--$('#my_tel').html(lan[2000026]);-->
+        <!--$('#pwd').html(lan[2000027]);-->
+        <!--$('#forgetPwd').html(lan[2000028]);-->
+        <!--$('#verify').html(lan[2000029]);-->
+        <!--$('#u-login-pid').attr("placeholder", lan[2000030]);-->
+        <!--$('#u-login-pwd').attr("placeholder", lan[2000031]);-->
+        <!--$('#u-reg-pid').attr("placeholder", lan[2000030]);-->
+        <!--$('#u-reg-verify').attr("placeholder", lan[2000032]);-->
+        <!--$('#u-get-verify').html(lan[2000033]);-->
+        <!--$('#u-protocol').html(lan[2000034]);-->
+        <!--$('#wx').html(lan[2000186]);-->
+      <!--}-->
+        document.getElementById("u-protocol").addEventListener("tap", function() {
+          app.showDynamic({
+            title: "阅读须知",
+            url: pro.myDir + "reg_protocol.html"
+          });
+        });
+                document.getElementById("wechat").addEventListener("tap", function() {
+                  plus.nativeUI.showWaiting("正在获取微信授权...")
+                  plus.oauth.getServices(function(services) {
+                    auths = services;
+                    var s;
+                    for(var i = 0; i < auths.length; i++) {
+                      if(auths[i].id == 'weixin') {
+                        s = auths[i];
+                        break;
+                      }
+                    }
+//                  console.log(JSON.stringify(s.authResult));
+//                    if(!s.authResult) {
+                      s.login(function(e) {
+                        // 获取登录操作结果
+                        s.getUserInfo(function(e) {
+                          access = s.authResult.access_token;
+                          openid = s.userInfo.openid;
+                          var uid = localStorage["uid"];
+                         proj.cac.wxLogin(access,openid,uid,function(rlt) {
+                           plus.nativeUI.closeWaiting();
+                          if(rlt.data.pid.substring(0,5) == "EUSER") {
+//                         mui.alert("您还未绑定手机,请先绑定手机号", '提示', function(e){
+                              app.showBindPhone();
+//                         }, "div");
+                          } else {
+                            localStorage["way"] = "wx";
+                            localStorage["wx"] = JSON.stringify(rlt.data);
+                            localStorage.setItem("acc", JSON.stringify(rlt.data));
+                            mui.back();
+                          }
+                        },function(error){
+                          console.log(JSON.stringify(error));
+                        });
+//                        mui.toast('登录成功');
+////                        plus.nativeUI.closeWaiting();
+//                        mui.back();
+                        }, function(e) {
+                          plus.nativeUI.closeWaiting();
+                          console.log("获取用户信息失败：" + e.message + " - " + e.code);
+                          mui.toast('获取用户信息失败');
+                        });
+          
+                      }, function(e) {
+                        plus.nativeUI.closeWaiting();
+                        mui.toast('登录认证失败');
+                      });
+//                    } else {
+//                      plus.nativeUI.closeWaiting();
+////                      console.log( "获取登录失败："+e.message+" - "+e.code );
+//                      mui.toast('获取信息失败'); 
+//                    }
+                  }, function(e) {
+                    mui.toast(e.message); 
+                    alert("获取登录失败：" + e.message + " - " + e.code);
+                  });
+          
+              });
+        document.getElementById("aliba").addEventListener("tap",function () {
+        plus.nativeUI.showWaiting("正在获取支付宝授权...")
+          proj.oauth.alilog(function (res) {
+             var arr = res.data.split("&");
+             var a = plus.android.runtimeMainActivity();
+          	 plus.AlilogPlugin.AlilogPluginFunction(res.data,a,arr[9].substring(10),arr[11].substring(5),function(res){
+             proj.cac.aliLogin(res,function(rlt) {
+                           plus.nativeUI.closeWaiting();
+                          if(rlt.data.pid.substring(0,5) == "EUSER"){
+//                         mui.alert("您还未绑定手机,请先绑定手机号", '提示', function(e){
+                              app.showBindPhone();
+//                         }, "div");
+                          } else {
+                            localStorage["way"] = "ali";
+                            localStorage["ali"] = JSON.stringify(rlt.data);
+                            localStorage.setItem("acc", JSON.stringify(rlt.data));
+                            mui.back();
+                          }
+                        },function(error){
+                          console.log(JSON.stringify(error));
+                        });
+          	 },function(res){
+          	 mui.alert(res);
+          	 });
+          })
+        })
+        app.onPageLoad(function(para) {
+          if(para && para.sendThirdFile) { //第三方传文件
+            var old_back = mui.back;
+            mui.back = function() {
+              if(app.isLogin()) {
+                app.fromView.evalJS("app.getIOSThirdFile({auth:'suc',retry:true})");
+              } else {
+                app.toast("放弃登录");
+              }
+              old_back();
+              mui.back = old_back;
+            }
+          }
+        });
+      });
+      //登录
+      function uLogin() {
+        var pid = document.getElementById("u-login-pid").value;
+        var pwd = document.getElementById("u-login-pwd").value;
+        //custom
+        //var msm=document.getElementById("u-lg-verify").value;
+        if(!app.vfy.isPhone(pid)) {
+          return;
+        }
+        app.login(pid, pwd);
+      };
+      //注册
+      function uRegister() {
+        var pid = document.getElementById("u-reg-pid").value;
+        var sms = document.getElementById("u-reg-verify").value;
+        if(!app.vfy.isPhone(pid)) {
+          return;
+        }
+        //				if(sms.length != 6) {
+        //					app.msgBox("请输入正确的验证码");
+        //					return;
+        //				}
+        var ran = parseInt(999999 * Math.random()) + "";
+        proj.cac.register(pid, ran, sms, function(rlt) {
+          if(rlt.ret == 2) {
+            //						app.msgBox("注册成功，请补充密码");
+            //						mui.back();
+            //custom
+            app.msgBox("注册成功，请补充密码", function() {
+              app.showPWDSet({
+                sms: sms
+              });
+            });
+            //
+          } else {
+            app.msgBox("用户已存在，直接登录", function() {
+              mui.back();
+            });
+          }
+        });
+      }
+      (function() {
+        //登录与注册切换
+        var tabLogin = document.getElementById("tab-login");
+        var tabReg = document.getElementById("tab-register");
+        var fmLogin = document.getElementById("login-form");
+        var fmReg = document.getElementById("register-form");
+        tabLogin.addEventListener("tap", function(btn) {
+          var btn = this;
+          if(!btn.classList.contains("u-btn-primary")) {
+            btn.classList.remove("u-btn-default");
+            btn.classList.add("u-btn-primary");
+            tabReg.classList.remove("u-btn-primary");
+            tabReg.classList.add("u-btn-default");
+            fmLogin.style.display = "block";
+            fmReg.style.display = "none";
+          }
+        });
+        tabReg.addEventListener("tap", function() {
+          var btn = this;
+          if(!btn.classList.contains("u-btn-primary")) {
+            btn.classList.remove("u-btn-default");
+            btn.classList.add("u-btn-primary");
+            tabLogin.classList.remove("u-btn-primary");
+            tabLogin.classList.add("u-btn-default");
+            fmReg.style.display = "block";
+            fmLogin.style.display = "none";
+          }
+        });
+        //验证码
+        app.regVerify(document.getElementById("u-get-verify"), document.getElementById("u-reg-pid"));
+        //custom
+        //app.regVerify(document.getElementById("u-lg-get-verify"),document.getElementById("u-login-pid"));
+      })();
+    </script>
+  </body>
+
+</html>
+<script src="js/Alilog.js" type="text/javascript" charset="utf-8"></script>

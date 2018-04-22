@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+     p{
+       text-indent:2em;
+       padding-left:15px;
+       padding-right:15px;
+       padding-top: 10px;
+     }
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<h1 id="u-title" class="mui-title">开票说明</h1>
+		</header>
+		<div id="u-content" class="mui-content">
+     <p>1.本平台仅提供增值税普通电子发票</p>
+     <p>2.根据国家税务总局公告2015年第84号的规定，增值税电子普通发票的法律效力，基本用途，基本使用规定等与税务机关监制的增值税普通发票相同，如需纸质报销，可将电子文档进行打印</p>
+     <p>3.您选择文印订单的开票内容目前仅支持"文印服务"</p>
+     <p>4.订单中使用抵用金进行支付的金额不支持开具发票</p>
+     <p>5.此入口仅支持开具"平台消费"里订单金额发票</p>
+     <p>6.电子发票及文印订单在您提交后30分钟内发送给您的电子邮箱</p>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				app.onPageLoad(function(para) {
+				  
+				});
+			});
+		</script>
+	</body>
+
+</html>

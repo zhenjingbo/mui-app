@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="fonts/iconfont.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      .u-next {
+        flex: none;
+        width: 80px;
+        position: relative;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .u-next:before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #DDDDDD;
+      }
+      
+      .u-next .iconfont {
+        margin: 12px 0 6px 0;
+      }
+      
+      .u-next .iconfont:before {
+        font-size: 30px;
+      }
+      
+      .u-next .mui-btn {
+        font-size: 12px;
+        padding: 3px;
+        min-width: 50px;
+      }
+      
+      .u-next .u-fee {
+        margin-top:15px;
+        font-size: 14px;
+      }
+      
+      .u-next input.u-checkbox {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-top: 26%;
+      }
+      .u-my-wallet {
+        background: #fff;
+        padding: 5px 10px;
+        font-size: 14px;
+        color: #666;
+        min-height: 123px;
+      }
+      
+      .u-my-wallet .iconfont {
+        font-size: 30px;
+        margin-right: 5px;
+      }
+      
+      img.revolve {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      
+      .u-action-list {
+        padding: 0;
+        text-align: center;
+        position: fixed;
+      }
+      
+      .u-action-list .u-item-btn {
+        padding: 15px 0;
+        width: 30%;
+      }
+      
+      .u-action-list .u-item-btn a {
+        color: #fff;
+        line-height: 1;
+      }
+      
+      .u-action-list .u-item-btn span {
+        font-size: 24px;
+        display: inline-block;
+      }
+      
+      .u-action-list .u-item-btn:active {
+        opacity: .7;
+      }
+      
+      .u-action-list .u-item-fee {
+        font-size: 16px;
+        line-height: 1;
+        height: 24px;
+        font-size: 22px;
+      }
+      
+      .u-item-fee .u-text {
+        font-size: 12px;
+        color: #999999;
+      }
+      
+      #u-cur-device {
+        margin-top: 5px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #666666;
+      }
+      
+      .u-fee-info {
+        min-height: 25px;
+        padding-top: 5px;
+      }
+      
+      .u-fee-info .fee-item {
+        display: inline-block;
+        margin: 2px;
+        /*border: 1px solid #EEEEEE;*/
+        box-shadow: 0 0 1px #CCCCCC;
+        overflow: hidden;
+        height: 22px;
+      }
+      
+      .fee-item span {
+        font-size: 12px;
+        line-height: 1;
+        padding: 5px;
+      }
+      
+      .fee-item span.name {
+        color: #FFFFFF;
+      }
+      
+      #u-act-sel {
+        font-size: 16px;
+       /* color: #FFFFFF;*/
+      }
+      
+      #u-act-sel:active {
+        color: #FFFFFF;
+        opacity: .9;
+      }
+      
+      .u-cp {
+        font-weight: bold;
+        font-size: 14px;
+        color: darkorange;
+      }
+      
+      #u-cur-fee-std {
+        font-size: 10px;
+        line-height: 16px;
+        color: #999999;
+        text-align: center;
+      }
+      
+      .mui-checkbox input[type=checkbox]:checked:before {
+        color: #00A0E9;
+      }
+      
+      .mui-checkbox input[type=checkbox]:before {
+        content: '\e442';
+        color: #ccc;
+      }
+      
+      .u-del-btn {
+        padding: 10px 14px;
+        font-size: 16px;
+        background: rgb(255, 39, 0);
+        color: #FFFFFF;
+        border: none;
+        border-radius: 0;
+        width: 30%;
+      }
+      
+      .u-sel-all {
+        width: 70%;
+        padding: 10px 14px;
+        font-size: 16px;
+        text-align: center;
+        color: #777;
+      }
+      
+      .u-sel-all:active {
+        background: #F9F9F9;
+      }
+      .company{
+        width: 50%;
+        display: inline-block;
+      }
+      .u-info-top{
+        height: 25px;
+        width: 100%;
+        line-height:30px;
+      }
+      .fl{
+        float: right;
+      }
+     .mui-input-group .mui-input-row:after{
+       left: 0;
+     }
+     .allFee{
+       display:inline-block;
+       height: 100%;
+       line-height:40px;
+     }
+     .mui-input-row label{
+       width: 25%;
+     }
+     .mui-input-row label{
+       padding-right: 0;
+     }
+     .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea{
+       width: 75%;
+     }
+     .invoice-title{
+       margin-bottom: 0;
+       margin-left: 15px;
+       height:25px;
+       line-height: 28px;
+     }
+     input[type=text]{
+        margin-bottom:0;
+      }
+      .mui-popup-inner{
+        padding-bottom:0;
+      }
+    </style>
+    <!--  初始化方法-->
+    <script src="js/init.js"></script>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+      <h1 class="mui-title">开票历史</h1>
+      <a id="u-act-sel" class="u-act-sel u-all mui-pull-right mui-hidden">全选</a>
+    </header>
+    <div class="mui-content">
+      <div style="padding-bottom: 60px;" id="choose">
+        <div id="u-info-panel" class="u-my-wallet mui-hidden">
+          <div id="u-cur-device"></div>
+          <div id="u-cur-fee-std"></div>
+          <div class="u-line-top"></div>
+          <div id="u-cur-fee-info" class="u-fee-info">
+          </div>
+        </div>
+        <div id="u-task-list" class="u-file-list init-waiting">
+        </div>
+      </div>
+       <div id="u-dft-panel" class="u-action-list u-flex mui-hidden">
+          <button class="mui-btn u-btn-primary mui-btn-full" onclick="apply()">发送电子邮件</button>
+        </div>
+
+    </div>
+    <!--template7-->
+    <script id="tpl-task" class="htm-template" type="text/html">
+      <div class="u-task-list">
+        {{#list}}
+        <div class="u-pr-card u-line-down u-line-top card-{{id}}">
+          <div class="u-file-info" data-id="{{id}}">
+            <div class="detail" style="font-size: 14px;">
+                <div class="time">{{subTime}}</div>
+                 <div data-id="{{id}}">{{info}}</div>
+              <div class="mui-ellipsis" data-src="{{src}}"><span class="red">{{options}}</span><span class="gray" >元&nbsp;|&nbsp;文印服务&nbsp;</span>
+                 {{#if suc}}
+                 <span style="color: #00A0E9;" id="download">|&nbsp;下载</span>
+                 {{/if}}
+              </div>
+            </div>
+          </div>
+          <div class="u-next mui-checkbox" data-id="{{id}}">
+            {{#if suc}}
+            <input name="task-check" class="u-checkbox" value="{{id}}" data-fee="{{charge}}" type="checkbox" data-id="{{id}}">
+            {{else}}
+            <div class="u-fee grey">开票中</div>
+            {{/if}}
+          </div>
+        </div>
+        {{/list}}
+      </div>
+    </script>
+    <!-- page code -->
+    <script src="js/mui.min.js"></script>
+    <script src="js/template7.min.js"></script>
+    <script src="js/uni.lib.js"></script>
+    <script src="js/pro.lib.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript">
+      var myBalance = 0;
+      var mySubsidy = 0;
+      var totalFee = 0;
+      var times ;
+      var devSN = null;
+      var isChecked = false;
+      var paySucCallback;
+      var myBal = document.getElementById("u-my-balance");
+      var mySub = document.getElementById("u-my-subsidy");
+      var rate;
+      var price;
+      var type;
+      var mount;
+      var name;
+      var recList = [];
+      var idList = [];
+      (function() {
+        var compTask = Template7.compile(document.getElementById("tpl-task").innerHTML);
+        mui.init({
+          preloadPages: [{
+            url: "print_config.html",
+            id: "print_config"
+          }]
+        });
+        mui.plusReady(function() { //初始化
+          mui(".u-act-sel").each(function() {
+            this.addEventListener("tap", function() {
+              if(this.classList.contains("u-all")) {
+                mui(".u-next input").each(function() {
+                  this.checked = false;
+                });
+                this.innerHTML = "全选";
+                this.classList.remove("u-all");
+              } else {
+                mui(".u-next input").each(function() {
+                  if(this.checked) {
+                    this.checked = false;
+                  } else {
+                    this.checked = true;
+                  }
+                });
+                this.innerHTML = "反选";
+                this.classList.add("u-all");
+              }
+              isChecked = true;
+              updateFee();
+            });
+          });
+         app.curView.addEventListener("hide", function() {
+          document.getElementById("u-fee").innerHTML = 0.00;
+        });
+        window.addEventListener('resize', function() {
+    document.getElementById("u-dft-panel").style.display = document.body.clientHeight <= 400 ? 'none' : 'block';
+}, false);
+          app.onPageLoad(function(para) {
+              document.getElementById("u-dft-panel").classList.remove("mui-hidden");
+              getPrintTask();
+            function getPrintTask(extra) {
+              proj.invoice.getInvoiceList(function(rlt) {
+                var list = rlt.data;
+//              alert(JSON.stringify(list));
+                var arr = [];
+                var today = new Date();
+                for(var i = 0; i < list.length; i++) {
+                  var rec = list[i];
+                  var task = {};
+                  task.id = rec.dwEIID;
+                  var format = uni.getExt(task.name);
+                  task.isImg = uni.isImg(format);
+                  task.src = rec.szPDFFile;
+                  if(task.isImg) {
+                    if(rec.szJobFileName) {
+                      var ff = rec.szJobFileName.split("\\");
+                      var src = pro.mapUrl("temp/" + ff[ff.length - 1] + "_v/b_1.png");
+                      task.src = src;
+                    }
+                  } else {
+                    task.format = app.cvt.getFmtIcon(format);
+                  }
+                  task.size = "[文件大小]";
+                  if ((rec.dwCACEIStat&4)>0) {
+                  	task.suc = true;
+                  } else{
+                  	task.suc = false;
+                  }
+                  task.opt ="¥" + app.cvtFee(rec.dwPurchase);
+                  task.options = app.cvtFee(rec.dwPurchase);
+                  if (rec.dwIssueDate) {
+                  	var subDate = app.cvt.toDate(rec.dwIssueDate);
+                  task.subTime = subDate + " " + app.cvt.formatDate(rec.dwIssueTime);
+                  } else{
+                   task.subTime = app.cvt.toDate(rec.dwApplyDate);
+                  }
+                  task.leftDay = 7 - uni.compareDate(today, subDate);
+                  task.info = rec.szBuyerName;
+                  task.charge = rec.dwPlatFormMoney;
+                  arr.push(task);
+                }
+                var content;
+                if(arr.length > 0) {
+                  content = compTask({
+                    list: arr
+                  });
+                } else {
+                  content = "<div class='u-none-data'>没有数据</div>";
+                }
+                document.getElementById("u-task-list").innerHTML = content;
+                mui("#u-task-list input[type=checkbox]").each(function(){
+                   this.checked = true;
+                    updateFee();
+                })
+                 //下载
+                mui("#u-task-list").on("tap", "#download", function() {
+                   var url =pro.uDir+this.parentNode.dataset.src; 
+                   var path = "_downloads"+this.parentNode.dataset.src
+                   var dtask = plus.downloader.createDownload(url, {filename:path}, function ( d, status ) {
+                  // 下载完成
+                  if ( status == 200 ) { 
+                    var npath=plus.io.convertLocalFileSystemURL(path);
+                    var newurl = plus.io.convertAbsoluteFileSystem(npath);
+//                  alert(newurl);      
+                      plus.io.resolveLocalFileSystemURL(newurl, function(entry) {
+                      openFile(newurl)
+          });
+                  } else {
+                     alert( "Download failed: " + status ); 
+                  }  
+                });
+            showUpOrDowDLG("下载文件", para.type == "must" ? null : function() {
+        app.toast("取消下载");
+        dtask.abort();
+      });
+                  dtask.addEventListener( "statechanged", function(task, status) {
+        if(!dtask) {
+          return;
+        }
+        switch(task.state) {
+          case 1: // 开始
+            console.log("开始下载...");
+            break;
+          case 2: // 已连接到服务器
+            console.log("链接到服务器...");
+            break;
+          case 3: // 已接收到数据
+            var bar = mui("#u-updowbar");
+            if(bar.length > 0) {
+              var v = Math.round(task.downloadedSize * 100 / task.totalSize);
+              bar.progressbar().setProgress(v);
+              document.getElementById("u-uploadsize").innerText = app.getFileSize(task.downloadedSize) + "/" + app.getFileSize(task.totalSize);
+            }
+            break;
+          case 4: // 下载完成
+            console.log("下载完成！");
+            uni.closeDLG();
+            break;
+          default:
+            console.log(task.state);
+            break;
+        }
+      });
+                dtask.start(); 
+                  });
+                //操作
+                mui("#u-task-list .u-pr-card").on("change", "input[type=checkbox]", function() {
+                  updateFee();
+                });
+              }, extra, function(e) {
+                if(e.msg) {
+                  app.msgBox(e.msg);
+                } else {
+                  app.toast("连接异常");
+                }
+                document.getElementById("u-task-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+              });
+            }
+          });
+          app.curView.addEventListener("hide", function() {
+            //状态还原
+            document.getElementById("u-info-panel").classList.add("mui-hidden");
+            document.getElementById("u-submit-panel").classList.add("mui-hidden");
+            document.getElementById("u-dft-panel").classList.add("mui-hidden");
+            document.getElementById("u-act-sel").classList.add("mui-hidden");
+            recList.splice(0,recList.length);
+            mui(".u-act-sel").each(function(){
+              this.classList.add("u-all");
+              this.innerHTML="反选";
+            });
+            myBalance = 0;
+            mySubsidy = 0;
+            totalFee = 0;
+            devSN = null;
+            paySucCallback = null;
+            idList =[];
+          });
+        });
+      })(); 
+      function showUpOrDowDLG(title, cancel) {
+    uni.msgDLG("<div id='u-updowbar' class='mui-progressbar'><span></span></div><div id='u-uploadsize' class='mui-text-center'>连接中...</div>",
+      title || "文件传送",
+      undefined,
+      cancel,
+      "",
+      "取消", {
+        content: "padding:10px 5px;"
+      },
+      (cancel ? true : false)
+    );
+  }
+            function openFile(path) {
+        console.log(path);
+        if(mui.os.ios) {
+          var arr = path.split('.');
+          if(arr.length > 1 && arr[arr.length - 1].toLowerCase() == "pdf") {
+            plus.runtime.openFile(path, {}, function(e) {
+              app.msgBox("无法打开此文件：" + e.emssage);
+            });
+          } else {
+            app.showWatch({
+              src: path
+            });
+          }
+        } else {
+          plus.runtime.openFile(path, {}, function(e) {
+            app.msgBox("无法打开此文件：" + e.emssage);
+          });
+        }
+      }
+
+      function apply(){
+         mui("#u-task-list input[type=checkbox]:checked").each(function() {
+//         alert(this.dataset.id);
+          idList.push(this.dataset.id);
+          });  
+        mui.confirm('<input type="text" id="email" /><span id="error" class="mistake">&nbsp</span>', '文件将发送到以下邮箱', null, function(event) {
+          var index = event.index;
+          if(index === 1) {
+            var myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+            var pwd = document.getElementById('email').value;
+            if(myReg.test(pwd)) {
+              plus.nativeUI.showWaiting("正在发送");
+              proj.invoice.sendEmail(idList, pwd, function() {
+              plus.nativeUI.closeWaiting();
+                app.toast("发送成功");
+              });
+            } else {
+              document.getElementById('error').innerText = "邮箱格式不正确";
+              return false;
+            }
+          }else{
+            idList = [];
+          }
+        }, 'div');
+      }
+      function updateFee() {
+         //扫过机器才算费
+          totalFee = 0;
+          
+      }
+    </script>
+  </body>
+
+</html>

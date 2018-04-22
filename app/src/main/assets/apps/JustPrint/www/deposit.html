@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.u-tm-tag {
+				text-align: center;
+				margin: 0;
+				padding: 5px;
+			}
+			
+			#segmentedControl {
+				background: #FFFFFF;
+				padding: 0 10px;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+				color: #777;
+				padding-top: 6px;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #00A0E9;
+				border-bottom-color: #00A0E9;
+			}
+			
+			.u-deleted .u-file-info {
+				opacity: .5;
+			}
+			
+			.u-deleted .act {
+				visibility: hidden;
+			}
+			
+			.u-del-sign {
+				position: absolute;
+				top: 0;
+				right: 0;
+				display: none;
+				color: red;
+				font-size: 50px;
+			}
+			
+			.u-deleted .u-del-sign {
+				display: block;
+			}
+			
+			.u-deleted .next a {
+				visibility: hidden;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			
+			.mui-popover {
+				height: 300px;
+				width: 120px;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 5px;
+				right: 5px;
+			}
+			
+			.mui-table-view-cell>a {
+				text-align: center;
+			}
+			
+			.u-next {
+				flex: none;
+				width: 80px;
+				position: relative;
+				text-align: center;
+				margin-bottom: 10px;
+			}
+			
+			.u-next:before {
+				content: "";
+				position: absolute;
+				width: 1px;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: #DDDDDD;
+			}
+			
+			.u-next .iconfont {
+				margin: 12px 0 6px 0;
+			}
+			
+			.u-next .iconfont:before {
+				font-size: 30px;
+			}
+			
+			.u-next .mui-btn {
+				font-size: 12px;
+				padding: 3px;
+				min-width: 50px;
+			}
+			.u-next .u-fee{
+				font-size: 14px;
+			}
+			
+			.u-file-info .iconfont {
+				margin-right: 15px;
+			}
+			
+			.u-file-info .iconfont span {
+				font-size: 14px;
+				color: grey;
+			}
+			
+			.u-file-info .iconfont:before {
+				font-size: 20px;
+			}
+			.u-rec-time{
+				color: #666;
+				font-weight: bold;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<a id="menu" class="mui-action-menu mui-pull-right mui-icon mui-icon-bars mui-hidden" href="#topPopover"></a>
+			<h1 id="u_title" class="mui-title">充值记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="u-line-down mui-hidden">
+				<div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1">
+				未打印
+			</a>
+					<a class="mui-control-item mui-active" href="#item2">
+				已打印
+			</a>
+				</div>
+			</div>
+			<div class="u-pr-list mui-hidden">
+				<div id="item1" class="mui-control-content">
+					<p class="u-tm-tag">未打印文件将为您保留3天</p>
+					<div id="u-undo-list" class="u-file-list">
+					</div>
+				</div>
+				<div id="item2" class="mui-control-content  mui-active">
+					<div id="u-done-list" class="u-file-list init-waiting">
+					</div>
+
+				</div>
+			</div>
+			
+			
+			<div class="u-record-list">
+				<div id="u-rec-list" class="u-record init-waiting">
+				</div>
+			</div>
+		</div>		
+
+		<!--右上角弹出菜单-->
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell"><a href="#">全部</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">图片</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">WORD</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">EXCEL</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">PPT</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">PDF</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">TXT</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+		<!--template7-->
+		<script id="tpl-undo" class="htm-template" type="text/html">
+			<div class="u-undo-list">
+				{{#list}}
+				<div class="u-pr-card u-line-down u-line-top card-{{id}}  {{state}}">
+					<div class="u-media" data-id="{{id}}">
+						<a class="preview">
+							<img class="u-media-object" src="{{src}}" data-format="{{format}}" onerror="init.convertImg(this)"></a>
+					</div>
+					<div class="u-file-info">
+						<div class="detail">
+							<div class="mui-ellipsis title">{{name}}</div>
+							<div class="orange size">{{size}}</div>
+							<p class="time">{{subTime}}</p>
+						</div>
+						<div class="act" data-id="{{id}}">
+							<a class="iconfont icon-yulan green preview"><span>预览</span></a>
+							<a class="iconfont icon-shanchu red delete"><span>删除</span></a>
+						</div>
+					</div>
+					<div class="u-next" data-id="{{id}}">
+						<div class="iconfont blue icon-{{#if output}}qujian{{else}}shezhi{{/if}}"></div>
+						<div><button type="button" class="mui-btn u-btn-default">{{#if output}}取件{{else}}配置{{/if}}</button></div>
+						<span class="u-fee red">{{#if output}}¥ {{fee}}{{/if}}</span>
+					</div>
+				</div>
+				{{/list}}
+			</div>
+		</script>
+		<script id="tpl-done" class="htm-template" type="text/html">
+			<div class="u-done-list">
+				{{#list}}
+				<div class="u-pr-card u-line-down u-line-top {{state}}">
+					<div class="u-media" data-id="{{id}}">
+						<a class="preview">
+							<img class="u-media-object" src="{{src}}" data-format="{{format}}" onerror="init.convertImg(this)"></a>
+					</div>
+					<div class="u-file-info">
+						<div class="detail" data-id="{{id}}">
+							<div class="mui-ellipsis title">{{name}}</div>
+							<!--<div class="next"><span class="orange size">{{size}}</span> {{#if isVail}}
+								<button type="button" class="mui-btn u-btn-default mui-pull-right">再打印</button> {{else}}
+								<p class="mui-pull-right">已过期</p>
+								{{/if}}
+							</div>-->
+							<p class="time">{{subTime}}</p>
+						</div>
+						{{#if isVail}}
+						<div class="act" data-id="{{id}}"><a class="mui-pull-right mui-hidden" style="font-size: 14px;color: #999;margin-right: 10px;">将于<span class="red">{{leftDay}}</span>日后过期</a>
+							<a class="mui-icon mui-icon-search blue preview"></a>
+						</div>
+						{{/if}}
+						<div class="u-line-top add">
+							<p>消费：¥ {{fee}}</p>
+							<p>来源：{{site}}</p>
+							<p>打印时间：{{outTime}}</p>
+						</div>
+					</div>
+				</div>
+				{{/list}}
+			</div>
+		</script>
+		<script id="tpl-rec" class="htm-template" type="text/html">
+			<ul class="mui-table-view u-table-view">
+				{{#list}}
+				<li class="mui-table-view-cell">
+					<div class="orange">{{fee}}</div>
+					<div><span class="blue">{{site}}</span></div>
+					<div class="grey" style="font-size: 14px;">流水号:<span >¥ {{num}}</span></div>
+					<div><span class="grey" style="font-size: 14px;">{{outTime}}</span></div>
+				</li>
+				{{/list}}
+			</ul>
+		</script>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/template7.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+//			var compUndo = Template7.compile(document.getElementById("tpl-undo").innerHTML);
+//			var compDone = Template7.compile(document.getElementById("tpl-done").innerHTML);
+			var compRec = Template7.compile(document.getElementById("tpl-rec").innerHTML);
+//			mui.init({
+//				preloadPages: [{
+//					url: "print_config.html",
+//					id: "print_config"
+//				}]
+//			});
+mui.init();
+			mui.plusReady(function() {
+       var  ext;
+				app.onPageLoad(function(para) {
+				  ext = para.kindType;
+				  if (ext==2) {
+				  	document.getElementById("u_title").innerHTML = "退款记录"
+				  } else{
+				  	document.getElementById("u_title").innerHTML = "充值记录"
+				  }
+				  mui('#scroll').scroll({indicators: false});
+					proj.query.getDepRec(function(rlt) {
+						var list = rlt.data;
+//						alert(JSON.stringify(list));
+						if (!list) {
+							return;
+						}
+						var arr = [];
+						for (var i = 0; i < list.length; i++) {
+							var rec = list[i];
+							var li = {};
+							li.fee = "￥"+app.cvtFee(rec.money)+"元";
+							li.site = rec.source;
+							li.num = rec.lsh;
+							li.outTime = rec.date;
+							arr.push(li);
+						}
+						var content;
+						if(arr.length>0){
+							content=compRec({
+							list: arr
+						});
+						}
+						else{
+							content="<div class='u-none-data'>没有数据</div>";
+						}
+						document.getElementById("u-rec-list").innerHTML = content;
+					},"","",function(e){
+								if(e.msg){
+									app.msgBox(e.msg);
+								}
+								else{
+									app.toast("连接异常");
+								}
+								document.getElementById("u-rec-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+					},ext);
+					return;
+					//以下不再作为打印记录!!!!!!
+					proj.print.getPrintRec(function(rlt) {
+						var list = rlt.data;
+						var done = [];
+						var undo = [];
+						var today = new Date();
+						for (var i = 0; i < list.length; i++) {
+							var rec = list[i];
+							var task = {};
+							task.id = rec.dwJobId;
+							task.name = rec.szDocument;
+							task.size = "[文件大小]";
+							var subDate = app.cvt.toDate(rec.dwSubmitDate);
+							task.subTime = subDate + " " + app.cvt.toTime(rec.dwSubmitTime);
+							task.leftDay = 3 - uni.compareDate(today, subDate);
+							var sta = rec.dwStatus;
+							if(rec.szJobFileName) {
+									var ff = rec.szJobFileName.split("\\");
+									var src = pro.mapUrl("temp/" + ff[ff.length - 1] + "_v/b_1.png");
+									task.src = src;
+								}
+							if ((sta & 4) > 0) { //已过期
+								task.isVail = false;
+							} else {
+								task.isVail = true;
+							}
+							if((sta & 8) > 0) {//已缴费(已打印)
+								task.outTime = app.get1970DateTime(rec.dwPrintTime);
+								task.fee = app.cvtFee(rec.dwInfoCharges);
+								console.log(rec.dwInfoCharges);
+								task.site = "[取件点]";
+								if (task.isVail) {
+									task.state = "u-available";
+								}
+								done.push(task);
+							}
+				}
+						var content;
+						if(done.length>0){
+							content=compDone({
+							list: done
+						});
+						}
+						else{
+							content="<div class='u-none-data'>没有数据</div>";
+						}
+						document.getElementById("u-done-list").innerHTML = content;
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

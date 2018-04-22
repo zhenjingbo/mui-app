@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.u-balance {
+        height:100%;
+				text-align: center;
+			}
+			.wallet-top{
+			  height:110px;
+			  width: 100%;
+			  text-align: center;
+			  overflow: hidden;
+			  position: relative;
+			}
+			.u-balance .iconfont {
+				font-size: 100px;
+			}
+			#top-name{
+			  color: #FFFFFF;
+			  margin-top:5%;
+			  font-size:18px;
+			}
+			.top-left,.top-right{
+			  width: 50%;
+			  height: 50px;
+			  text-align: center;
+			}
+			.wallet-top p{
+			   color: #FFFFFF;
+			   margin-top:0;
+			   margin-bottom: 0;
+			}
+			.top-left{
+			  float:left;
+			}
+			.top-right{
+			  float: right;
+			}
+
+			.wallet-top-bot{
+			  position: absolute;
+			  width: 100%;
+			  height: 50px;
+			  bottom: 0;
+			}
+			.line{
+			  position: absolute;
+			  top: 0;
+			  bottom:0;
+			  right: 0;
+			  left: 0;
+			  margin: auto;
+			  height: 50%;
+			  width:2px;
+			  background:#FFFFFF;
+			}
+			.btn-list{
+			  height:60px;
+			  width: 100%;
+			  background:#FFFFFF;
+			  line-height: 60px;
+			  position: relative;
+			}
+			.btn-list img{
+			  width: 13%;
+			  vertical-align: middle;
+			  margin-right: 10px;
+			}
+			.btn-left,.btn-right{
+			  width: 50%;
+			  height: 100%;
+			  font-size: 16px;
+			}
+			.btn-left{
+			  float: left;
+			}
+			.btn-right{
+			  float: right;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<h1 class="mui-title">钱包管理</h1>
+		</header>
+		<div class="mui-content" style="background:#efeff4;">
+			<div class="u-balance">
+			  <div class="wallet-top" style="background-color: #00A0E9;">
+			    <div id="top-name"></div>
+			    <div class="wallet-top-bot" style="background:#000;opacity: 0.1;">
+			      
+			    </div>
+			    <div class="wallet-top-bot">
+			    	<div class="top-left">
+            <p id="u-my-balance" style="margin-top: 5px;">￥</p>
+            <p>余额</p>
+          </div>
+          <div class="line">
+          	
+          </div>
+          <div class="top-right">
+            <p id="u-my-subsidy" style="margin-top: 5px;">￥</p>
+            <p>抵用金</p>
+          </div>
+			    </div>
+			  </div>
+			<div class="btn-list" style="">
+				<div class="btn-left" style="margin-bottom: 10px;" onclick="app.showRecharge()">
+				  <img src="img/recharge.png" alt="" />
+				<span>充 值</span>  
+				</div>
+				 <div class="line" style="background:#DDDDDD;height:45%;">
+            
+          </div>
+				<div class="btn-right" onclick="refundClick()">
+				 <img src="img/refund.png" alt="" />
+				<span>退款</span>
+				</div>
+			</div>
+          <div class="mui-table-view-cell" style="margin-top:10px;background: #FFFFFF;position:static;">
+            <a class="mui-navigate-right" onclick="app.showDepositRec({kindType:1})">
+              <span class="mui-pull-left">充值记录</span>             
+            </a>
+          </div>
+          <div class="mui-table-view-cell" style="margin-top:10px;background: #FFFFFF;">
+            <a class="mui-navigate-right" onclick="app.showDepositRec({kindType:2})">
+              <span class="mui-pull-left">退款记录</span> 
+            </a>
+          </div>
+
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+		var devSN;
+		var money ;
+			function refundClick() {
+			  if(parseFloat(money)==0){
+			       app.msgBox("余额为￥0.00，无法提交退款");
+			  }else{
+			   app.confirm("是否确认退款？", function() {
+            proj.cac.applyRefund(function() {
+               mui.alert('退款申请已提交，退款将于明日到账', '', function(){},"div");
+              updatePage();
+            });
+        }); 
+			  }
+			}
+			function updatePage() {
+				app.getBalance(function(fee,bal) {
+				  money  = fee;
+					document.getElementById("u-my-balance").innerHTML = "￥"+fee;
+					if(bal.dwSubsidy>0)
+					document.getElementById("u-my-subsidy").innerHTML ="￥"+ app.cvtFee(bal.dwSubsidy);
+					else
+					document.getElementById("u-my-subsidy").innerHTML = "0.00";
+				},{
+					dev_sn:devSN
+				});
+			}
+			mui.init();
+			mui.plusReady(function() {
+				app.onUpdateState(function(){
+				  if(app.isLogin()) {
+				    if (localStorage["way"]=="wx") {
+                  document.getElementById("top-name").innerHTML = JSON.parse(localStorage["wx"]).nickname;
+                }
+                else if (localStorage["way"]=="ali") {
+                  document.getElementById("top-name").innerHTML = JSON.parse(localStorage["ali"]).nickname;
+                }
+                else{
+                  document.getElementById("top-name").innerHTML = app.cvt.getEncName(pro.acc.pid);
+                }
+				  }
+					updatePage();
+				});
+				app.onPreload(function(para) {
+					if(para.devSN){
+						devSN=para.devSN;
+					}
+					else{
+						devSN="0";
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

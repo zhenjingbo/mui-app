@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#container {
+				width: 100%;
+				height: 50%;
+			}
+			
+			.u-back-panel {
+				height: 40px;
+				width: 40px;
+				line-height: 40px;
+				background: #000;
+				opacity: .5;
+				margin-top: 8px;
+				margin-left: 8px;
+				border-radius: 50%;
+			}
+			
+			.u-back-icon {
+				position: absolute;
+				top: 16px;
+				left: 15px;
+				color: #FFFDF9;
+			}
+			
+			#u-actions {}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+				color: #777;
+				padding-top: 6px;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #00A0E9;
+				border-bottom-color: #00A0E9;
+			}
+			
+			#u-header {
+				box-shadow: 0 1px 1px #ccc;
+			}
+			
+			#u-near {
+				padding-top: 3px;
+			}
+			
+			.u-dev-items {
+				height: 100%;
+				overflow: scroll;
+				padding-bottom: 3px;
+			}
+			
+			.u-dev-items .mui-table-view-cell {
+				/*border-bottom: 1px solid #c8c7cc;*/
+				box-shadow: 0 1px 1px #ddd;
+				/*margin: 3px 0;*/
+			}
+			
+			.u-dev-items.mui-table-view:after {
+				height: 0;
+			}
+			
+			.u-dev-items .mui-table-cell h4 {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 3px;
+			}
+			
+			.u-prop span {
+				color: #00A0E9;
+				padding: 1px 2px;
+				margin-right: 3px;
+				border: 1px solid #00A0E9;
+				border-radius: 3px;
+			}
+			
+			.u-dev-info {
+				margin: 0 10px;
+			}
+			
+			.u-dev-info h4 {
+				color: #00A0E9;
+			}
+			
+			.amap-geo {
+				background-size: auto;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body class="no_immersed">
+		<div id="u-content" class="mui-content" style="height: 100%;background: #fff;">
+			<div id="container"></div>
+			<div id="u-actions">
+				<div id="u-header">
+					<div class="mui-segmented-control mui-segmented-control-inverted">
+						<a id="u-btn-near" class="mui-control-item mui-active" href="#u-near">
+							附近文印点
+						</a>
+						<a id="u-btn-all" class="mui-control-item">
+							全地图
+						</a>
+					</div>
+				</div>
+				<div id="u-panel">
+					<div id="u-near" class="mui-control-content mui-active"></div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-action-back u-fixed" style="position: absolute;top: 16px;">
+			<a class="u-back-panel mui-pull-left"></a>
+			<span class="mui-icon mui-icon-left-nav u-back-icon"></span>
+		</div>
+		<!--template7-->
+		<script id="tpl-dev" class="htm-template" type="text/html">
+			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed u-dev-items">
+				{{#list}}
+				<li class="mui-table-view-cell u-dev-item" data-id="{{id}}" data-coord="{{coord}}">
+					<div class="mui-table">
+						<div class="mui-table-cell mui-col-xs-10">
+							<h4 class="mui-ellipsis">{{name}}</h4>
+							<h5>地址：{{posi}}</h5>
+							<p class="mui-h6 mui-ellipsis u-prop">{{prop}}</p>
+						</div>
+						<div class="mui-table-cell mui-col-xs-2 mui-text-right">
+							<div><span class="mui-icon mui-icon-redo" style="color: #00A0E9;"></span></div>
+							<span class="mui-h5">{{distance}}</span>
+						</div>
+					</div>
+				</li>
+				{{/list}}
+			</ul>
+		</script>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/template7.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<!--<script src="js/temp.js"></script>-->
+		<script src="https://webapi.amap.com/maps?v=1.3&key=01f10d061269c2da43107132ddb1709b"></script>
+		<script type="text/javascript">
+			var compDev = Template7.compile(document.getElementById("tpl-dev").innerHTML);
+			var map;
+			var geolocation;
+			var devList = {};
+			var markList = [];
+			var curLoc;
+			map = new AMap.Map('container', {
+				resizeEnable: true,
+				zoom: 13
+			});
+			map.plugin('AMap.Geolocation', function() {
+				geolocation = new AMap.Geolocation({
+					enableHighAccuracy: true, //是否使用高精度定位，默认:true
+					timeout: 10000, //超过10秒后停止定位，默认：无穷大
+					buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+					buttonPosition: 'LB'
+				});
+				map.addControl(geolocation);
+				AMap.event.addListener(geolocation, 'complete', function(data) {
+					curLoc = data;
+					updateNearDev(curLoc.position);
+				}); //返回定位信息
+				AMap.event.addListener(geolocation, 'error', function(data) {
+					mui.toast(convertErrorInfo(data.info));
+					document.getElementById("u-near").innerHTML = "<div class='u-none-data'>没有数据</div>";
+				}); //返回定位出错信息
+			});
+			var container = document.getElementById("container");
+			var btnNear = document.getElementById("u-btn-near");
+			var btnAll = document.getElementById("u-btn-all");
+			btnNear.addEventListener("tap", function() {
+				if(!this.classList.contains("mui-active")) {
+					container.style.height = "50%";
+					map.setZoom(13);
+					//updateNearDev();
+					geolocation.getCurrentPosition();
+				}
+			});
+			btnAll.addEventListener("tap", function() {
+				if(!this.classList.contains("mui-active")) {
+					container.style.height = document.getElementById("u-content").clientHeight - 46 + "px";
+					map.setZoom(11);
+				}
+			});
+			var devPanel = document.getElementById("u-near");
+			devPanel.style.height = document.body.clientHeight / 2 - 46 + "px";
+			mui.init();
+			mui.plusReady(function() {
+				app.onUpdateState(function() {
+					if(geolocation) {
+						geolocation.getCurrentPosition();
+					}
+				});
+				app.onPageLoad(function() {
+					//状态栏文字变黑
+					if(plus.os.name == "iOS") {
+						plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+					}
+					proj.dev.getPrinter(function(rlt) {
+						var list = rlt.data;
+						devList = {};
+						map.remove(markList);
+						if(list) {
+							for(var i = 0; i < list.length; i++) {
+								var dev = list[i];
+								if(dev.szCoordinate) {
+									var icon = new AMap.Icon({
+										image: "img/mark_b.svg",
+										imageSize: new AMap.Size(36, 36)
+									});
+									var mk = new AMap.Marker({
+										icon: icon,
+										position: list[i].szCoordinate.split(','),
+										map: map
+									});
+									markList.push(mk);
+									dev.marker = mk;
+									AMap.event.addListener(mk, "touchstart", function() {
+										var str = "<div class='u-dev-info'><h4>" + this.szName + "</h4><p>" + this.szPosi + "</p></div>";
+										infoWindow = new AMap.InfoWindow({
+											content: str
+										});
+										infoWindow.open(map, this.marker.getPosition());
+									}, dev);
+								}
+								devList[dev.dwPrinterSN] = dev;
+							}
+						}
+					});
+					mui("#u-near").on("tap", ".mui-table-view-cell", function() {
+						var id = parseInt(this.dataset.id);
+						if(devList[id]) {
+							var mk = devList[id].marker;
+							map.panTo(mk.getPosition());
+							mk.setAnimation('AMAP_ANIMATION_DROP');
+						}
+					});
+				});
+				app.curView.addEventListener("hide", function() {
+					if(plus.os.name == "iOS") {
+						plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+					}
+				});
+			});
+			//获取附近文印点
+			function updateNearDev(posi) {
+				var lng = posi.getLng();
+				var lat = posi.getLat();
+				proj.dev.getNearPrinter(lng + "," + lat, function(rlt) {
+					var data = rlt.data;
+					var list = [];
+					for(var i = 0; i < data.length; i++) {
+						var it = data[i];
+						var dev = it.PrinterInfo;
+						var prop = "<span>A3</span><span>A4</span>";
+						if((dev.dwProperty & 8) > 0) {
+							prop += "<span>支持彩色</span>"
+						}
+						var item = {
+							id: dev.dwPrinterSN,
+							name: dev.szName,
+							posi: dev.szPosi,
+							coord: dev.szCoordinate,
+							prop: prop,
+							distance: app.cvt.toDistance(it.dwDistance)
+						};
+						list.push(item);
+					}
+					var content;
+
+					if(list.length > 0) {
+						content = compDev({
+							list: list
+						});
+					} else {
+						content = "<div class='u-none-data'>附近没有文印点</div>";
+					}
+					document.getElementById("u-near").innerHTML = content;
+				});
+			}
+
+			function convertErrorInfo(info) {
+				switch(info) {
+					case "NOT_SUPPORTED":
+						return "当前浏览器不支持定位功能";
+					case "PERMISSION_DENIED":
+						return "浏览器拒绝定位";
+					case "POSITION_UNAVAILABLE":
+						return "浏览器无法获取当前位置";
+					case "TIMEOUT":
+						return "定位超时";
+					default:
+						return "未知错误";
+				}
+			}
+		</script>
+	</body>
+
+</html>

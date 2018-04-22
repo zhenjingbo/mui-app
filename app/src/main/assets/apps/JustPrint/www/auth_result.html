@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+		  .mui-content{ 
+         background:rgb(241,242,246)!important;
+        }
+			#u-info-text {
+				font-size: 30px;
+				margin-top: 30px;
+				text-align: center;
+			}
+			#u-info-icon{
+				text-align: center;
+			}
+			#u-info-icon img {
+				width: 45%;
+				margin-top: 10px;
+			}
+			.auth-show{
+			  width: 76%;
+			  height:200px;
+			  margin-left: 12%;
+			  margin-top: 18%;
+			  box-shadow: 0 0 4px 2px rgb(212,213,217);
+			  position: relative;
+			  overflow: hidden;
+			  background: #FFFFFF;
+			}
+			.auth-fee-detail{
+			  width: 76%;
+			  height:100px;
+			  margin-left: 12%;
+			  margin-top: 20px;
+			  display: none;
+			}
+			.auth-fee-detail table{
+			  width: 100%;
+			  height: 100%;
+			}
+			.auth-fee-detail table tr td{
+			  border: 1px solid #878787;
+			  font-size:12px;
+			  color:#878787;
+			}
+			.auth-fee-detail table tr td span{
+			  color:#FF0000;
+			}
+			.auth-fee{
+			  color: #FF0000;
+			  font-size: 25px;
+			  margin-top:70px;
+			}
+			.auth-show p{
+			  margin-top:20px;
+			}
+			.auth-show ul{
+			  width: 100%;
+			  position: absolute;
+			  bottom: 0;
+			}
+			.auth-show ul li{
+			  width:50%;
+			  height: 40px;
+			  line-height: 40px;
+			  float: left;
+			  list-style: none;
+			  border-top: 1px solid #999999;
+			  text-align: center;
+			  font-size: 12px;
+			}
+			#checkFee{
+			  border-right: 1px solid #999999;
+			  color:#00A0E9;
+			}
+			.mui-icon{
+			  font-size: 15px;
+			}
+			.mui-bar-tab {
+        bottom: 0;
+        display: table;
+        width: 100%;
+        height: 30px;
+        padding: 0;
+        text-align: center;
+        table-layout: fixed;
+        border-top: 0;
+        border-bottom: 0;
+        background: none;
+        -webkit-touch-callout: none;
+      }
+      .mui-bar-tab img{
+        height:70px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        margin-bottom:5px;
+      }
+      .mui-bar-tab p{
+        font-size: 12px;
+        margin-top:5px;
+        margin-bottom: 0px;
+      }
+      #auth-warn{
+        margin-top: 20px;
+      }
+      #u-my-pid{
+        font-size: 20px;
+        color: #000000;
+        margin-top:20px;
+      }
+      .mui-pull-right{
+        color: #fff;
+      }
+      .u-fee-img{
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: 19%;
+        overflow: hidden;
+      }
+      .auth-img{
+        width: 80px;
+        height: 80px;
+        border-radius:50%;
+        border: 4px solid rgb(217,218,220);
+      }
+      .auth-suc{
+        font-size:18px;
+      }
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="app.backIndex()"><span style="font-size: 18px;">主页</span></a>
+			<h1 id="u-info-title" class="mui-title">认证结果</h1>
+			 <a class="mui-pull-right" id="u-btn-scan" style="font-size: 18px;">扫一扫</a>
+		</header>
+		<div class="mui-content" style="background: #fff;">
+			<div id="u-info-text">
+				<div class="auth-suc">认证成功</div>
+				
+				<div class="u-fee-img">
+					<img src="img/icon.png" class="auth-img" />
+				</div>
+				<div class="auth-show">
+				  <!--<p id="u-info-msg" style='margin:15px;min-height: 18px;line-height: 18px;color:#333'></p>-->
+        <p id="u-info-warning" style='margin:15px;min-height: 18px;line-height: 18px;color:red'></p>
+				  <p class="auth-fee">￥<span id="u-my-balance"></span><span id="u-my-subsidy"></span></p>
+					<p id="u-my-pid"></p>
+					<ul>
+					  <li id="checkFee">查看收费标准<icon class="mui-icon mui-icon-arrowdown" id="down"></icon>
+					  </li>
+					  <li onclick="app.showRecharge()">去充值</li>
+					</ul>
+				</div>
+				<p id="auth-warn"></p>
+				<div class="auth-fee-detail" id="detail">
+				  <table border="0" cellspacing="0" cellpadding="0">
+				    <tr>
+				      <td>类型</td>
+				      <td>黑白</td>
+				       <td>彩色</td>
+				    </tr>
+				    <tr>
+              <td>A3复印</td>
+              <td><span id="copyBT"></span>元/页</td>
+               <td><span id="copyCT"></span>元/页</td>
+            </tr>
+            <tr>
+              <td>A4复印</td>
+              <td><span id="copyBF"></span>元/页</td>
+               <td><span id="copyCF"></span>元/页</td>
+          </tr>
+            <tr>
+             <td>证件</td>
+             <td><span id="copyBZ"></span>元/页</td>
+             <td><span id="copyCZ"></span>元/页</td>
+            </tr>
+            <tr>
+             <td>扫描</td>
+             <td colspan="2"><span id="scan-fee"></span>元/页</td>
+            </tr> 
+				  </table>
+				</div>
+			</div>
+		</div>
+		<nav id="footerBar" class="mui-bar mui-bar-tab">
+		  <img src="img/icon-LOGO.svg">
+      <p>服务热线：400-9057-333</p>
+     
+    </nav>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+		  var flag =true;
+		  var devSN;
+		mui.init();
+			mui.plusReady(function() {
+				document.getElementById("u-btn-scan").addEventListener("tap",function(){
+					app.backIndex(function(top){
+						top.evalJS("app.showQRCode()");
+					});
+				});
+				document.getElementById("checkFee").addEventListener("tap",function(){
+				  if(flag){
+				    document.getElementById('down').classList.remove('mui-icon-arrowdown');
+				    document.getElementById('down').classList.add("mui-icon-arrowup");
+				    document.getElementById('detail').style.display = "block";
+				    document.getElementById('auth-warn').style.display = "none";
+				    flag = false;
+				  }else{
+				     document.getElementById('down').classList.add('mui-icon-arrowdown');
+            document.getElementById('down').classList.remove("mui-icon-arrowup");
+            document.getElementById('detail').style.display = "none";
+            document.getElementById('auth-warn').style.display = "block";
+            flag = true;
+				  }
+      });
+				app.onPageLoad(function(para){
+					if(para){
+					  devSN = para.devSN;
+						para.msg&&(document.getElementById("u-info-msg").innerHTML=para.msg);
+						para.warning&&(document.getElementById("u-info-warning").innerHTML=para.warning);
+					}
+//					if (mui.os.ios) {
+//        document.getElementsByClassName("u-fee-img").style.top = "25%";
+//      }else{
+//        document.getElementsByClassName("u-fee-img").style.top = "19%";
+//      }
+				proj.print.getFeeSTD(function(rlt) {
+          var stds = rlt.data;
+          var prior = 0;
+          for(var i = 0; i < stds.length; i++) {
+            //过滤优先级低的费率 
+            if(stds[i].dwPriority > prior){
+              prior = stds[i].dwPriority;}
+          }
+          for(var i = 0; i < stds.length; i++) {
+            var std = stds[i];
+            if(std.dwPriority < prior) continue;
+            if(std.szFeeName =="A3 复印") { //获取A3打印费率
+               document.getElementById("copyBT").innerHTML = std.dwMonoFee/100;
+               document.getElementById("copyCT").innerHTML = std.dwColorFee/100;
+            } else if(std.szFeeName == "A4 复印") {//获取A4打印费率
+               document.getElementById("copyBF").innerHTML = std.dwMonoFee/100;
+               document.getElementById("copyCF").innerHTML = std.dwColorFee/100;
+               var copyCZ = (std.dwColorFee/10000)*std.dwIDFeeRate;
+               var copyBZ = (std.dwMonoFee/10000)*std.dwIDFeeRate;
+               if(std.dwPaperID == 9 && std.dwIDFeeRate != 100 && std.dwIDFeeRate != 0){
+                document.getElementById("copyBZ").innerHTML = copyBZ;
+               document.getElementById("copyCZ").innerHTML = copyCZ;
+               }else if(std.dwIDFeeRate == 100 || std.dwIDFeeRate == 0){
+                document.getElementById("copyBZ").innerHTML = std.dwMonoFee/100;
+               document.getElementById("copyCZ").innerHTML = std.dwColorFee/100;
+            }
+           }else if(std.szFeeName == "扫描"){
+              document.getElementById("scan-fee").innerHTML = std.dwMonoFee/100;
+           }
+           
+          }
+           },{
+          "dev_sn":para.devSN,
+          "fee_type":0
+        });
+				});
+				app.onUpdateState(function(para){    
+          if(app.isLogin()) {
+            document.getElementById("u-my-pid").innerHTML =app.cvt.getEncName(pro.acc.pid) ;
+            app.getBalance(function(fee,bal) {
+          document.getElementById("u-my-balance").innerHTML = fee;
+          if(bal.dwSubsidy>0){
+             document.getElementById("u-my-subsidy").innerHTML ="+￥ "+ app.cvtFee(bal.dwSubsidy)+'<span style="color:#878787;font-size:15px;">(补助)</span>';
+          
+          }
+          else{
+             document.getElementById("u-my-subsidy").innerHTML = "";
+          }
+         
+              if(fee == 0 || fee < 0){
+               document.getElementById("auth-warn").innerHTML = '您的余额已不足请去充值'; 
+               document.getElementById("auth-warn").style.color = "#FF0000"
+              }else{
+                var page = parseInt(fee/document.getElementById("copyBF").innerHTML);
+                var scan = parseInt(fee/document.getElementById("scan-fee").innerHTML);
+                document.getElementById("auth-warn").innerHTML = '您的余额可复印A4黑白<span style="color:#FF0000">'+page+'</span>页,扫描<span style="color:#FF0000">'+scan+'</span>页';
+              }
+            },{
+          "dev_sn":devSN    
+            });
+			   }
+			});
+		});
+		</script>
+	</body>
+
+</html>

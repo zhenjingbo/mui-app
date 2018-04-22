@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!--<meta charset="utf-8">-->
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link rel="stylesheet" href="fonts/iconfont2.css" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#u-main-tools {
+				margin-top: 0;
+				background: #00A0E9;
+				color: white;
+			}
+			
+			#u-status {
+				height: 100%;
+				text-align: left;
+			}
+			
+			#u-status a {
+				display: inline-block;
+				font-size: 32px;
+				padding: 5px;
+				color: white;
+			}
+			
+			#u-status .u-lg-status {
+				font-size: 16px;
+				color: #FFFFFF;
+				display: inline-block;
+				margin-top: 0;
+			}
+			
+			#u-main-tools ul {
+				margin: 0;
+				padding: 5%;
+				width: 100%;
+				display: block;
+				list-style: none;
+				font-size: 0;
+				/*必须为0子元素才能填满*/
+			}
+			
+			#u-main-tools ul li {
+				padding: 20px 0;
+				display: inline-block;
+				text-align: center;
+				vertical-align: middle;
+				overflow: hidden;
+				font-size: 15px;
+				color: white;
+			}
+			
+			#u-main-tools a {
+				display: inline-block;
+			}
+			
+			#u-main-tools li .iconfont {
+				font-size: 4em;
+				line-height: 1.2;
+				color: white;
+				/*margin-bottom: 25px;*/
+			}
+			
+			#u-main-tools li .u-icon-text {
+				color: white;
+				margin-top: 5px;
+			}
+			
+			#u-main-actions {
+				color: #221815;
+			}
+			
+			#u-main-actions ul {
+				padding: 14px 5px 22px 5px;
+				margin: 0;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: start;
+				align-items: flex-start;
+			}
+			
+			#u-main-actions ul.u-lu-print a {
+				color: #009EF2;
+			}
+			
+			#u-main-actions ul.u-lu-scan a {
+				color: #FF3200;
+			}
+			
+			#u-main-actions ul.u-lu-copy a {
+				color: #FCC900;
+			}
+			
+			#u-main-actions ul.u-lu-copy {
+				padding-bottom: 0;
+			}
+			
+			#u-main-actions ul li.u-icon-main {
+				text-align: center;
+				width: 92px;
+			}
+			
+			#u-main-actions ul li.u-icon-action {
+				flex-grow: 1;
+			}
+			
+			#u-main-actions ul li.u-icon-action .title {
+				font-size: 17px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				color: #666666;
+			}
+			
+			#u-main-actions .u-act-flag.iconfont {
+				font-size: 4.8em;
+			}
+			/*#u-main-actions .u-act-flag.iconfont:active{opacity: .7;}*/
+			
+			#u-main-actions .u-act-list .round {
+				display: inline-block;
+				height: 26px;
+				width: 26px;
+				border-radius: 50%;
+				position: relative;
+			}
+			/*#u-main-actions .u-act-list .round:active{opacity: .7;}*/
+			
+			#u-main-actions .u-lu-print .round {
+				border: 1px solid #009EF2;
+			}
+			
+			#u-main-actions .u-lu-scan .round {
+				border: 1px solid #FF3200;
+			}
+			
+			#u-main-actions .u-lu-copy .round {
+				border: 1px solid #FCC900;
+			}
+			
+			#u-main-actions .u-act-list .iconfont {
+				position: absolute;
+				top: 6px;
+				left: 4px;
+			}
+			
+			#u-main-actions .u-act-list a {
+				display: inline-block;
+				text-align: center;
+				width: 38px;
+				height: auto;
+			}
+			
+			#u-main-actions .u-act-list .u-act-text {
+				color: #221815;
+				font-size: 11px;
+				line-height: 1;
+			}
+			/*#upload_file{position: absolute;top: 0;left: 0;height: 100%;width: 100;background: transparent;}*/
+			
+			.u-get-file {
+				padding: 20px 0;
+				background: #FFFFFF;
+				width: 100%;
+				border-bottom: 1px solid #efeff4;
+			}
+			
+			.u-get-file a {
+				text-align: center;
+			}
+			
+			.u-get-file .round {
+				display: inline-block;
+				position: relative;
+				height: 40px;
+				width: 40px;
+				border-radius: 50%;
+				border: 1px solid;
+				overflow: hidden;
+			}
+			
+			.u-get-file .round>span.u-pr-undo {
+				font-size: 8px;
+				position: absolute;
+				top: 40%;
+				background: #bbb;
+				left: 0;
+				color: #000;
+				padding-bottom: 10px;
+				text-align: center;
+				right: 0;
+				opacity: .9;
+				line-height: 18px;
+			}
+			/* #00A0E9;*/
+			
+			.u-get-file .round>span {
+				position: absolute;
+				font-size: 28px;
+				bottom: 4px;
+				left: 6px;
+			}
+			/*color: #00A0E9;*/
+			
+			.u-get-file .u-act-text {
+				font-size: 12px;
+				color: #666666;
+				line-height: 1;
+				margin-top: 5px;
+			}
+			
+			.u-get-file .u-gallery.round {
+				border-color: green;
+				color: green;
+			}
+			.u-get-file .u-paper.round {
+        border-color: #009EF2;
+        color: #009EF2;
+      }
+			.u-get-file .u-email.round {
+				border-color: #FF3200;
+				color: #FF3200;
+			}
+			
+			.u-get-file .u-doc.round {
+				border-color: #FCC900;
+				color: #FCC900;
+			}
+			
+			.u-tbl-box {
+				display: table;
+				width: 100%;
+				text-align: center;
+				background: #FFFFFF;
+			}
+			
+			.u-tbl-box>div {
+				display: table-cell;
+				padding: 18px 0;
+			}
+			
+			.u-tbl-box>div:first-child {
+				border-right: 1px solid #efeff4;
+			}
+			
+			.u-tbl-box>div:last-child-child {
+				border-left: 1px solid #efeff4;
+			}
+			
+			.u-tbl-box a {
+				font-size: 50px;
+			}
+			
+			.u-tbl-box a.iconfont .u-text {
+				font-size: 15px;
+				color: #777;
+				padding-left: 5px;
+				width: 68px;
+				display: inline-block;
+				text-align: left;
+			}
+			
+			.u-tbl-print,
+			.u-tbl-scan {
+				/*margin-bottom: 10px;*/
+			}
+			
+			.u-tbl-box.u-tbl-print>div {
+				padding: 8px 0;
+			}
+			
+			.u-tbl-print a {
+				color: #711bff;
+			}
+			
+			.u-tbl-scan a {
+				color: #009EF2;
+			}
+			
+			.u-tbl-copy a {
+				color: #00772c;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body style="background-color: #00A0E9;">
+		<header class="mui-bar mui-bar-nav">
+			<div id="u-status" class="u-status">
+				<a class="iconfont icon-geren mui-pull-left" onclick="app.showPersonal()"></a>
+				<span id="u-tl-unlogin" class="u-lg-status mui-hidden">未登录</span>
+				<span id="u-tl-myname" class="u-lg-status mui-hidden"></span>
+				<a class="iconfont icon-qianbao mui-pull-right" onclick="app.showWallet()" style="font-size: 20px;margin-top: 8px;">
+					<span id="u-tl-balance" style="font-size:16px;margin-top:0;">钱包</span></a>
+			</div>
+		</header>
+		<div class="mui-content" style="min-height: 100%;padding-top: 0;">
+			<div id="u-main-tools" style="padding-top: 44px;">
+				<ul>
+					<li class="mui-col-xs-4">
+						<a onclick="app.showQRCode()">
+							<span class="iconfont icon-saoyisao"></span>
+							<div class="u-icon-text" id="scanCode"></div>
+						</a>
+					</li>
+					<li class="mui-col-xs-4">
+						<a onclick="app.showLocation()">
+							<span class="iconfont icon-tubiao"></span>
+							<div class="u-icon-text" id="printPoint"></div>
+						</a>
+					</li>
+					<li class="mui-col-xs-4">
+						<a onclick="app.showRecharge()">
+							<span class="iconfont icon-chongzhi"></span>
+							<div class="u-icon-text" id="re_charge"></div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div style="padding-left: 12px;padding-top: 2px;padding-bottom: 2px;color: #666;" id="myPrint"></div>
+			<div class="u-get-file u-flex">
+			  <a onclick="app.paperPrint()">
+          <span class="round u-paper">
+                  <span class="iconfont icon-card"></span></span>
+          <div class="u-act-text" id="certificate"></div>
+        </a>
+				<a onclick="app.showPhoto()">
+					<span class="round u-gallery">
+									<span class="iconfont icon-tupian"></span></span>
+					<div class="u-act-text" id="photo_print"></div>
+				</a>
+				<a id="u-pr-file" class="mui-hidden" onclick="app.showSelectFile()">
+					<span class="round u-doc">
+						<span class="iconfont icon-wenjian"></span></span>
+					<div class="u-act-text" id="file_print"></div>
+				</a>
+				<a onclick="app.showPrintEmail()">
+					<span class="round u-email">
+						<span class="iconfont icon-youjian"></span>
+					<!--<span class="u-pr-undo">敬请期待</span>-->
+					</span>
+					<div class="u-act-text" id="email_attach"></div>
+				</a>
+			</div>
+			<!--<div class="u-get-file u-flex">
+        <a onclick="app.showDepositRec()">
+          <span class="round u-email">
+            <span class="iconfont icon-youjian"></span>
+          </span>
+          <div class="u-act-text">照片打印</div>
+        </a>
+    </div>-->
+		<!--<button type="button" id="test_doc">测试</button>-->
+			<div class="u-tbl-box u-tbl-print">
+				<div>
+					<a class="iconfont icon-dayin" onclick="app.showPrintTask()"><span class="u-text" id="my_print"></span></a>
+				</div>
+				<div>
+					<a class="iconfont icon-jilu" onclick="app.showPrintRec()"><span class="u-text" id="print_record"></span></a>
+				</div>
+			</div>
+			<div style="padding-left: 12px;padding-top: 2px;padding-bottom: 2px;color: #666;" id="my_scan"></div>
+			<div class="u-tbl-box u-tbl-scan">
+				<div>
+					<a class="iconfont icon-saomiao" onclick="app.showDynamic({title:'扫描指南',url:(pro.myDir+'scan_profile.html')})"><span class="u-text" id="scan_guide"></span></a>
+				</div>
+				<div>
+					<a class="iconfont icon-xiazai" onclick="app.showScanTask()"><span class="u-text" id="scanTask"></span></a>
+				</div>
+			</div>
+			<div style="padding-left: 12px;padding-top: 2px;padding-bottom: 2px;color: #666;" id="my_copy"></div>
+			<div class="u-tbl-box u-tbl-copy">
+				<div>
+					<a class="iconfont icon-fuyin" onclick="app.showDynamic({title:'复印指南',url:(pro.myDir+'copy_profile.html')})"><span class="u-text" id="copy_guide"></span></a>
+				</div>
+				<div>
+					<a class="iconfont icon-fuyinjilu" onclick="app.showCopyRecord()"><span class="u-text" id="copy_record"></span></a>
+				</div>
+			</div>
+			<!--<input id="file" name="file" type="file" />-->
+			<!-- page code -->
+			<script src="js/jquery-3.2.1.min.js"></script>
+			<script src="js/mui.js"></script>
+			<script src="js/uni.lib.js"></script>
+			<script src="js/pro.lib.js"></script>
+			<script src="js/app.js"></script>
+			<script src="js/openfile.js"></script>
+			<script src="js/index.js"></script>
+			<script src="js/update.js"></script>
+<!--			<script src="js/jquery.i18n.properties-min-1.0.9.js"></script>-->
+			<script type="text/javascript">
+				//验证
+				 var  lan = null;
+				if(localStorage["acc"] && localStorage["uid"]) {
+					var acc = JSON.parse(localStorage["acc"]);
+					console.log(JSON.stringify(acc));
+					console.log("token:" + acc.token);
+					if(acc && acc.pid) {
+						proj.cac.authToken(acc.pid, function(rlt) {
+							beginRun({
+								auth: "suc"
+							});
+						}, function(rlt) {
+							beginRun({
+								auth: "fail",
+								msg: rlt.msg
+							});
+						}, null, function() {
+							beginRun({
+								auth: "err",
+								msg: "连接异常"
+							});
+						});
+					}
+				} else {
+					beginRun({
+						auth: "no"
+					});
+				}
+
+				function beginRun(initPara) {
+					initPara = initPara || {};
+					mui.init({
+						preloadPages: [{
+							url: "personal.html",
+							id: "personal"
+						}, {
+							url: "qr_code.html",
+							id: "qr_code"
+						}, {
+							url: "print_task.html",
+							id: "print_task"
+						}, {
+							url: "print_rec.html",
+							id: "print_rec"
+						}, {
+							url: "copy_record.html",
+							id: "copy_record"
+						},{
+							url: "scan_task.html",
+							id: "scan_task"
+							
+						}]
+					});
+					mui.plusReady(function() {
+						var unlogin = document.getElementById("u-tl-unlogin");
+						var balance = document.getElementById("u-tl-balance");
+						var myname = document.getElementById("u-tl-myname");
+                  if (lan==null) {
+                  	mui.getJSON("i18n/strings_zh.json", function(data) {
+                       lan = data ;
+                        <!--$('#u-tl-unlogin').html(lan[2000001]);-->
+                    <!--$('#u-tl-balance').html(lan[2000002]);-->
+                    $('#scanCode').html(lan[2000008]);
+                    $('#printPoint').html(lan[2000009]);
+                    $('#re_charge').html(lan[2000010]);
+                    $('#myPrint').html(lan[2000011]);
+                    $('#certificate').html(lan[2000012]);
+                    $('#photo_print').html(lan[2000013]);
+                    $('#file_print').html(lan[2000014]);
+                    $('#email_attach').html(lan[2000015]);
+                    $('#my_print').html(lan[2000016]);
+                    $('#print_record').html(lan[2000017]);
+                    $('#my_scan').html(lan[2000018]);
+                    $('#scan_guide').html(lan[2000019]);
+                    $('#scanTask').html(lan[2000020]);
+                    $('#my_copy').html(lan[2000021]);
+                    $('#copy_guide').html(lan[2000022]);
+                    $('#copy_record').html(lan[2000023]);
+                   }) 
+                  }else{
+                 lan = JSON.parse(localStorage["zhlan"]);
+                    <!--$('#u-tl-unlogin').html(lan[2000001]);-->
+                    <!--$('#u-tl-balance').html(lan[2000002]);-->
+                    $('#scanCode').html(lan[2000008]);
+                    $('#printPoint').html(lan[2000009]);
+                    $('#re_charge').html(lan[2000010]);
+                    $('#myPrint').html(lan[2000011]);
+                    $('#certificate').html(lan[2000012]);
+                    $('#photo_print').html(lan[2000013]);
+                    $('#file_print').html(lan[2000014]);
+                    $('#email_attach').html(lan[2000015]);
+                    $('#my_print').html(lan[2000016]);
+                    $('#print_record').html(lan[2000017]);
+                    $('#my_scan').html(lan[2000018]);
+                    $('#scan_guide').html(lan[2000019]);
+                    $('#scanTask').html(lan[2000020]);
+                    $('#my_copy').html(lan[2000021]);
+                    $('#copy_guide').html(lan[2000022]);
+                    $('#copy_record').html(lan[2000023]);
+                  }
+						if(initPara.auth == "no") {
+							localStorage["uid"] = plus.device.uuid;
+						}
+						if(initPara.msg) {
+							app.toast(initPara.msg);
+						}
+						//获取第三方传来的文件
+						app.getIOSThirdFile(initPara);
+						//
+						var lg = mui.preload({
+							url: "login.html",
+							id: "login"
+						});
+//						mui.preload({
+//							url: "print_email.html",
+//							id: "print_email"
+//						});
+//						mui.preload({
+//							url: "recharge.html",
+//							id: "recharge"
+//						});
+//						mui.preload({
+//							url: "print_config.html",
+//							id: "print_config"
+//						});
+						mui.preload({
+						  url: "personal.html",
+						  id: "personal"
+						});
+						// close splash
+						setTimeout(function() {
+							//关闭 splash
+							plus.navigator.closeSplashscreen();
+						}, 500);
+
+						//状态
+
+						app.onUpdateState(function() {
+							if(app.isLogin()){
+						       if (localStorage["way"]=="wx") {
+									$("#u-tl-myname").html(JSON.parse(localStorage["wx"]).nickname)
+								} else if(localStorage["way"]=="ali"){
+								  $("#u-tl-myname").html(JSON.parse(localStorage["ali"]).nickname)
+								}
+								else {
+									$("#u-tl-myname").html(app.cvt.getEncName(pro.acc.pid))
+								}
+								 unlogin.classList.add("mui-hidden");
+								balance.classList.remove("mui-hidden");
+								myname.classList.remove("mui-hidden");
+								app.getBalance(function(fee) {
+									balance.innerHTML = fee;
+								});
+							} else {
+								unlogin.classList.remove("mui-hidden");
+								balance.classList.add("mui-hidden");
+								myname.classList.add("mui-hidden");
+							}
+						});
+						app.curView.addEventListener("show", function() {
+						if(app.isLogin()){
+						       if (localStorage["way"]=="wx") {
+									$("#u-tl-myname").html(JSON.parse(localStorage["wx"]).nickname)
+								} else if(localStorage["way"]=="ali"){
+								  $("#u-tl-myname").html(JSON.parse(localStorage["ali"]).nickname)
+								}
+								else {
+									$("#u-tl-myname").html(app.cvt.getEncName(pro.acc.pid))
+								}
+								 unlogin.classList.add("mui-hidden");
+								balance.classList.remove("mui-hidden");
+								myname.classList.remove("mui-hidden");
+								app.getBalance(function(fee) {
+									balance.innerHTML = fee;
+								});
+							} else {
+								unlogin.classList.remove("mui-hidden");
+								balance.classList.add("mui-hidden");
+								myname.classList.add("mui-hidden");
+							}
+						});
+						app.onPageLoad(function() {
+							//初始化信息
+							plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+								var wgt_ver;
+								var first_update = "false";
+								wgt_ver = inf.version;
+								if(localStorage["first_update"] != wgt_ver) {
+									first_update = "true";
+									localStorage["first_update"] = wgt_ver;
+								}
+								pro.j.util.init({
+									//基本
+									version: plus.runtime.version,
+									wgt_ver: wgt_ver,
+									launcher: plus.runtime.launcher,
+									origin: plus.runtime.origin,
+									userAgent: plus.navigator.getUserAgent(),
+									first_update: first_update,
+									//设备
+									imei: plus.device.imei,
+									imsi: plus.device.imsi.join(','),
+									model: plus.device.model,
+									vendor: plus.device.vendor,
+									uuid: plus.device.uuid,
+									//系统
+									plus: mui.os.plus ? "true" : "false",
+									stream: mui.os.stream ? "true" : "false",
+									os: mui.os.android ? "android" : (mui.os.ios ? "ios" : "other"),
+									dev_version: mui.os.version || "",
+									is_bad_android: mui.os.isBadAndroid ? "true" : "false",
+									iphone: mui.os.iphone ? "true" : "false",
+									ipad: mui.os.ipad ? "true" : "false",
+									wechat: mui.os.wechat ? "true" : "false"
+								}, function(rlt) {
+									var data = rlt.data;
+									if(data) {
+										if(data.notice) {
+											mui.alert(data.notice, "消息", "确认");
+										} else if(data.prompt) {
+											app.toast(data.prompt);
+										} else if(data.update && data.up_src&&(localStorage["ignore_version"]!=data.version)) {
+											//版本升级
+											data.up_package_size = data.up_package_size || "";
+											if(data.update == "must") { //强制升级
+												if(data.up_type == "wgt") { //资源包强制下载
+													mui.alert(data.up_msg || "需下载新的资源文件。" + data.up_package_size, "提醒", "下载", function(e) {
+														if(e.index == -1) {
+															plus.runtime.quit();
+															return;
+														}
+														fileUpdate("update/up_wgt_package.wgt", data);
+													});
+												} else { //安装包强制安装
+													var msg = data.up_msg || "对不起，您的应用版本过旧，需立即升级。" + data.up_package_size;
+													if(mui.os.ios) {
+														uni.alertDLG(msg, "版本升级", function() {
+															plus.runtime.openURL(data.up_src);
+															return true;
+														}, "升级");
+													} else if(mui.os.android) {
+														mui.alert(msg, "版本升级", "升级", function(e) {
+															if(e.index == -1) {
+																plus.runtime.quit();
+																return;
+															}
+															fileUpdate("update/up_all_package.apk", data);
+														});
+													}
+												}
+											} else if(data.update == "advice") { //非强制升级
+												if(data.up_type == "wgt") { //资源包静默下载
+													mui.confirm(data.up_msg || "有新的资源，是否现在下载？" + data.up_package_size, "提醒", ["后台下载", "取消"], function(e) {
+														if(e.index == 0) {
+															fileUpdate("update/up_wgt_package.wgt", data);
+														}
+													});
+												} else { //安装包自愿安装
+													mui.confirm(data.up_msg || "存在新版本，是否升级到最新版？" + data.up_package_size, "升级提醒", ["升级","跳过此版本", "取消"], function(e) {
+														if(e.index == 0) {
+															if(mui.os.ios) {
+																plus.runtime.openURL(data.up_src);
+															} else if(mui.os.android) {
+																fileUpdate("update/up_all_package.apk", data);
+															}
+														}
+														else if(e.index==1){
+															localStorage["ignore_version"]=data.version;
+														}
+													});
+												}
+											}
+											//
+										}
+									}
+								}, function(rlt) {
+									app.msgBox(rlt.msg);
+								}, function(e) {
+									if(e.statusText == "timeout") {
+										app.toast("网络不通或服务未响应");
+									} else {
+										app.toast("连接异常");
+									}
+								});
+							});
+						});
+					});
+				}
+				//
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					backButtonPress++;
+					if(backButtonPress > 1) {
+						app.quit();
+					} else {
+						app.toast('再按一次退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				}
+
+				//
+				if(mui.os.android) {
+					document.getElementById("u-pr-file").classList.remove("mui-hidden");
+				}
+
+				function cameraImg() {
+					var cmr = plus.camera.getCamera();
+					cmr.captureImage(function(path) {
+						//uploadFile(path);
+					}, function(error) {
+						console.log(error.message);
+					});
+				}
+				function fileUpdate(file_name, data) {
+					app.fileUpdate(file_name, data);
+				}
+			</script>
+	</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#u-info-msg {
+				font-size: 30px;
+				margin-top: 30px;
+				text-align: center;
+			}
+			#u-info-icon{
+				text-align: center;
+			}
+			#u-info-icon img {
+				width: 45%;
+				margin-top: 10px;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="app.backIndex()"></a>
+			<h1 id="u-info-title" class="mui-title"></h1>
+		</header>
+		<div class="mui-content" style="background: #fff;">
+			<div id="u-info-icon"></div>
+			<div id="u-info-msg"></div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+		mui.init();
+			mui.plusReady(function() {
+				app.onPageLoad(function(para) {
+					if(para.msg) {
+						document.getElementById("u-info-title").innerHTML = para.title || "";
+						document.getElementById("u-info-icon").innerHTML = para.icon || "";
+						document.getElementById("u-info-msg").innerHTML = para.msg || "";
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

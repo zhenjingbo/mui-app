@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <style type="text/css">
+
+    </style>
+    <!--	初始化方法-->
+    <script src="js/init.js"></script>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+      <h1 class="mui-title">照片打印</h1>
+    </header>
+    <div class="mui-content">
+    </div>
+    <!-- page code -->
+    <script src="js/mui.min.js"></script>
+    <script src="js/uni.lib.js"></script>
+    <script src="js/pro.lib.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript">
+      var data;
+      mui.init({});
+        mui.plusReady(function() {
+         app.onPreload(function(para) {       
+         data = para;
+     
+         console.log(proj.cac.getAppCheckUrl());
+         var immersed = 45;
+        if(plus.navigator.isImmersedStatusbar()) {
+          immersed += init.immersed;
+        }
+       mui.openWindow({
+    url: proj.cac.getAppCheckUrl() + "?act=photo&code="+data.code+"&dev_sn="+data.devSN+"&"+(new Date()).getTime(),
+    id:"wx.html",
+    styles: {
+        top:immersed + "px", //新页面顶部位置
+        bottom: "0", //新页面底部位置
+    }
+})
+   })
+      });
+    </script>
+  </body>
+
+</html>

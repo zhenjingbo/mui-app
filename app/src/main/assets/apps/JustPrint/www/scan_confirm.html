@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+		.u-confirm .mui-table-view-cell{
+			display: -webkit-box;
+	-webkit-box-orient: horizontal;
+			display: -webkit-flex;display: flex;
+				-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+			justify-content: space-between;padding-top:15px;padding-bottom: 15px;}
+		.u-confirm .mui-table-view-cell label{width: 80px;flex: none;}
+		.u-confirm .mui-table-view-cell.mui-active{background: initial;}
+		.u-confirm .mui-table-view-cell .u-table-select{position:relative;}
+		.u-confirm .mui-table-view-cell .u-table-select:active{opacity: .7;}
+		.u-confirm .mui-table-view-cell select{width: auto;margin: 0;}
+		
+		.u-item{text-align: center;font-size: 20px;padding: 15px 0;}
+		
+		.u-item.submit{background:#00A0E9;color: #FFFFFF;}
+		.u-item.submit:active{opacity: .6;}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">扫描详情</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="u-confirm">
+				<ul class="mui-table-view u-table-view">
+					<li class="mui-table-view-cell">
+						<label>文件</label>
+						<div class="mui-ellipsis">XXXXXXXXXXXX.jpg</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>扫描时间</label>
+						<div>2016-04-12 14:00</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>扫描地点</label>
+						<div>美林公馆文印点</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>大小</label>
+						<div>504M</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>转存费用</label>
+						<div>10元</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div>转存方式
+							<p>建议选择邮箱接收扫描文件</p>
+						</div>
+						<div class="u-table-select">
+							<select>
+							<option value="1">邮箱接收</option>
+							<option value="2">下载到手机</option>
+						</select><span class="u-caret-top" style="top:15px"></span></div>
+					</li>
+				</ul>
+			</div>
+			<div style="margin-top: 10px;">
+								<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" onclick="app.showRecharge()">
+						<div class="mui-ellipsis" style="line-height: 26px;padding-right: 20px;">
+							钱包余额 : <span class="orange bold">¥ 0:00</span>
+						</div>
+						<p>余额可用于打印、复印、扫描</p><!--钱包余额可用于打印、复印、扫描-->
+					</a>
+				</li>
+			</ul>
+			</div>
+			<div class="u-bottom-action">
+				<div style="display: table;width: 100%;">
+							<div class="u-item mui-col-xs-8" style="display: table-cell;">
+								<div class="u-fee"><span class="grey" style="font-size: 14px;">转存费用</span><span class="red bold">¥ 2:00</span></div>
+							</div>
+							<div class="u-item mui-col-xs-4 submit" style="display: table-cell;">
+							转存
+							</div>
+				</div>
+		</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+		mui.init();
+		</script>
+	</body>
+
+</html>

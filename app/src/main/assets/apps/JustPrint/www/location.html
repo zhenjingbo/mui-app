@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#map-container {
+				width: 100%;
+				height: 50%;
+			}
+			
+			.u-back-panel {
+				height: 40px;
+				width: 40px;
+				line-height: 40px;
+				background: #000;
+				opacity: .5;
+				margin-top: 8px;
+				margin-left: 8px;
+				border-radius: 50%;
+			}
+			
+			.u-back-icon {
+				position: absolute;
+				top: 16px;
+				left: 15px;
+				color: #FFFDF9;
+			}
+			
+			#u-actions {
+				padding-bottom: 45px;
+			}
+			/*.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+				color: #777;
+				padding-top: 6px;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #00A0E9;
+				border-bottom-color: #00A0E9;
+			}*/
+			
+			#u-header {
+				font-size: 12px;
+			}
+			
+			#u-panel {
+				overflow: scroll;
+				overflow-x: hidden;
+				position: relative;
+			}
+			
+			.u-p-page {
+				/*height: 100%;
+				overflow: scroll;
+				overflow-x: hidden;*/
+			}
+			
+			#u-near .mui-table-view:before {
+				height: 0;
+			}
+			
+			#u-near .mui-table-view-cell:after {
+				height: 0;
+			}
+			/*.u-p-page:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background: #CCCCCC;
+				transform: scaleY(.5);
+				-webkit-transform: scaleY(.5);
+			}*/
+			
+			.u-dev-items {
+				/*height: 100%;*/
+				/*overflow: scroll;*/
+				/*padding-bottom: 3px;*/
+				background: #F3F3F3;
+			}
+			
+			.u-dev-items .mui-table-view-cell {
+				background: #FFFFFF;
+				margin: 0 0 3px 0;
+				padding: 6px 15px;
+			}
+			
+			.u-dev-items .mui-table-view-cell:active {
+				background: #F9F9F9;
+			}
+			
+			.u-dev-items.mui-table-view:after {
+				height: 0;
+			}
+			
+			.u-dev-items .mui-table-cell h4 {
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-top: 3px;
+				font-size: 14px;
+			}
+			
+			.u-dev-items .mui-table-cell h5 {
+				font-size: 12px;
+			}
+			/*.u-prop:before{
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 1px;
+				width: 100%;
+				background: #F3F3F3;
+				transform:scaleY(.5);
+				-webkit-transform:scaleY(.5);
+			}*/
+			
+			.u-prop span {
+				color: #5995c2;
+				font-size: 12px;
+				padding: 2px 3px;
+				margin-right: 3px;
+				border-radius: 3px;
+				background: #edf5fa;
+			}
+			
+			.u-prop span.color {
+				color: #e16363;
+				background: #fed3cc;
+			}
+			
+			.u-dev-info {
+				margin: 0 10px;
+			}
+			
+			.u-dev-info h4 {
+				color: #00A0E9;
+			}
+			
+			.amap-geo {
+				background-size: auto;
+			}
+			
+			.u-map-act {
+				box-shadow: 0 -1px 2px #f1f1f1;
+			}
+			
+			.u-map-act a {
+				font-size: 13px;
+				color: #333;
+			}
+			
+			.u-head-act {
+				background: #FFFFFF;
+				height: 20px;
+			}
+			
+			.u-type {
+				font-size: 10px !important;
+				color: #FFFFFF;
+				display: inline-block;
+				line-height: 20px;
+				padding: 1px 2px;
+				margin-right: 5px;
+			}
+			
+			.u-type-photo {
+				background: #13CE66;
+			}
+			
+			.u-type-manual {
+				background: #F7BA2A;
+			}
+			
+			.u-type-normal {
+				background: #20A0FF;
+			}
+			
+			.u-d-card {
+				/*height: 100%;*/
+				background: #f7f7f7;
+			}
+			
+			.u-card-basic {
+				padding: 10px 5px 2px 5px;
+				background: #FFFFFF;
+			}
+			
+			.u-d-card .title {
+				margin: 0;
+			}
+			
+			.u-d-card .u-card-img {
+				height: 150px;
+				width: 100%;
+				margin: 5px auto;
+				position: relative;
+				background-size: cover;
+			}
+			
+			.u-card-img .u-img {
+				width: 50%;
+				top: -10%;
+				position: absolute;
+				left: 50%;
+				margin-left: -25%;
+			}
+			
+			.u-d-card .u-card-more {
+				background: #FFFFFF;
+				margin: 5px 0 5px;
+			}
+			
+			.u-d-card .u-d-more {
+				min-height: 20px;
+				display: inline-block;
+				padding-right: 10px;
+			}
+			
+			.u-d-card p {
+				color: #333;
+				font-size: 12px;
+				padding: 2px 0;
+				margin: 0;
+			}
+			
+			.u-d-card p.thin {
+				color: #999;
+			}
+			
+			.u-d-card .u-line-top {
+				margin-bottom: 5px;
+			}
+			
+			.u-d-card .u-line-top:before {
+				height: 2px;
+				background: #F3F3F3;
+			}
+			
+			.u-card-more {
+				padding: 5px 0 5px 5px;
+			}
+			
+			.u-card-more .p-icon {
+				position: relative;
+				padding-left: 22px;
+			}
+			
+			.p-icon i {
+				position: absolute;
+				top: 0;
+				left: 0;
+				color: #009EF2;
+				font-size: 18px;
+				padding-top: 2px;
+			}
+			
+			.u-line-erect {
+				position: relative;
+				margin: 0 10px;
+			}
+			
+			.u-line-erect:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 1px;
+				background: #DDDDDD;
+				transform: scaleX(.5);
+				-webkit-transform: scaleX(.5);
+			}
+			
+			.u-tbl-panel {
+				height: 200px;
+				margin: 0 5% 5%;
+				background: #F9F9F9;
+			}
+			
+			.u-tbl-panel table {
+				height: 100%;
+				width: 100%;
+			}
+			
+			.u-tbl-panel table td {
+				border: 1px solid #F3F3F3;
+				background: #FFFFFF;
+				text-align: center;
+				vertical-align: middle;
+			}
+			
+			.u-card-fee {
+				background: #FFFFFF;
+				color: #666666;
+			}
+			
+			.u-card-fee .u-segmented-control {
+				border-color: #00a0e9;
+				display: -webkit-flex;
+				display: flex;
+			}
+			
+			.u-card-fee .u-segmented-control .u-control-item {
+				line-height: 22px;
+				font-size: 14px;
+				color: #999;
+				text-align: center;
+				display: inline-block;
+				border-bottom: 2px solid #fff;
+				flex-grow: 1;
+			}
+			
+			.u-card-fee .u-segmented-control .u-control-item.mui-active {
+				color: #00A0E9;
+				border-color: #00A0E9;
+			}
+			
+			.u-card-fee .u-tbl-paper {
+				background: #F9F9F9;
+				font-size: 14px;
+			}
+			
+			.u-card-fee .u-tbl-color {
+				font-size: 13px;
+			}
+			
+			.u-card-fee .u-tbl-prop {
+				font-size: 12px;
+			}
+			
+			.u-card-fee .u-tbl-fee {
+				color: #00A0E9;
+				font-size: 12px;
+			}
+			
+			.u-action-list {
+				padding: 0;
+			}
+			
+			.u-action-list a {
+				flex-grow: 1;
+				padding: 9px 0 5px 0;
+			}
+			
+			.u-action-list a:active {
+				background: #F3F3F3;
+			}
+			
+			.u-action-list i {
+				color: #00a0e9;
+				font-size: 18px;
+				font-weight: bold;
+				padding-top: 5px;
+			}
+			
+			.u-action-list .u-a-tag {
+				color: #999999;
+				font-size: 12px;
+				line-height: 1;
+				margin-top: -4px;
+			}
+			
+			.is_ios .u-action-list a {
+				padding-top: 3px;
+			}
+			
+			.is_ios .u-action-list i {
+				line-height: 27px;
+			}
+			
+			.ani-shake {
+				-webkit-animation: ani-shake 1s linear infinite;
+				animation: ani-shake 1s linear infinite;
+			}
+			
+			@-webkit-keyframes ani-shake {
+				from {
+					-webkit-transform: rotate(0);
+				}
+				to {
+					-webkit-transform: rotate(360deg);
+				}
+			}
+			
+			@keyframes ani-shake {
+				from {
+					transform: rotate(0);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body class="no_immersed">
+		<div id="u-content" class="mui-content" style="height: 100%;background: #fff;">
+			<div id="map-container" style="padding-top: 120px;text-align: center;">地图加载中...</div>
+			<div id="u-actions">
+				<div id="u-panel" style="position: relative;">
+					<div class="mui-hidden" style="height: 3%;position: fixed;top: 50%;left:0;right: 0;background: linear-gradient(#fff, rgba(255,255,255,0));z-index: 99;">
+					</div>
+					<div id="u-near" class="u-p-page">
+						<div class='u-none-data'>正在获取...</div>
+					</div>
+					<div id="u-detail" class="u-p-page mui-hidden">
+						<div id="u-detail-loading" class='ami-loading mui-hidden'><span class='trip trip-bounce1'></span><span class='trip trip-bounce2'></span><span class='trip'></span></div>
+						<div id="u-detail-card" class="u-d-card">
+							<div class="u-card-basic">
+								<div class="mui-ellipsis title"><span id="u-d-type"></span> <span id="u-d-name"></span></div>
+								<p id="u-d-posi" class="thin"></p>
+								<div class="u-line-top"></div>
+								<div id="u-d-prop" class="u-prop"></div>
+							</div>
+							<div id="u-card-img" class="u-card-img" style="background-image:url(img/printer_dft.png);">
+								<img class="u-img" src="img/icon-LOGO.svg">
+							</div>
+							<div class="u-card-more">
+								<p class="p-icon"><i class="iconfont icon-time"></i> 开放时间 <span id="u-d-open"></span></p>
+								<div class="u-line-top"></div>
+								<p class="p-icon"><i class="iconfont icon-msnui-caller"></i> 联系方式 <span id="u-d-phone"></span></p>
+								<div class="u-line-top"></div>
+								<p class="p-icon"><i class="iconfont icon-dizhi"></i> 距离你 <span id="u-d-dist"></span></p>
+								<div class="u-line-top"></div>
+								<p class="p-icon"><i class="iconfont icon-gongneng"></i> <span id="u-d-more" class="u-d-more"></span></p>
+							</div>
+							<div id="u-card-fee" class="u-card-fee">
+								<div style="padding: 10px 0;">
+									<div class="u-segmented-control">
+										<a id="u-ctrl-print" class="u-control-item mui-active" for="item1">
+											打印
+										</a>
+										<a id="u-ctrl-copy" class="u-control-item" for="item2">
+											复印
+										</a>
+										<a id="u-ctrl-scan" class="u-control-item" for="item3">
+											扫描
+										</a>
+									</div>
+								</div>
+								<div>
+									<div id="item1" class="mui-control-content mui-active u-tbl-panel">
+									</div>
+									<div id="item2" class="mui-control-content u-tbl-panel">
+									</div>
+									<div id="item3" class="mui-control-content u-tbl-panel">
+										<div style="text-align: center;font-size: 24px;font-weight: bold;padding-top: 30%;">￥<span id="u-fee-scan"></span>/页</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="u-map-act u-action-list u-flex">
+				<a onclick="myLocation()">
+					<i id="u-loc-icon" class="iconfont icon-location"></i>
+					<div class="u-a-tag">我的位置</div>
+				</a>
+				<a id="u-btn-near" class="u-item u-active">
+					<i class="iconfont icon-near"></i>
+					<div class="u-a-tag">附近文印点</div>
+				</a>
+				<a id="u-btn-all" class="u-item">
+					<i class="iconfont icon-earth"></i>
+					<div class="u-a-tag">全地图</div>
+				</a>
+			</div>
+		</div>
+		<!--template7-->
+		<script id="tpl-dev" class="htm-template" type="text/html">
+			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed u-dev-items">
+				{{#list}}
+				<li class="mui-table-view-cell u-dev-item" data-id="{{id}}" data-coord="{{coord}}">
+					<div class="mui-table">
+						<div class="mui-table-cell mui-col-xs-10">
+							<h4 class="mui-ellipsis">{{type}}{{name}}</h4>
+							<h5>地址：{{posi}}</h5>
+							<p class="mui-h6 mui-ellipsis u-prop">{{prop}}</p>
+						</div>
+						<div class="mui-table-cell mui-col-xs-2 mui-text-right">
+							<div><span class="mui-icon mui-icon-redo" style="color: #00A0E9;"></span></div>
+							<span class="mui-h5">{{distance}}</span>
+						</div>
+					</div>
+				</li>
+				{{/list}}
+			</ul>
+		</script>
+		<script id="tpl-detail" class="htm-template" type="text/html">
+			<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed u-dev-items">
+				{{#list}}
+				<li class="mui-table-view-cell u-dev-item" data-id="{{id}}" data-coord="{{coord}}">
+					<div class="mui-table">
+						<div class="mui-table-cell mui-col-xs-10">
+							<h4 class="mui-ellipsis">{{type}}{{name}}</h4>
+							<h5>地址：{{posi}}</h5>
+							<p class="mui-h6 mui-ellipsis u-prop">{{prop}}</p>
+						</div>
+						<div class="mui-table-cell mui-col-xs-2 mui-text-right">
+							<div><span class="mui-icon mui-icon-redo" style="color: #00A0E9;"></span></div>
+							<span class="mui-h5">{{distance}}</span>
+						</div>
+					</div>
+				</li>
+				{{/list}}
+			</ul>
+		</script>
+		<script id="tpl-fee-detail" class="htm-template" type="text/html">
+			<table>
+				{{#list}}
+				<tr>
+					<td rowspan="{{paperRow}}" class="u-tbl-paper">{{name}}</td>
+					<td rowspan="2" class="u-tbl-color">黑白</td>
+					<td class="u-tbl-prop">单面</td>
+					<td class="u-tbl-fee">￥{{norSingleFee}}</td>
+				</tr>
+				<tr>
+					<td class="u-tbl-prop">双面</td>
+					<td class="u-tbl-fee">￥{{norDoubleFee}}</td>
+				</tr>
+				{{#if supColor}}
+				<tr>
+					<td rowspan="2" class="u-tbl-color">彩色</td>
+					<td class="u-tbl-prop">单面</td>
+					<td class="u-tbl-fee">￥{{colSingleFee}}</td>
+				</tr>
+				<tr>
+					<td class="u-tbl-prop">双面</td>
+					<td class="u-tbl-fee">￥{{colDoubleFee}}</td>
+				</tr>
+				{{/if}} {{/list}}
+			</table>
+		</script>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/template7.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var compDev = Template7.compile(document.getElementById("tpl-dev").innerHTML);
+			var compFee = Template7.compile(document.getElementById("tpl-fee-detail").innerHTML);
+			var feeDetailTmp;
+			var map;
+			var markList = [];
+			var devList = {};
+			var coverSub;
+			var isFull = false;
+			//#u-actions padding-bottom
+			var panelOpenH = document.body.clientHeight / 2 - 45 + "px";
+			var mapOpenH = document.getElementById("u-content").clientHeight - 45 + "px";
+
+			function myLocation() {
+				var icon = document.getElementById("u-loc-icon");
+				icon.classList.add("ani-shake");
+				map.getUserLocation(function(state, point) {
+					icon.classList.remove("ani-shake");
+					//locState = "complete";
+					if(state == 0) {
+						map.setCenter(point);
+						//map.setZoom(13);
+					} else {
+						var msg = "获取定位失败";
+						if(mui.os.ios && state == -1) {
+							msg = "缺少权限，定位失败";
+						}
+						app.toast(msg);
+						//document.getElementById("u-near").innerHTML = "<div class='u-none-data'>没有数据</div>";
+					}
+					//coverSub && coverSub.evalJS("locCallback(" + state + ")");
+				});
+			}
+			var container = document.getElementById("map-container");
+			var btnNear = document.getElementById("u-btn-near");
+			var btnAll = document.getElementById("u-btn-all");
+			var iPanel = document.getElementById("u-panel");
+			var uDetail = document.getElementById("u-detail");
+			var uNear = document.getElementById("u-near");
+			iPanel.style.height = panelOpenH;
+			btnNear.addEventListener("tap", function() {
+				uDetail.classList.add("mui-hidden");
+				uNear.classList.remove("mui-hidden");
+				if(isFull) { //this.classList.contains("u-active")
+					//this.classList.add("u-active");
+					//btnAll.classList.remove("u-active");
+					iPanel.style.height = panelOpenH;
+					container.style.height = "50%";
+					map.resize();
+					map.setZoom(13);
+					isFull = false;
+				}
+				getCurrentPosition(function(point) {
+					map.setCenter(point);
+				});
+			});
+			btnAll.addEventListener("tap", function() {
+				if(!isFull) { //this.classList.contains("u-active")
+					//this.classList.add("u-active");
+					//btnNear.classList.remove("u-active");
+					iPanel.style.height = "0";
+					container.style.height = mapOpenH;
+					map.resize();
+					map.setZoom(11);
+					isFull = true;
+				}
+			});
+			mui.init();
+			mui.plusReady(function() {
+				feeDetailTmp = document.getElementById("u-card-fee").innerHTML;
+				setTimeout(function() {
+					//地图初始化
+					map = new plus.maps.Map("map-container", {
+						zoomControls: true
+					});
+					map.showUserLocation(true);
+					getCurrentPosition(function(point) {
+						map.centerAndZoom(point, 13);
+					});
+					createSubview();
+					app.onPageLoad(function() {
+						//状态栏文字变黑
+						if(plus.os.name == "iOS") {
+							plus.navigator.setStatusBarStyle("UIStatusBarStyleDefault");
+						}
+						proj.dev.getPrinter(function(rlt) {
+							var list = rlt.data;
+							devList = {};
+							for(var i = 0; i < markList.length; i++) {
+								map.removeOverlay(markList[i]);
+							}
+							markList = [];
+							if(list) {
+								var dt = new Date();
+								var now = dt.getHours() * 100 + dt.getMinutes();
+								for(var i = 0; i < list.length; i++) {
+									var dev = list[i];
+									if(dev.szCoordinate) {
+										if(dev.dwPrinterSN==1987){debugger;}
+										var cor = dev.szCoordinate.split(',');
+										if(cor.length > 1 && cor[0] && cor[1]) {
+											(plus.os.name == "iOS") && (cor = bd_encrypt(cor[0], cor[1])); //iOS高德转百度
+											var mk = new plus.maps.Marker(new plus.maps.Point(cor[0], cor[1]));
+											//类型
+											var ty = "a";
+											if((dev.dwRole & 8) > 0) {
+												ty = "b";
+											} else if((dev.dwCtrlType & 4096) > 0) {
+												ty = "c";
+											}
+											//开放时间
+											var op = (now > dev.dwOpenTime && now < dev.dwCloseTime) ? "open" : "close";
+											mk.setIcon(plus.os.name == "iOS" ? "img/mark_" + ty + "_" + op + ".png" : "img/mark_" + ty + "_" + op + "@3x.png");
+											//mk.setIcon("img/mark.png");
+											//markList.push(mk);
+											//var label = "<div class='u-dev-info'><h4>" + dev.szName + "</h4><p>" + dev.szPosi + "</p></div>";
+											//										if(plus.os.name == "iOS") {
+											//											mk.setBubble(new plus.maps.Bubble(dev.szPosi));
+											//										} else {
+											mk.dev = dev;
+											mk.onclick = function() {
+												if(plus.os.name == "iOS") {
+													this.setBubble();
+												}
+												showDetail(this.dev);
+												//												app.toast(this.posi, {
+												//													verticalAlign: "top"
+												//												});
+											}
+											//}
+											map.addOverlay(mk);
+											dev.marker = mk;
+											markList.push(mk);
+										}
+									}
+									devList[dev.dwPrinterSN] = dev;
+								}
+							}
+							//map.isShowUserLocation() || map.showUserLocation(true);
+						});
+						//事件注册
+
+						//点击附件点
+						mui("#u-near").on("tap", ".mui-table-view-cell",
+							function() {
+								var id = parseInt(this.dataset.id);
+								if(devList[id]) {
+									var mk = devList[id].marker;
+									map.setCenter(mk.getPoint());
+									//map.panTo(mk.getPosition());
+									//mk.setAnimation('AMAP_ANIMATION_DROP');
+									showDetail(devList[id]);
+								}
+							});
+					});
+				}, 300);
+				app.curView.addEventListener("hide", function() {
+					if(plus.os.name == "iOS") {
+						plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+					}
+				});
+				app.curView.addEventListener("close", function() {
+					if(plus.os.name == "iOS") {
+						plus.navigator.setStatusBarStyle("UIStatusBarStyleBlackOpaque");
+					}
+				});
+			});
+
+			function createSubview() {
+				// 创建加载内容窗口
+				var topoffset = (plus.os.name == "iOS" ? 20 : 0);
+				if(plus.navigator.isImmersedStatusbar()) { // 兼容immersed状态栏模式
+					topoffset += Math.round(plus.navigator.getStatusbarHeight());
+				}
+				var wsub = plus.webview.create('map_cover_sub.html', 'sub', {
+					top: topoffset + 'px',
+					height: '50px',
+					width: '52px',
+					position: 'absolute',
+					scrollIndicator: 'none',
+					background: 'transparent'
+				});
+				app.curView.append(wsub);
+				coverSub = wsub;
+			}
+			//定位到当前位置
+			function getCurrentPosition(suc) {
+				map.getUserLocation(function(state, point) {
+					if(state == 0) {
+						//curLoc＝ point;
+						updateNearDev(point);
+						suc && suc(point);
+					} else {
+						var msg = "获取定位失败";
+						if(mui.os.ios && state == -1) {
+							msg = "缺少权限，定位失败";
+						}
+						app.toast(msg);
+						document.getElementById("u-near").innerHTML = "<div class='u-none-data'>没有数据</div>";
+					}
+				});
+			}
+			//获取附近文印点
+			function updateNearDev(posi) {
+				var lng = posi.getLng();
+				var lat = posi.getLat();
+				//ios用百度地图
+				if(mui.os.ios) {
+					var p = bd_decrypt(lng, lat);
+					lng = p.lon;
+					lat = p.lat;
+				}
+				//
+				proj.dev.getNearPrinter(lng + "," + lat, function(rlt) {
+					var data = rlt.data;
+					var list = [];
+					for(var i = 0; i < data.length; i++) {
+						var it = data[i];
+						var dev = it.PrinterInfo;
+						var info = cvtInfo(dev);
+						var item = {
+							id: dev.dwPrinterSN,
+							name: dev.szName,
+							posi: dev.szPosi,
+							coord: dev.szCoordinate, //暂时未用到，不作百度转换
+							type: info.type,
+							prop: info.prop,
+							distance: app.cvt.toDistance(it.dwDistance)
+						};
+						list.push(item);
+					}
+					var content;
+
+					if(list.length > 0) {
+						content = compDev({
+							list: list
+						});
+					} else {
+						content = "<div class='u-none-data'>附近没有文印点</div>";
+					}
+					document.getElementById("u-near").innerHTML = content;
+					//						mui("#u-near").on("tap", ".mui-table-view-cell",
+					//						function(e) {
+					//								var id = parseInt(this.dataset.id);
+					//								if(devList[id]) {
+					//									var mk = devList[id].marker;
+					//									map.setCenter(mk.getPoint());
+					//									//map.panTo(mk.getPosition());
+					//									//mk.setAnimation('AMAP_ANIMATION_DROP');
+					//									showDetail(devList[id]);
+					//								}
+					//						});
+				});
+			}
+
+			function cvtInfo(dev) {
+				var type_sn = 0;
+				var type = "";
+				var prop = "";
+				if((dev.dwRole & 8) > 0) { //照片点
+					type_sn = 4;
+					type = "<span class='u-type u-type-photo'>照片</span>";
+					prop += "<span>照片打印</span>";
+				} else {
+					if((dev.dwCtrlType & 4096) > 0) { //人工点
+						type_sn = 2;
+						type = "<span class='u-type u-type-manual'>人工</span>";
+						prop += "<span>人工服务</span>";
+					} else { //普通点
+						type_sn = 1;
+						type = "<span class='u-type u-type-normal'>自助</span>";
+						if((dev.dwRole & 1) > 0) {
+							prop += "<span>打印</span>";
+						}
+						if((dev.dwRole & 2) > 0) {
+							prop += "<span>复印</span>";
+						}
+						if((dev.dwRole & 4) > 0) {
+							prop += "<span>扫描</span>";
+						}
+						if((dev.dwProperty & 8) > 0) {
+							prop += "<span class='color'>支持彩色</span>"
+						}
+					}
+				}
+				return {
+					type_sn: type_sn,
+					type: type,
+					prop: prop
+				}
+			}
+
+			function bd_encrypt(gg_lon, gg_lat) {
+				var X_PI = Math.PI * 3000.0 / 180.0;
+				var x = gg_lon,
+					y = gg_lat;
+				var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * X_PI);
+				var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * X_PI);
+				var bd_lon = z * Math.cos(theta) + 0.0065;
+				var bd_lat = z * Math.sin(theta) + 0.006;
+				return [bd_lon, bd_lat];
+			}
+
+			function bd_decrypt(bdLon, bdLat) {
+				var X_PI = Math.PI * 3000.0 / 180.0;
+				var x = bdLon - 0.0065,
+					y = bdLat - 0.006;
+				var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * X_PI);
+				var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * X_PI);
+				var gcjLon = z * Math.cos(theta);
+				var gcjLat = z * Math.sin(theta);
+				return {
+					'lat': gcjLat,
+					'lon': gcjLon
+				};
+			}
+
+			function convertErrorInfo(info) {
+				switch(info) {
+					case "NOT_SUPPORTED":
+						return "当前浏览器不支持定位功能";
+					case "PERMISSION_DENIED":
+						return "浏览器拒绝定位";
+					case "POSITION_UNAVAILABLE":
+						return "浏览器无法获取当前位置";
+					case "TIMEOUT":
+						return "定位超时";
+					default:
+						return "未知错误";
+				}
+			}
+
+			function showDetail(dev) {
+				document.getElementById("u-near").classList.add("mui-hidden");
+				document.getElementById("u-detail-card").classList.add("mui-hidden");
+				document.getElementById("u-detail-loading").classList.remove("mui-hidden");
+				//uDetail.scrollTop = 0;
+				uDetail.classList.remove("mui-hidden");
+				if(isFull) {
+					iPanel.style.height = panelOpenH;
+					container.style.height = "50%";
+					map.resize();
+					map.setZoom(13);
+					isFull = false;
+				}
+				map.setCenter(dev.marker.getPoint());
+				//赋值
+				var info = cvtInfo(dev);
+				document.getElementById("u-card-fee").classList.add("mui-hidden");
+				if(info.type_sn == 1 || info.type_sn == 4) {
+					cvtFeeDetail(dev);
+				}
+				if(dev.imgUrl && dev.imgUrl.length > 0) {
+					document.getElementById("u-card-img").style.backgroundImage = "url(" + dev.imgUrl[0] + ")";
+				}
+				document.getElementById("u-d-type").innerHTML = info.type;
+				document.getElementById("u-d-name").innerHTML = dev.szName;
+				document.getElementById("u-d-prop").innerHTML = info.prop;
+				document.getElementById("u-d-posi").innerHTML = dev.szPosi;
+				document.getElementById("u-d-phone").innerHTML = (dev.szTel || "暂缺");
+				document.getElementById("u-d-more").innerHTML = dev.szMemo;
+				debugger;
+				//document.getElementById("u-d-model").innerHTML = dev.dwModel == 103 ? "施乐" : (dev.dwModel == 403 ? "理光" : "其他");
+				var open = app.cvt.toTime(dev.dwOpenTime) + "-" + app.cvt.toTime(dev.dwCloseTime);
+				document.getElementById("u-d-open").innerHTML = (dev.dwOpenTime == 0 && dev.dwCloseTime > 2350) ? "24小时开放" : open;
+
+				//				parseInt(dev.dwOpenTime/60)+":"+parseInt(dev.dwOpenTime%60)+
+				//				"-"+parseInt(dev.dwCloseTime/60)+":"+parseInt(dev.dwCloseTime%60);
+				var dist = document.getElementById("u-d-dist");
+				dist.innerHTML = "等待计算...";
+				map.getUserLocation(function(sta, point) {
+					if(sta == 0) {
+						plus.maps.Map.calculateDistance(point, dev.marker.getPoint(), function(e) {
+							dist.innerHTML = app.cvt.toDistance(parseInt(e.distance));
+						}, function() {
+							dist.innerHTML = "获取距离失败";
+						});
+					} else {
+						dist.innerHTML = "定位失败";
+					}
+				});
+				setTimeout(function() {
+					document.getElementById("u-detail-loading").classList.add("mui-hidden");
+					document.getElementById("u-detail-card").classList.remove("mui-hidden");
+					uDetail.scrollTop = 0;
+				}, 300)
+			}
+
+			function cvtFeeDetail(dev) {
+				var isColor = (dev.dwProperty & 8) > 0;
+				pro.j.print.getFeeSTD(function(rlt) {
+					var stds = rlt.data;
+					//					var str = "";
+					var prior = 0;
+					for(var i = 0; i < stds.length; i++) {
+						//过滤优先级低的费率  哎
+						if(stds[i].dwPriority > prior)
+							prior = stds[i].dwPriority;
+					}
+					var detail = {
+						print: [],
+						copy: [],
+						scan: []
+					};
+					for(var i = 0; i < stds.length; i++) {
+						var std = stds[i];
+						if(std.dwPriority < prior) continue;
+						if(std.dwFeeItemSN == 2 || std.dwFeeItemSN == 3) { //打印和复印
+//							var pname=std.dwPaperID == 8 ? "A3" : (std.dwPaperID == 9?"A4":(std.dwPaperID == 281?"5寸":(std.dwPaperID == 285?"6寸":"未知")));
+							var item = {
+								name: std.szFeeName,
+								norSingleFee: app.cvtFee(std.dwMonoFee + std.dwMaterialFee),
+								norDoubleFee: app.cvtFee(std.dwMonoFee * 2 + std.dwMaterialFee),
+								paperRow: 2,
+								supColor: isColor
+							};
+							if(isColor) {
+								item.paperRow = 4;
+								item.colSingleFee = app.cvtFee(std.dwColorFee + std.dwMaterialFee);
+								item.colDoubleFee = app.cvtFee(std.dwColorFee * 2 + std.dwMaterialFee);
+							}
+							if(std.dwFeeItemSN == 2) {
+								detail.print.push(item);
+							} else if(std.dwFeeItemSN == 3) {
+								detail.copy.push(item);
+							}
+						} else if(std.dwFeeItemSN == 4) {
+							detail.scan.push(std); //赋值费率
+						}
+					}
+					var div = document.createElement("div");
+					div.innerHTML = feeDetailTmp;
+					if(detail.print.length>0) {//(dev.dwRole & 1) > 0
+						div.querySelector("#item1").innerHTML = compFee({
+							list: detail.print
+						});
+					}
+//					 else {
+//						div.querySelector("#item1").innerHTML = "不支持打印";
+//					}
+					if((dev.dwRole & 2) > 0) {
+						div.querySelector("#item2").innerHTML = compFee({
+							list: detail.copy
+						});
+					} else {
+						div.querySelector("#u-ctrl-copy").classList.add("mui-hidden");
+					}
+					if((dev.dwRole & 4) > 0 && detail.scan.length > 0) {
+						div.querySelector("#u-fee-scan").innerHTML = app.cvtFee(detail.scan[0].dwMonoFee);
+					} else {
+						div.querySelector("#u-ctrl-scan").classList.add("mui-hidden");
+					}
+					document.getElementById("u-card-fee").innerHTML = div.innerHTML;
+					//费率选项卡
+					mui(".u-control-item").each(function() {
+						this.addEventListener("tap", function() {
+							if(!this.classList.contains("mui-active")) {
+								mui(".u-control-item").each(function() {
+									this.classList.remove("mui-active");
+									document.getElementById(this.getAttribute("for")).classList.remove("mui-active");
+								});
+								this.classList.add("mui-active");
+								document.getElementById(this.getAttribute("for")).classList.add("mui-active");
+							}
+						});
+					});
+					document.getElementById("u-card-fee").classList.remove("mui-hidden");
+				}, {
+					"dev_sn": dev.dwPrinterSN,
+					"fee_type": 0
+				}); //＝0全部类型费率
+			}
+		</script>
+	</body>
+
+</html>

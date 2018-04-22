@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.u-detail-panel {
+				background: #00A0E9;
+				color: #FFFFFF;
+			}
+			
+			.u-detail-panel a {
+				color: #FFFFFF;
+			}
+			
+			.u-my-info {
+				font-size: 15px;
+				width: 100%;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: end;
+				align-items: flex-end;
+				padding-top: 20px;
+			}
+			
+			.u-my-info a.iconfont {
+				font-size: 3.3em;
+				color: #ddd;
+				padding: 8px;
+				margin-right: 15px;
+				background: #fff;
+				border-radius: 50%;
+			}
+			
+			.u-my-stat {
+				position: relative;
+				height: 54px;
+				margin-top: 20px;
+			}
+			
+			.u-shade {
+				background: #000;
+				opacity: .1;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				width: 100%;
+				z-index: 0;
+			}
+			
+			.u-my-report {
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				justify-content: center;
+				text-align: center;
+				font-size: 13px;
+				position: absolute;
+				height: 100%;
+				width: 100%;
+			}
+			
+			.u-my-report li.u-middle {
+				margin-left: 6%;
+				margin-right: 6%;
+				padding-left: 6%;
+				padding-right: 6%;
+				position: relative;
+			}
+			
+			.u-my-report li.u-middle:before {
+				content: "";
+				width: 1px;
+				background: #EEEEEE;
+				position: absolute;
+				top: 10px;
+				left: 0;
+				bottom: 5px;
+			}
+			
+			.u-my-report li.u-middle:after {
+				content: "";
+				width: 1px;
+				background: #EEEEEE;
+				position: absolute;
+				top: 10px;
+				right: 0;
+				bottom: 5px;
+			}
+			.mui-table-view li.mui-table-view-cell a img{
+			  height: 25px;
+			  margin-left:-40px;
+			  vertical-align: middle;
+			}
+			.mui-table-view li.mui-table-view-cell a span{
+			  margin-left:10px;
+			}
+			.mui-table-view li.mui-table-view-cell a {
+				padding: 14px 15px 14px 56px;
+			}
+			
+			.mui-table-view .iconfont {
+				font-size: 28px;
+				position: absolute;
+				top: 10px;
+				left: 15px;
+			}
+			
+			.u-icon-package {
+				height: 26px;
+				width: 26px;
+				display: inline-block;
+				margin-right: 10px;
+				position: relative;
+				line-height: 26px;
+			}
+			
+			.mui-navigate-right:after,
+			.mui-push-right:after {
+				font-size: 23px;
+			}
+			.headimg{
+			  width: 70px;
+			  height: 70px;
+			  border-radius:35px;
+			  margin-right: 10px;
+			  display: inline-block;
+			  position: absolute;
+			  left:35px;
+			  top:75px;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;" id="back"></span></a>
+			<h1 class="mui-title" id="myTitle"></h1>
+		</header>
+		<div class="mui-content u-my-input">
+			<div class="u-detail-panel">
+				<div class="u-my-info" id="u-my-info">
+					<div style="text-align: right;width: 120px;" id="headimg">
+						
+					</div>
+					<div style="margin-top: 5px;">
+						<div id="u-my-pid">:)</div>
+						<div id="u-nickname" style="display:none;">--</div>
+						<div style=""><span id="bal"></span>:<span id="u-my-balance">--</span></div>
+					</div>
+				</div>
+				<div class="u-my-stat">
+					<div class="u-shade"></div>
+					<ul class="u-my-report">
+						<li onclick="app.showPrintRec()">
+							<a>
+								<div><span id="u-rec-print">--</span></div>
+								<div id="printC"></div>
+							</a>
+						</li>
+						<!--<li class="u-line">|</li>-->
+						<li class="u-middle" onclick="app.showCopyRecord()">
+							<a>
+								<div><span id="u-rec-copy">--</span></div>
+								<div id="copyC"></div>
+							</a>
+						</li>
+						<!--<li class="u-line">|</li>-->
+						<li onclick="app.showAllRec()">
+							<a>
+								<div><span id="u-rec-scan">--</span></div>
+								<div id="scanC"></div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div>
+				<ul class="mui-table-view" style="margin-top: 0;">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" onclick="app.showPassword()">
+						  <img src="img/pwd.png" alt="" />
+							<span id="pwd-M"></span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" onclick="app.showEmail()">
+						  <img src="img/email.png" alt="" />
+							<span id="email-M"></span>
+							<span id="u-user-email" class="u-list-right"></span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" onclick="app.showWallet()">
+						  <img src="img/fee.png" alt="" />
+							<span id="wallet-M"></span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" onclick="app.getInvoice()">
+					  <img src="img/invoice.png" alt="" />
+<!--					  <a class="mui-navigate-right" onclick="app.showInvoiceRec()">-->
+						<span id="invoice-M"></span>
+					</a>
+				</li>
+					<li class="mui-table-view-cell">
+						<a class="" id="telephone">
+						  <img src="img/tel.png" alt="" />
+							<span id="custom"></span> 
+							<span class="mui-pull-right">400-905-7333</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="logOut">
+						  <img src="img/out.png" alt="" />
+							<span id="loginOut"></span>
+						</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view" style="margin-top: 20px;">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" onclick="app.showAbout()" style="padding-left: 20px;" id="about">
+						</a>
+					</li>
+					</ul>
+			</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		 <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery.i18n.properties-min-1.0.9.js"></script>
+		<script type="text/javascript">
+		  var auths = null;
+		    <!--var  lan = JSON.parse(localStorage["zhlan"]);-->
+			mui.init({
+				preloadPages: [{
+					url: "password.html",
+					id: "password"
+				}, {
+					url: "email.html",
+					id: "email"
+				}, {
+					url: "wallet.html",
+					id: "wallet"
+				}]
+			});
+			mui.plusReady(function() {
+			  $("#logOut").on("tap",function () {
+//			    if (pro.acc.nickname) {
+//			    	 plus.nativeUI.showWaiting("正在退出登录...");
+//         plus.oauth.getServices( function(services){
+//            auths = services;
+//             for ( var i in auths ) {
+//          var s = auths[i];
+//          if (s.authResult) {
+//            s.logout(function(e){
+//              console.log( "注销登录认证成功！" );
+//              proj.cac.logout(function(){
+//             plus.nativeUI.closeWaiting();   
+//                app.showLogin();
+//              })
+//            }, function(e){
+//              console.log( "注销登录认证失败！" );
+//            });
+//          }
+//        }
+//          }, function(e){
+//            console.log( "获取分享服务列表失败："+e.message+" - "+e.code );
+//          });
+//			    } else{
+			    	proj.cac.logout(function(){
+			    	    localStorage["way"] = '';
+                  app.showLogin();
+                })
+//			    }
+			   
+			  })
+//        lan = JSON.parse(localStorage.getItem("lan"));
+					  <!--if (lan==null) {-->
+							mui.getJSON("i18n/strings_zh.json", function(data) {
+								<!--localStorage["zhlan"]=JSON.stringify(data);-->
+							var	lan = data;
+                        $('#bal').html(lan[2000038]);
+                        $('#printC').html(lan[2000068]);
+                        $('#copyC').html(lan[2000069]);
+                        $('#scanC').html(lan[2000070]);
+                        $('#myTitle').html(lan[2000071]);
+                        $('#back').html(lan[2000003]);
+                        $('#pwd-M').html(lan[2000072]);
+                        $('#email-M').html(lan[2000074]);
+                        $('#wallet-M').html(lan[2000075]);
+                        $('#invoice-M').html(lan[2000079]);
+                        $('#custom').html(lan[2000076]);
+                        $('#loginOut').html(lan[2000077]);
+                        $('#about').html(lan[2000078]);
+						   })
+						  <!--}else{-->
+                        <!--$('#bal').html(lan[2000038]);-->
+                        <!--$('#printC').html(lan[2000068]);-->
+                        <!--$('#copyC').html(lan[2000069]);-->
+                        <!--$('#scanC').html(lan[2000070]);-->
+                        <!--$('#myTitle').html(lan[2000071]);-->
+                        <!--$('#back').html(lan[2000003]);-->
+                        <!--$('#pwd-M').html(lan[2000072]);-->
+                        <!--$('#email-M').html(lan[2000074]);-->
+                        <!--$('#wallet-M').html(lan[2000075]);-->
+                        <!--$('#invoice-M').html(lan[2000079]);-->
+                        <!--$('#custom').html(lan[2000076]);-->
+                        <!--$('#loginOut').html(lan[2000077]);-->
+                        <!--$('#about').html(lan[2000078]);  -->
+                  <!--}-->
+				app.onUpdateState(function(para) {
+					if(app.isLogin()) {
+					  var acc =  JSON.parse(localStorage["acc"]);
+if(localStorage['way']=="wx"){
+              document.getElementById("u-my-info").style.paddingTop = "5px";
+              document.getElementById("u-nickname").style.display = "block";
+              document.getElementById("u-nickname").innerHTML = JSON.parse(localStorage["wx"]).pid;
+              document.getElementById("u-my-pid").innerHTML = JSON.parse(localStorage["wx"]).nickname;
+              document.getElementById("headimg").innerHTML = ' <img class="headimg" src='+JSON.parse(localStorage["wx"]).headimgurl+'>';
+            }else if(localStorage['way']=="ali"){
+              document.getElementById("u-my-info").style.paddingTop = "5px";
+              document.getElementById("u-nickname").style.display = "block";
+              document.getElementById("u-nickname").innerHTML = JSON.parse(localStorage["ali"]).pid;
+               document.getElementById("u-my-pid").innerHTML = JSON.parse(localStorage["ali"]).nickname;
+               document.getElementById("headimg").innerHTML = ' <img class="headimg" src='+JSON.parse(localStorage["ali"]).headimgurl+'>';
+            }
+            else{
+              document.getElementById("u-my-info").style.paddingTop = "20px";
+              document.getElementById("headimg").style.top = "90px";
+              document.getElementById("u-nickname").style.display = "none";
+              document.getElementById("u-my-pid").innerHTML = app.cvt.getEncName(pro.acc.pid);
+              document.getElementById("headimg").innerHTML = '<a class="iconfont icon-iconlogo"></a>';
+            }
+						app.getBalance(function(fee) {
+							document.getElementById("u-my-balance").innerHTML = fee;
+						});
+						proj.query.getUseRec(function(rlt) {
+							
+							var rec = rlt.data;
+							document.getElementById("u-rec-print").innerHTML = rec.print ? rec.print.useTimes : "0";
+							document.getElementById("u-rec-copy").innerHTML = rec.copy ? rec.copy.useTimes : "0";
+							document.getElementById("u-rec-scan").innerHTML = rec.scan ? rec.scan.useTimes : "0";
+						});
+					}
+				});
+				  document.getElementById("telephone").addEventListener('tap',function(){
+            var btnArray=[lan[2000106],lan[2000107]];
+            var phone="400-905-7333";
+            app.confirm(lan[2000105]+phone+'?',function(){
+                    plus.device.dial(phone);
+            },"div");
+        });
+			});
+		</script>
+	</body>
+
+</html>

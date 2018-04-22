@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-bar .mui-title{
+				right: 70px!important;
+				left: 70px!important;
+			}
+			.fileExt-wrapper{
+				width: 100%;
+				background: #fff;
+				overflow: hidden;
+			}
+			.fileExt-wrapper li{
+				width: 33.33333333%;
+			}
+			.latest{
+				width: 100%;
+			}
+			.latest h3{
+				margin: 0!important;
+				height: 28px;
+				line-height: 28px;
+				padding-left: 20px;
+				font-size: 12px;
+				color: #aaa;
+			}
+			.icon-word{
+				color: #5e9dfe;
+			}
+			.icon-ppt{
+				color: #f7924e;
+			}
+			.icon-excel{
+				color: #6fca8f;
+			}
+			.icon-pdf{
+				color: #fe5f5c;
+			}
+			.icon-txt{
+				color: #4bbdfc;
+			}
+			.icon-suolvetu{
+				color: #afa7e0;
+			}
+			.mui-media-body{
+				font-weight: 700;
+			}
+			.mui-grid-view.mui-grid-9{
+				background: #efeff4;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell{
+				background: #fff;
+				margin-top: 0px!important;
+			}
+			.extimg{
+				width: 42px;
+				text-align: center;
+			}
+			.extimg .iconfont{
+				font-size: 42px;
+			}
+			#ul li{
+				word-wrap:break-word
+			}
+			.select-file{
+				margin: 10px 0;
+				text-align: center;
+			}
+			.mui-bar-nav .mui-pull-right{
+				font-size: 14px;
+				color: #fff;
+			}
+			.active{
+				position: relative;
+			}
+			.active:after{
+				position: absolute;
+		    left: 0;
+		    bottom: -4px;
+		    height: 10px!important;
+		    width: 100%;
+		    content: '';
+		    -webkit-transform: scaleY(.5);
+		    transform: scaleY(.5);
+		    background-color: #aaa;
+			}
+			.active:before{
+				position: absolute;
+		    right: 8px;
+		    top: 8px;
+		    height: 10px!important;
+		    width: 10px;
+		    border-radius: 50%;
+		    content: '';
+		    background-color: #aaa;
+			}
+			input[type=text]{
+			  margin-bottom:0;
+			}
+			.mui-popup-inner{
+			  padding-bottom:0;
+			}
+			.mui-media-body{
+			  line-height: 18px!important;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<h1 class="mui-title">本地文件</h1>
+			<a class="mui-pull-right" id="latest">搜索文件</a>
+		</header>
+		<div class="mui-content">
+			<div class="fileExt-wrapper">
+	  		<ul class="mui-table-view mui-grid-view mui-grid-9">
+			  	<li class="mui-table-view-cell mui-media select-btn" id="get_doc" name="icon-word" reg="(\.docx$|\.doc$)">
+		  	    <a href="#">
+	  	        <span class="mui-icon iconfont icon-word"></span>
+	  	        <div class="mui-media-body">WORD</div>
+		  	    </a>
+			  	</li>
+			  	<li class="mui-table-view-cell mui-media select-btn"  id="get_ppt" name="icon-ppt" reg="(\.pptx$|\.ppt$)">
+		  	    <a href="#">
+	  	        <span class="mui-icon iconfont icon-ppt"></span>
+	  	        <div class="mui-media-body">PPT</div>
+		  	    </a>
+			  	</li>
+			  	<li class="mui-table-view-cell mui-media select-btn"  id="get_excel" name="icon-excel" reg="(\.xlsx$|\.xls$)">
+		  	    <a href="#">
+	  	        <span class="mui-icon iconfont icon-excel"></span>
+	  	        <div class="mui-media-body">EXCEL</div>
+		  	    </a>
+			  	</li>
+			  	<li class="mui-table-view-cell mui-media select-btn"  id="get_pdf" name="icon-pdf" reg="\.pdf$">
+		  	    <a href="#">
+	  	        <span class="mui-icon iconfont icon-pdf"></span>
+	  	        <div class="mui-media-body">PDF</div>
+		  	    </a>
+			  	</li>
+			  	<li class="mui-table-view-cell mui-media no-border-bottom" id="get_jpg">
+		  	    <a href="#">
+	  	        <span class="mui-icon iconfont icon-tupian green"></span>
+	  	        <div class="mui-media-body">JPEG</div>
+		  	    </a>
+			  	</li>
+			  	<li class="mui-table-view-cell mui-media no-border-bottom" id="local" >
+		  	    <a href="#">
+	  	        <span class="mui-icon iconfont icon-wenjian" style="color: #FCC900;"></span>
+	  	        <div class="mui-media-body">所有文件</div>
+		  	    </a>
+			  	</li>
+	    	</ul>
+		 </div>
+			<div class="latest">
+				<h3>文件列表</h3>
+				<ul class="mui-table-view" id="list">
+			    
+				</ul>
+				<p id="ul"></p>
+			</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var title = document.getElementsByClassName('latest')[0].getElementsByTagName('h3')[0];
+			mui.plusReady(function() {
+				var listCon = document.getElementById("list");
+				var lastActiveElem = mui('.fileExt-wrapper li');
+				document.getElementById("local").classList.remove('active');
+				document.getElementById("local").style.height = "108px";
+				//添加active名
+//				mui('.fileExt-wrapper').on('tap','li',function(){
+//					for(var i=0;i<lastActiveElem.length;i++){
+//						lastActiveElem[i].classList.remove('active');
+//					}
+//					this.classList.add('active');
+//				});
+				//调用读取本地文件接口
+				mui('.fileExt-wrapper').on('tap','#local',function(){
+					for(var i=0;i<lastActiveElem.length;i++){
+						lastActiveElem[i].classList.remove('active');
+					}
+					app.getFile();
+				});
+				mui('.fileExt-wrapper').on('tap','#get_jpg',function(){
+          for(var i=0;i<lastActiveElem.length;i++){
+            lastActiveElem[i].classList.remove('active');
+          }
+          app.galleryImg();
+        });
+				//获取文件搜索路径
+				mui('.fileExt-wrapper').on('tap','.select-btn',function(){
+//					document.getElementById("ul").innerHTML = '该类型文件不存在...';
+					for(var i=0;i<lastActiveElem.length;i++){
+						lastActiveElem[i].classList.remove('active');
+					}
+					this.classList.add('active');
+					plus.nativeUI.showWaiting();
+					var icon = this.getAttribute("name");
+					var reg = new RegExp(this.getAttribute("reg"),'i');
+					title.innerHTML = '文件列表';
+					listCon.innerHTML = '';
+					pro.j.util.getSearchDic(function(rlt){
+						plus.nativeUI.closeWaiting();
+						for(var i=0;i<rlt.data.length;i++){
+							url(rlt.data[i],icon,reg);
+						}
+					});
+//					url("/sdcard/tencent/QQfile_recv",icon,reg);
+//					url("/sdcard/Mail",icon,reg);
+//					url("/sdcard/Android/data/cn.wps.moffice_eng/.cache/KingsoftOffice/file/download",icon,reg);
+				});
+				
+			
+				
+				
+				//最近上传
+					var saveArr = [];
+					//筛选列表  上传
+				mui('#list').on('tap','a',function(){
+					var filePath = this.getAttribute('path');
+					var fileName = this.getAttribute('name');
+					var ext = this.getAttribute('ext');
+					saveArr.push({
+						name: fileName,
+						filepath: filePath,
+						ext: ext
+					});
+					//去重
+					var repeatArrList = unique(saveArr);
+					if(saveArr.length > 9){
+						saveArr.shift();
+					}
+					localStorage.setItem('showArrList',JSON.stringify(repeatArrList));
+					app.uploadFileByPath(filePath);
+				});	
+				
+				mui('.mui-bar-nav').on("tap",'#latest',function () {
+				  app.showSearch_file();        
+				});
+				//数组去重
+				function unique(arr) {
+			   	var unique = {};
+    			arr.forEach(function(a){ unique[ JSON.stringify(a) ] = 1 });
+    			arr= Object.keys(unique).map(function(u){return JSON.parse(u) });
+    			return arr;
+				}
+					
+				function url(url,ext,reg){
+					plus.io.resolveLocalFileSystemURL(url, function(fs){
+						//      /sdcard/tencent/QQfile_recv
+						//			/sdcard/Android/data/cn.wps.moffice_eng/.cache/KingsoftOffice/file/download
+						//			/sdcard/Mail
+					// fs.root是根目录操作对象DirectoryEntry
+					// 创建读取目录信息对象 
+					// var directoryReader = fs.createReader();
+						findMP3(fs,ext,reg);
+					},function(){
+						//alert("打开失败");
+					});
+				}
+				
+				
+				function findMP3(fs,ext,reg){
+					if(plus.android.invoke(fs,"isHidden")){
+						return;
+					}
+					if(fs.isDirectory){
+						var directoryReader=fs.createReader();
+						directoryReader.readEntries( function( entries ){
+							var i;
+							var li=null;
+							if(entries.length==0){
+								return;
+							}
+							for( i=0;i<entries.length; i++ ) {
+								if(entries[i].isDirectory){
+									findMP3(entries[i],ext,reg);
+								}
+								if(entries[i].isFile){
+//								  alert(entries[i].name);
+									if(reg.test(entries[i].name)){
+//										li=document.createElement("li");
+//										li.innerText=entries[i].fullPath;
+//										li.className="mui-table-view-cell";
+//										document.getElementById("ul").appendChild(li);
+										var extArr = entries[i].name.split('.');
+										var fileExt = extArr[extArr.length - 1];
+										li=document.createElement("li");
+										li.innerHTML = '<a href="javascript:;" path="'+entries[i].fullPath+'" name="'+entries[i].name+'" ext="'+ext+'">'+
+					            '<div class="mui-media-object mui-pull-left extimg" >'+
+					            	'<span class="iconfont '+ext+'"></span>'+
+					            '</div>'+
+					            '<div class="mui-media-body">'+
+				                	entries[i].name+
+				                '<p class="mui-ellipsis">文件格式：   '+
+				                	fileExt
+				                '</p>'+
+					            '</div>'+
+						        '</a>';
+										li.className="mui-table-view-cell mui-media";
+										document.getElementById("list").appendChild(li);
+//										document.getElementById("ul").innerHTML = '';
+									}
+								}
+							}
+						}, function ( e ) {
+							alert( "Read entries failed: " + e.message );
+						});
+					}else{//过滤掉不是mp3的文件格式
+						var extArr = entries[i].name.split('.');
+						var fileExt = extArr[extArr.length - 1];
+						li=document.createElement("li");
+						li.innerHTML = '<a href="javascript:;">'+
+	            '<div class="mui-media-object mui-pull-left extimg" >'+
+	            	'<span class="iconfont '+ext+'"></span>'+
+	            '</div>'+
+	            '<div class="mui-media-body">'+
+                	entries[i].name+
+                '<p class="mui-ellipsis">文件格式：   '+
+                	fileExt
+                '</p>'+
+	            '</div>'+
+		        '</a>';
+						li.className="mui-table-view-cell mui-media";
+						document.getElementById("list").appendChild(li);
+					}
+				}
+			});	
+		</script>
+	</body>
+
+</html>

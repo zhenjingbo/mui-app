@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<!--<html xmlns="http://www.w3.org/1999/xhtml">-->
+<html>
+<head>
+  <meta charset="utf-8">
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />-->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>照片打印</title>
+    <!--<link rel="stylesheet" href="http://cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">-->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+    <link href="css/weui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/swiper-3.4.2.min.css" />
+    <link href="css/cropper.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/mui.css" rel="stylesheet"/>
+    <script src="js/cropper.js" type='text/javascript'></script>
+    <script src="js/util.js" type='text/javascript'></script> 
+    <script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/pro.lib.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/uni.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script type='text/javascript' src='js/swiper.min.js'></script>-->
+    <script type='text/javascript' src='js/swiper.js'></script>
+    <style>
+        .container { padding: 0; margin: 0; }
+        /*.weui-toast { margin-left: 0; }*/
+        /*剪切页面 预览页面共用*/
+        .crop_panel { overflow: hidden; margin: 0; background: #000; height: 84%; }
+        .top_actions { display: flex; justify-content: space-between; align-items: center; height: 7%; }
+        .top_actions .act_back { background: url(img/back.png) no-repeat 10px center; padding-left: 40px; font-size: 18px; height: 34px; line-height: 34px; background-size: contain; color: #333; }
+        .top_actions .act_back:active { opacity: .7; }
+        .normal_actions { display: flex; justify-content: space-between; align-items: center; height: 9%; }
+        .normal_actions a { font-size: 18px; padding: 0 15px; color: #000; }
+        .normal_actions a:active { opacity: .7; }
+        .normal_actions a.act_next { color: #00A0E9; }
+        .crop_container { height: 80%; padding-top: 13.5%; }
+        /*剪裁框*/
+        .cropper-modal { opacity: .7; }
+        .cropper-view-box { outline: 1px dashed #000; background: #fff; }
+    </style>
+    <!--首页-->
+    <style>
+        .logo_panel { padding: 6% 0; text-align: center; }
+        .logo_panel img { width: 46%; }
+        .logo_panel .title { color: #00A0E9; letter-spacing: 6px; font-size: 18px; }
+        .dev_info { color: #666; font-size: 16px; line-height: 20px; }
+        .act_entry { margin: 0 10% 8% 10%; height: 15%; }
+
+        .btn_normal { background: url(img/photo_normal.jpg) no-repeat center; color: #03a55b; }
+        .btn_ident1 { background: url(img/photo_ident1.jpg) no-repeat center; color: #efbe09; }
+        .btn_ident2 { background: url(img/photo_ident2.jpg) no-repeat center; color: #d81d0e; }
+        .btn_goto { height: 100%; background-size: contain; text-align: center; -webkit-tap-highlight-color: rgba(255,0,0,0); }
+        .btn_goto span { font-size: 1rem; padding-left: 75px; padding-top: 6%; display: inline-block; }
+        .btn_goto:active { opacity: .7; }
+        .my_files { text-align: center; display: flex; justify-content: center; align-items: center; }
+        .my_files a { color: grey; }
+        .my_files img { height: 30px; }
+    </style>
+    <!--预览页-->
+    <style>
+        .swiper-container { height:91%; background: #fff;}
+        .swiper-slide {display: inline-block;overflow: hidden;}
+        .swiper-slide img {max-width:300px;z-index:-1;position: absolute;left:0;right: 0;top: 0;bottom: 0;margin: auto;}
+        .swiper-slide img.rotate90 { transform: rotate(90deg); -webkit-transform: rotate(90deg);}
+        #photo_info span { padding: 0 10px;}
+        #photo_submit { height:9%; width: 100%;background:#00A0E9;color:#FFFFFF;text-align: center;line-height:50px;position: absolute;bottom:0;}
+        #photo_submit td { height: 100%; text-align: center; vertical-align: middle; font-size: 18px; }
+        #photo_submit .total_fee { width: 60%; color: #666;}
+        #photo_submit .btn_submit { width: 40%; padding: 0; background: red; color: #fff; }
+        #total_fee { color:#FF0000; }
+        .weui-toast{display:none;}
+        .add-img{width:50px;height:50px;border:1px solid rgb(200,199,204);}
+        .img-info{height:25px;line-height:25px;font-size:12px;margin:0;border-bottom: 1px solid #666666;text-indent:1em;}
+        .image-close{display:block;width: 15px;height: 15px; position: absolute;top:5px;right: -20px;border: none;}
+        .image-box{width: 50px;height:50px;display:inline-block;margin-right:20px;position: relative;}
+        .imageBox{width: 50px;height:50px;margin: 10px;border:1px solid rgb(200,199,204);}
+        .ma-20{margin-bottom: 20%;}
+        .gd{width: 33%;height: 33.2%;float: left;}
+        .swiper-slide .mask{width:72%;height:80%;position: absolute;top:0;
+        right: 0;left: 0;bottom: 0;margin: auto;z-index:100;border:1px dashed #000;}
+        .rl{border-right:1px dashed #000;border-bottom:1px dashed #000;}
+        .bot{border-bottom:1px dashed #000;}
+        .rig{border-right:1px dashed #000;}
+        #finish{display: none;}
+    </style>
+    <style>
+        .rt-model { height: 100%;background: white;}
+    </style>
+    <script>
+        //dataURLtoBlob   ios不支持toBlob方法
+        !function(t) { "use strict"; var e = t.HTMLCanvasElement && t.HTMLCanvasElement.prototype, o = t.Blob && function() { try { return Boolean(new Blob) } catch (t) { return !1 } } (), n = o && t.Uint8Array && function() { try { return 100 === new Blob([new Uint8Array(100)]).size } catch (t) { return !1 } } (), r = t.BlobBuilder || t.WebKitBlobBuilder || t.MozBlobBuilder || t.MSBlobBuilder, a = /^data:((.*?)(;charset=.*?)?)(;base64)?,/, i = (o || r) && t.atob && t.ArrayBuffer && t.Uint8Array && function(t) { var e, i, l, u, b, c, d, B, f; if (e = t.match(a), !e) throw new Error("invalid data URI"); for (i = e[2] ? e[1] : "text/plain" + (e[3] || ";charset=US-ASCII"), l = !!e[4], u = t.slice(e[0].length), b = l ? atob(u) : decodeURIComponent(u), c = new ArrayBuffer(b.length), d = new Uint8Array(c), B = 0; B < b.length; B += 1) d[B] = b.charCodeAt(B); return o ? new Blob([n ? d : c], { type: i }) : (f = new r, f.append(c), f.getBlob(i)) }; t.HTMLCanvasElement && !e.toBlob && (e.mozGetAsFile ? e.toBlob = function(t, o, n) { t(n && e.toDataURL && i ? i(this.toDataURL(o, n)) : this.mozGetAsFile("blob", o)) } : e.toDataURL && i && (e.toBlob = function(t, e, o) { t(i(this.toDataURL(e, o))) })), "function" == typeof define && define.amd ? define(function() { return i }) : "object" == typeof module && module.exports ? module.exports = i : t.dataURLtoBlob = i } (window);
+    </script>
+    <script>
+        function router(container, templates) {
+            var con = $(container);
+            var tpls = $(templates);
+            var history = new Array();
+            tpls.detach();
+            this.goto = function(id, callback, para) {
+                var state;
+                var page = tpls.children("#" + id);
+                if (page) {
+                    var model = con.children(".model_" + id);
+                    if (model.length > 0) {
+                        var len = history.length - 1;
+                        for (var i = len; i > -1; i--) {
+                            if (history[i].id != id) {
+                                history.pop().remove();
+                            }
+                            else {
+                                show(model);
+                                break;
+                            }
+                        }
+                        state = "exist";
+                    }
+                    else {
+                        history.length > 0 && hide(history[history.length - 1]);
+                        model = $("<div class='active rt-model model_" + id + "' style='display:none'>" + tpls.children("#" + id).html() + "</div>");
+                        history.length > 0 ? con.append(model) : con.html(model);
+                        history.push(model);
+                        show(model);
+                        state = "new";
+                    }
+                    callback && callback(model, para, state);
+                }
+            }
+            this.back = function(callback, para) {
+                if (history.length > 1) {
+                    history.pop().remove();
+                    var model = history[history.length - 1];
+                    show(model);
+                    callback && callback(model, para);
+                }
+            }
+            function show(model) {
+                model.addClass("active");
+                model.fadeIn();
+            }
+            function hide(model) {
+                model.removeClass("active");
+                model.hide();
+            }
+        }
+
+        //获取req
+        function getReq(){
+            var req = new _QueryString();
+            return req;
+            function _QueryString(){
+                var name, value, i;
+                var str = location.href;
+                var num = str.indexOf("?")
+                str = str.substr(num + 1);
+                str = str.split("#")[0];
+                var arrtmp = str.split("&");
+                for (i = 0; i < arrtmp.length; i++) {
+                    num = arrtmp[i].indexOf("=");
+                    if (num > 0) {
+                        name = arrtmp[i].substring(0, num);
+                        value = arrtmp[i].substr(num + 1);
+                        this[name] = value;
+                    }
+                }
+            }
+        }
+        //app
+        var adp = {
+            os: (function(ua) {
+                var ret = {},
+                // osx = !!ua.match( /\(Macintosh\; Intel / ),
+                    android = ua.match(/(?:Android);?[\s\/]+([\d.]+)?/),
+                    ios = ua.match(/(?:iPad|iPod|iPhone).*OS\s([\d_]+)/);
+                // osx && (ret.osx = true);
+                android && (ret.android = parseFloat(android[1]));
+                ios && (ret.ios = parseFloat(ios[1].replace(/_/g, '.')));
+                return ret;
+            })(navigator.userAgent),
+            getImgName: function(i, pre) {
+                var now = new Date();
+                var y = now.getYear() + '';
+                var M = now.getMonth() + 1 + '';
+                var d = now.getDate() + '';
+                var h = now.getHours() + '';
+                var m = now.getMinutes() + '';
+                var s = now.getSeconds() + '';
+                return (pre || "img") + "_" + y + M + d + h + m + s + "_" + i + ".jpg"
+            }
+        }
+    </script>
+</head>
+<body style="margin:0;overflow: hidden;">
+    <div id="alipay-wrapper" style="display: none"></div>
+    <div id="container" class="container">
+        <div style="text-align: center">loading...</div>
+    </div>
+    <div id="templates" style="display: none">
+        <!--首页-->
+        <div id="index">
+            <div class="logo_panel" style="height: 20%">
+                <img src="img/logo.png" />
+                <div class="title">欢迎使用照片打印</div>
+                <div id="dev_info" class="dev_info"></div>
+            </div>
+            <div class="act_entry">
+                <input type="file" id="file_normal" accept="image/*" style="display: none" /><!--multiple="multiple"-->
+                <!--$('#file_normal').click()-->
+       <div class="btn_goto btn_normal" id="to_normal" onclick="pickImg()"><span>照片打印</span></div>
+            </div>
+            <div class="act_entry">
+                <input type="file" id="file_ident_1" accept="image/*" style="display: none" />
+                <div class="btn_goto btn_ident1" id="to_ident_1" onclick="$('#file_ident_1').click()"><span>1寸证件照</span></div>
+            </div>
+            <div class="act_entry">
+                <input type="file" id="file_ident_2" accept="image/*" style="display: none" />
+                <div class="btn_goto btn_ident2" id="to_ident_2" onclick="$('#file_ident_2').click()"><span>2寸证件照</span></div>
+            </div>
+            <div class="my_files" id="toList">
+                <img src="img/my_files.jpg" />
+                <a onclick="app.showPhotoTask()">未打印列表</a>
+            </div>
+        </div>
+        <!--普通照片-->
+        <div id="photo_normal" style="overflow:hidden;">
+           <!--<p class="img-info">已添加<span id="num" style="color: red;">0</span>张照片(一次最多添加5张照片)</p>-->
+            <div id="myCrop">
+            	 <div class="crop_panel" style="height:91%;">
+                <div class="crop_container">
+                    <img id="normal_img" style="display: none" />
+                </div>
+            </div>
+            <div class="normal_actions">
+                <a class="act_rotate" onclick="rotateimg(90)">旋转</a>
+                 <a class="act_next" onclick="nextimg()" id="nextImg">下一张</a>
+                <a class="act_next" onclick="submitCrop()" id="finish">完成并提交</a>
+            </div>
+            </div>
+            <div class="auto">
+            <canvas id="load-area" style="display: none;"></canvas>
+            <img id="convert-img" style="display: none;" />
+            </div>
+            <div id="mSwiper">
+            	 <div id="swiper_container" class="swiper-container" data-space-between='0' data-pagination='.swiper-pagination' data-autoplay="0">
+            <div class="swiper-wrapper">
+            </div>
+              <div class="swiper-pagination" style="color: #000;"></div>
+    
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev swiper-button-black"></div>
+    <div class="swiper-button-next swiper-button-black"></div>
+            </div>
+            <!--<div class="showimg" id="seeImg" style="display: flex;align-items: baseline;height: 10%;">
+            </div>-->
+            <div id="photo_submit">
+                    <span style="float: left;margin-left:5%;" onclick="edit()" id="myedit">编辑</span>
+                    <span style="float: right;margin-right:5%;" onclick="cut()" id="cut">自动裁剪</span>
+                    <span style="float: right;margin-right:5%;display: none;" onclick="submitPrint()" id="sub">提交</span>
+            </div>
+            </div>
+        </div>
+        <!--证件照-->
+        <div id="photo_ident">
+            <div class="top_actions">
+               <!-- <a class="act_back" onclick="gRouter.back()">选择</a>-->
+            </div>
+            <div class="crop_panel">
+                <div class="crop_container">
+                    <img id="ident_img" style="display: none" />
+                </div>
+            </div>
+            <div class="normal_actions">
+                <a class="act_rotate" onclick="rotateimg(90)">旋转</a>
+                <a class="act_next" onclick="submitIdent()">完成</a>
+            </div>
+        </div>
+        <!--预览-->
+        <div id="preview">
+            <div id="swiper_container" class="swiper-container" data-space-between='0' data-pagination='.swiper-pagination' data-autoplay="0">
+            <div class="swiper-wrapper">
+            </div>
+            </div>
+            <div id="photo_submit" onclick="submitPrint()">
+                                 提交
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+ <script type="text/javascript">
+   var gRouter;
+        var gOptions;
+        var f2 =[];
+        var imgList = [];
+        $(function () {
+            var req = getReq();
+            var devSN = req["dev"];
+            gOptions = {
+                size: 285, //默认5寸
+                paper: "6寸照片",
+                ratio: 3.5 / 5,
+                feeSTD: null,
+                device: null,
+                balance: null,
+                domain: location.origin + "/uniwx/",
+                devSN: devSN
+            };
+            $("#container").height(window.innerHeight);
+            gRouter = new router($("#container"), $("#templates"));
+                var opt = gOptions;
+                var dev = opt.device;
+                gRouter.goto("index", function(m) {
+//                  $("#file_normal").change(function() {
+//                      processFile(this, "normal");
+//                  });
+                    $("#file_ident_1").change(function() {
+                        processFile(this, "ident1");
+                    });
+                    $("#file_ident_2").change(function() {
+                        processFile(this, "ident2");
+                    });
+                });
+
+        });
+         mui.init({
+                });
+        mui.plusReady(function() {
+
+        });
+        var gCurFiles;
+        var gImgList;
+        function processFile(input, type) {
+            var opt = gOptions;
+            gCurFiles = input.files;
+            gImgList = [];
+            if (gCurFiles.length > 0) {
+                if (type == "normal") {
+                    opt.mSize = 5, opt.ratio = 3.5 / 5; //5寸
+                    opt.size == 285 && (opt.mSize = 6, opt.ratio = 4 / 6); //6寸
+                    opt.type = "normal";
+                    gRouter.goto("photo_normal", showNormal);
+                }
+                else if (type == "ident1") {
+                    opt.ratio = 2.5 / 3.5;
+                    opt.type = "ident";
+                    opt.mSize = 1;
+                    gRouter.goto("photo_ident", showIdent);
+                }
+                else if (type == "ident2") {
+                    opt.ratio = 3.3 / 5.3;
+                    opt.type = "ident";
+                    opt.mSize = 2;
+                    gRouter.goto("photo_ident", showIdent);
+                }
+            }
+        }
+        var gCrop;
+        var curimg = 0;
+        function showNormal(model) {
+            gCrop = $("#normal_img");
+//          loadImg(0);
+//          gCrop.index = index;
+            //6寸照片打印
+            var mSwiper = $("#mSwiper");
+            var mcrop = $("#myCrop");
+            mSwiper.height(window.innerHeight);
+            mSwiper.width(window.innerWidth);
+            mcrop.height(window.innerHeight);
+            mcrop.width(window.innerWidth);
+            plus.nativeUI.closeWaiting();
+            var swiper = $("#swiper_container");
+            var con = $(".swiper-wrapper", swiper);
+           $.each(f2, function (i, arr) {
+              var mg = $('<img src="' + arr + '"  class="sideImg" >');
+              var w = mg.naturalWidth;
+              var h = mg.naturalHeight;
+              if(w>h){
+               mg.style.transform = 'rotate(90deg)';
+              }
+             var box = $('<div class="swiper-slide"></div>');
+             box.append(mg)
+             con.append(box);
+            }) 
+           
+           swiper.swiper();
+            }
+        //编辑图片
+        function edit(){
+           $("#mSwiper").hide();
+           $("#myCrop").show();
+           imgList = [];
+           console.log(f2[curimg]);
+           	readFile(f2[curimg]);
+           	if(f2.length==1){
+           	  $("#nextImg").hide();
+           	  $("#finish").innerHTML = "提交";
+            $("#finish").show();
+           	}else{
+           	  $("#nextImg").show();
+            $("#finish").hide();
+           	}
+          }
+        function nextimg(){
+          var crop = gCrop;   
+          var canvas = crop.cropper('getCroppedCanvas', { fillColor: "#fff" });
+          curimg ++;
+          imgList.push(getDataURL(canvas));
+          var cxt=canvas.getContext("2d");  
+          cxt.clearRect(0, 0, canvas.width, canvas.height);
+          if (curimg==f2.length) {
+//          console.log(curimg);
+          	$("#nextImg").hide();
+          	$("#finish").show();
+          } else{
+          readFile(f2[curimg]);
+          }
+        }
+        function showIdent(model) {
+            gCrop = $("#ident_img");
+            loadImg(0);
+        }
+        function showPreview(model, para) {
+            var opt = gOptions;
+            //1寸2寸照片
+            var len = gImgList.length;
+            var swiper = $("#swiper_container");
+            var con = $(".swiper-wrapper", swiper);
+            var list = gImgList;
+            for (var i = 0; i < list.length; i++) {
+                con.append('<div class="swiper-slide"><img src="' + list[i].dataURL + '" alt=""></div>');
+            }
+            swiper.swiper();
+        }
+        
+        function submitIdent() {
+//          if (crop && crop.inde) {x > -1
+                plus.nativeUI.showWaiting("正在提交..");
+                var opt = gOptions;
+                  var crop = gCrop;
+                var canvas = crop.cropper('getCroppedCanvas', { fillColor: "#fff" });
+                    gImgList[crop.index] = getDataURL(composite(canvas, opt));
+                     plus.nativeUI.closeWaiting();
+                     gRouter.goto("preview", showPreview);
+                     
+        }
+        
+        //图片编辑完成
+        function submitCrop() {
+//          if (crop && crop.inde) {x > -1
+                plus.nativeUI.showWaiting("正在提交..");
+                if(f2.length==1){
+                  console.log("123");
+                  var crop = gCrop;
+                var canvas = crop.cropper('getCroppedCanvas', { fillColor: "#fff" });
+                imgList.push(getDataURL(canvas));
+                sendData();
+                }
+                else {
+                  sendData();
+                }
+                plus.nativeUI.closeWaiting();
+        }
+        function gotoPreview(){
+               gRouter.goto("preview", showPreview);//测试
+               document.getElementsByTagName('body')[0].style.height = window.innerHeight+'px';  
+        }
+        //canvas加载图片
+        function initCropper(src) {
+            //1寸 2.5*3.5cm 413*295
+            //身份证大头照 3.3*2.2 390*260
+            //2寸 3.5*5.3cm 626*413
+            //小2寸（护照） 4.8*3.3cm 567*390
+            //5 寸 5x3.5 12.7*8.9 1200x840以上 100万像素
+            //6 寸 6x4 15.2*10.2 1440x960以上 130万像素
+            var img = gCrop;
+            var opt = gOptions;
+            var ratio = opt.ratio;
+            if (opt.size == 285) {
+                  ratio = 4 / 6;
+            }
+            if (!img.hasClass("inited")) {
+                img.addClass("inited");
+                img.attr("src", src);
+                img.cropper({
+                    modal: true,
+                    aspectRatio: ratio,
+                    autoCropArea: 1,
+                    viewMode: 0,
+                    dragMode: "move",
+                    responsive: false,
+                    cropBoxMovable: false, //移动剪裁框
+                    cropBoxResizable: false, //改变剪裁框尺寸
+                    toggleDragModeOnDblclick: false
+                });
+            }
+            else {
+                img.cropper("replace", src);
+            }
+        }
+        function rotateimg(v) {
+            gCrop.cropper('rotate', v);
+        }
+        function loadImg(index) {
+           plus.nativeUI.showWaiting();
+            setTimeout(function() {
+              if(gCurFiles){
+                var f = gCurFiles[index];
+              }else{
+               var f = f2[index];
+              } 
+              if (f) {
+                    gCrop.index = index;
+                    readFile(f);
+                }
+                else {
+                    gCrop.index = -1;
+                    mui.toast("未选择文件");
+                }
+            }, 200);
+            plus.nativeUI.closeWaiting();
+        }
+        
+        //canvas读取图片
+        function readFile(file) {
+          plus.nativeUI.showWaiting("图片加载中");
+            if(typeof(file) == "object"){
+               var f = file;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var base64Img = e.target.result;
+                var img = new Image();
+                img.src = base64Img;
+                img.onload = function() {
+                    var c = compressImg(img);
+                    var resizeImgBase64 = c.toDataURL("image/jpeg", 0.95);
+                    initCropper(resizeImgBase64);
+                    plus.nativeUI.closeWaiting();
+                }
+                img.onerror = function() {
+                    app.toast("载入图片失败");
+                }
+            };
+            reader.onerror = function() {
+                app.toast("读取文件失败");
+            }
+               reader.readAsDataURL(file); 
+            }else{
+
+              plus.io.resolveLocalFileSystemURL(file, function(entry) {
+             var reader = null;
+             entry.file( function ( file ) {
+             reader = new plus.io.FileReader();
+             reader.onloadend = function ( e ) {
+                var base64Img = e.target.result;
+                var img = new Image();
+                img.src = base64Img;
+                img.onload = function() {
+                    var c = compressImg(img);
+                    var resizeImgBase64 = c.toDataURL("image/jpeg", 0.95);
+                    initCropper(resizeImgBase64);
+                    plus.nativeUI.closeWaiting();
+                }
+                img.onerror = function() {
+                    app.toast("载入图片失败");
+                }
+            };
+         reader.readAsDataURL(file);
+        }, function ( e ) {
+          alert( e.message );
+        } );
+           });
+          }; 
+        }
+
+        function loadError(msg) {
+            plus.nativeUI.closeWaiting();
+            msgBox(msg);
+        }
+        function getDataURL(c) {
+            var res = {};
+            res.dataURL = c.toDataURL("image/jpeg", 0.95);
+            res.canvas = c;
+            res.blob = dataURLtoBlob && dataURLtoBlob(res.dataURL);
+            return res;
+        }
+        //证件照合成（1、2寸）
+        function composite(img, opt) {
+            var c = document.createElement('canvas'),
+                ctx = c.getContext('2d');
+            var k = 1;
+            var cw = 890, ch = 1250;
+            if (opt.size == 285) {
+                k = 1.5;
+                cw = 1020 * k;
+                ch = 1520 * k;
+            }
+            //if(opt.mSize==1){//一寸证件 翻转相纸
+            //    var tmp=cw;
+            //    cw=ch;
+            //    ch=tmp;
+            //}
+            c.width = cw;
+            c.height = ch;
+            ctx.rect(0, 0, c.width, c.height);
+            ctx.fillStyle = '#ffffff'; //画布填充颜色
+            ctx.fill();
+            var wxpayChanel;
+            var alipayChanel;
+            var openerPara;
+            var data;
+            if (opt.mSize == 1) {
+                ctx.rotate(90 * Math.PI / 180);
+                var w = 250, h = 350;
+                if (opt.size == 285) {
+                    var lt = w + 45;
+                    var rd = h + 100;
+                    for (var i = 0; i < 10; i++) {
+                        ctx.drawImage(img, (45 + (i % 5) * lt) * k, (110 + (i > 4 ? rd : 0)) * k - cw, w * k, h * k);
+                    }
+                }
+                else {
+                    var lt = w + 50;
+                    var rd = h + 50;
+                    for (var i = 0; i < 8; i++) {
+                        ctx.drawImage(img, (60 + (i % 4) * lt) * k, (70 + (i > 3 ? rd : 0)) * k - cw, w * k, h * k);
+                    }
+                }
+            }
+            else if (opt.mSize == 2) {
+                var w = 350, h = 530;
+                if (opt.size == 285) {
+                    var lt = w + 100;
+                    var rd = h + 150;
+                    for (var i = 0; i < 4; i++) {
+                        ctx.drawImage(img, (110 + (i % 2) * lt) * k, (155 + (i > 1 ? rd : 0)) * k, w * k, h * k);
+                    }
+                }
+                else {
+                    var lt = w + 50;
+                    var rd = h + 50;
+                    for (var i = 0; i < 4; i++) {
+                        ctx.drawImage(img, (70 + (i % 2) * lt) * k, (80 + (i > 1 ? rd : 0)) * k, w * k, h * k);
+                    }
+                }
+            }
+            return c;
+        }
+
+        function compressImg(img) {
+            //1寸 750x1050
+            //2寸 700x1060
+            //5寸 890×1270
+            //6寸 1020×1520
+            var big = 1250, small = 890;
+            var mSize = gOptions.mSize;
+             if (mSize == 6) {
+                big = 1520 * 1.5;
+                small = 1020 * 1.5;
+            }
+            else if (mSize == 1) {
+                big = 1050;
+                small = 750;
+            }
+            else if (mSize == 2) {
+                big = 1060;
+                small = 700;
+            }
+            var realW = img.naturalWidth;
+            var realH = img.naturalHeight;
+            var scale = 1;
+            var isV = realH >= realW; //竖直图
+            if (isV) {
+                scale = big / realH > small / realW ? big / realH : small / realW;
+            }
+            else {
+                scale = big / realW > small / realH ? big / realW : small / realH;
+            }
+            var width = realW * scale, heigth = realH * scale;
+            var c = document.createElement('canvas'), ctx = c.getContext('2d');
+            if (!isV) {
+                c.width = heigth;
+                c.height = width;
+            }
+            else {
+                c.width = width;
+                c.height = heigth;
+            }
+            ctx.rect(0, 0, c.width, c.height);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            if (!isV) {
+                ctx.rotate(90 * Math.PI / 180);
+                ctx.drawImage(img, 0, -heigth, width, heigth);
+            }
+            else {
+                ctx.drawImage(img,0, 0, realW, realH, 0, 0, width, heigth);
+            }
+            return c;
+        }
+        function cutImg(img) {
+            //1寸 750x1050
+            //2寸 700x1060
+            //5寸 890×1270
+            //6寸 1020×1520
+            big = 1520*1.5;
+            small = 1020*1.5;
+            var realW = img.naturalWidth;
+            var realH = img.naturalHeight;
+            var scale = 1;
+            var isV = realH >= realW; //竖直图
+            if (isV) {
+                scale = big / realH > small / realW ? big / realH : small / realW;
+            }
+            else {
+                scale = big / realW > small / realH ? big / realW : small / realH;
+            }
+            var width = realW * scale, heigth = realH * scale;
+            var c = document.createElement('canvas'), ctx = c.getContext('2d');
+            if (!isV) {
+                c.width = heigth;
+                c.height = width;
+            }
+            else {
+                c.width = width;
+                c.height = heigth;
+            }
+            ctx.rect(0, 0, c.width, c.height);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            if (!isV) {
+                ctx.rotate(90 * Math.PI / 180);
+                ctx.drawImage(img, 0, -heigth, width, heigth);
+            }
+            else {
+                ctx.drawImage(img,0, 0, realW, realH, 0, 0, width, heigth);
+            }
+            var dat = c.toDataURL()
+            return dat;
+        }
+        function cut() {
+          var swiper = $("#swiper_container");
+            var con = $(".swiper-wrapper", swiper);
+          plus.nativeUI.showWaiting("自动裁剪中...");
+                // 6寸尺寸
+          var WIDTH = 1020*1.5;
+          var HEIGHT = 1520*1.5;
+          var  r = WIDTH/HEIGHT;
+          // 创建一个指定大小为6寸的画布元素
+          var canvas = document.createElement('canvas');
+          canvas.width = WIDTH;
+          canvas.height = HEIGHT;
+//         canvas.style.display = "none";
+          var ctx = canvas.getContext('2d');
+          for (var i = 0; i < f2.length; i++) {
+           var img = document.getElementById('convert-img');
+           img.src=f2[i];
+            var w = img.naturalWidth;
+            var h = img.naturalHeight;
+            var isLandscape = w > h; // 宽大于高为横屏模式
+        
+        if (isLandscape) {
+          // 如果图片为横屏模式，需要旋转90度画到画布上
+          var HALF_WIDHT = WIDTH / 2;
+          var HALF_HEIGHT = HEIGHT / 2;
+          var radians = Math.PI / 2; // Math.PI为180个弧度，除2后为90个弧度
+
+          ctx.save();
+          ctx.translate(HALF_WIDHT, HALF_HEIGHT); // 把基准点移动到画布中心
+          ctx.rotate(radians); // 旋转90个弧度
+          
+          // 和竖屏模式类似，只是高宽是反的，有点绕
+//        if (h < WIDTH || w < HEIGHT) {
+//          ctx.drawImage(img, -w / 2, -h / 2);
+//        } else 
+          if (w / h > HEIGHT / WIDTH) {
+            var perfectWidth = h / (WIDTH / HEIGHT);
+            var paddingWidth = (w - perfectWidth) / 2;
+            ctx.drawImage(img, paddingWidth, 0, perfectWidth, h, -HEIGHT / 2, -WIDTH / 2, HEIGHT, WIDTH);
+          } else {
+            var perfectHeight = w / (HEIGHT / WIDTH);
+            var paddingHeight = (h - perfectHeight) / 2;
+            ctx.drawImage(img, 0, paddingHeight, w, perfectHeight, -HEIGHT / 2, -WIDTH / 2, HEIGHT, WIDTH);
+          }
+          ctx.restore();
+        } else {
+          // 如果图片是本身是竖屏模式，直接画图
+//        if (w < WIDTH || h < HEIGHT) {
+//          // 如果图片高宽都比画布高宽小，图片中心对准画布中心画图
+//          ctx.drawImage(img, (WIDTH - w) / 2, (HEIGHT - h) / 2);
+//        } else 
+          if (w / h > WIDTH / HEIGHT) {
+            // 如果图片宽/高比大于理想宽/高比，根据图片实际高，算出理想宽
+            var perfectWidth = h / (HEIGHT / WIDTH);
+            // 实际宽 - 理想宽 / 2 = 多出来的宽度的一半
+            var paddingWidth = (w - perfectWidth) / 2;
+            ctx.drawImage(img, paddingWidth, 0, perfectWidth, h, 0, 0, WIDTH, HEIGHT);
+          } else {
+            // 跟上面相反
+            // 如果图片高/宽比大于理想高/宽比，根据图片实际宽，算出理想高
+            var perfectHeight = w / (WIDTH / HEIGHT);
+            // 实际高 - 理想高 / 2 = 多出来的高度的一半
+            var paddingHeight = (h - perfectHeight) / 2;
+            ctx.drawImage(img, 0, paddingHeight, w, perfectHeight, 0, 0, WIDTH, HEIGHT);
+          }
+        }
+
+        // 从画布上取回裁剪后的图片
+         imgList.push(getDataURL(canvas));
+           ctx.clearRect(0, 0, WIDTH, HEIGHT);
+          }
+          plus.nativeUI.closeWaiting();
+          con.empty();
+           $.each(imgList, function (i, arr) {
+             var mg = $('<img src="' + arr.dataURL + '" alt="" class="sideImg" data-url="' + arr + '">');
+             var box = $('<div class="swiper-slide"></div>');
+             box.append(mg)
+             con.append(box);
+            }) 
+//         myImg.src=getDataURL(cutImg(myImg));
+//         $('#convert-img').css("display","block");
+//          $('#convert-img').css("width","372px");
+//          $('#convert-img').css("height","372px");
+//         $("#mSwiper").css("display","none");
+//        $("#myedit").hide();
+          $("#cut").hide();
+//        $("#sub").css("float","none");
+//        $("#sub").css('float','none');
+          $("#photo_submit").css('text-align','center');
+          $("#sub").show();
+        }
+        function submitPrint() {
+           plus.nativeUI.showWaiting("正在提交");
+          	 sendData();
+        }
+        var works = 1;
+         var lists;
+        function sendData() {
+//        plus.nativeUI.showWaiting("正在上传");
+            if (gImgList) {
+            	lists = gImgList;
+            } else{
+            	lists = imgList;
+            }
+              var opt = gOptions;
+            for (var i = 0; i < lists.length; i++) {
+                var blob = lists[i].blob;
+                if (blob) {
+                    sendBlob(blob, 0);
+                };
+            }
+            function sendBlob(blob, tm) {
+                xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
+                xhr.timeout = 10000; //服务器响应请求的超时时间
+                xhr.open("post", pro.myDir+ "ajax/file.aspx?act=upload", true); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
+                xhr.onload = function(evt) {
+                    //$.hideLoading();
+//                  plus.nativeUI.closeWaiting();
+                    console.log("上传完成")
+                    console.log(evt.target.responseText);
+                    uploadComplete(evt.target.responseText, evt.target.status);
+                };  //请求完成
+                xhr.onerror = function() {
+//                  $.hideLoading();
+//               plus.nativeUI.closeWaiting();
+                    mui.alert("上传图片出错", '', function(){},"div");
+                }; //请求失败
+                xhr.ontimeout = function() {
+                    if (tm > 0) {
+//                      $.hideLoading();
+//                      msgBox("连接超时");
+//                  plus.nativeUI.closeWaiting();
+                         mui.alert("连接超时", '', function(){},"div");
+                    }
+                    else {
+                        showInfo("超时重提");
+                        setTimeout(function() {
+//                          $.hideLoading();
+//                          plus.nativeUI.closeWaiting();
+                            sendBlob(blob, 1);
+                        }, 500);
+                    }
+                }
+                xhr.upload.onprogress = function(evt) {//上传进度调用方法实现
+                    if (evt.lengthComputable) {
+                        showInfo("已上传：" + Math.round(evt.loaded * 100 / evt.total) + "%");
+                    }
+                };
+                xhr.upload.onloadstart = function() {//上传开始执行方法
+//                  $.showLoading("正在上传图片...");
+                    plus.nativeUI.showWaiting("正在上传")
+                };
+                var form = new FormData(); // FormData 对象
+                form.append("img", blob, adp.getImgName(i, "照片")); // 文件对象
+                xhr.send(form); //开始上传，发送form数据
+            }
+        }
+
+        /*==========================================判断是否在微信环境========================================== */
+        function is_weixn() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+         function postData(url, data, suc, before, complete) {
+            $.ajax({
+                type: "POST",
+                timeout: 200000,
+                url: pro.myDir + "ajax/" + url,
+                data: data,
+                dataType: "json",
+                success: suc,
+                error: function(error) {
+                    this.error = error;
+                    var msg = "异步连接出现异常！";
+                    if (error.statusText == "timeout")
+                        msg = "服务器没有响应，连接超时！";
+                         plus.nativeUI.closeWaiting();
+                    mui.alert(msg, '', function(){},"div");
+                    console.log("msg", msg + "/status:" + error.statusText, error.responseText);
+                },
+                beforeSend: before,
+                complete: complete
+            });
+        }
+        function uploadComplete(rltText, status) {
+            if (status == 200 && rltText) {
+                var rlt = JSON.parse(rltText);
+                var opt = gOptions;
+                if (rlt && rlt.ret == 1) {
+                 
+//                plus.nativeUI.closeWaiting();
+                    console.log("上传文件成功:" + rltText); var jpIcon = $("#jp_icon");
+//                    var base64 = list[i].dataURL;
+//                    base64 = base64.substr(base64.indexOf("base64,") + 7)
+                    var f = rlt.data;
+                    var data = {
+                        act: "new_print_task",
+//                      file_pre: opt.type == "ident" ? "证件照" : "照片",
+//                      file_base64: base64,
+                        file: f.file,
+                        fileName: f.fileName,
+                        paper_id: opt.size,
+                        prop: (0x8 | 0x1000), //彩色+照片
+                        copies: 1
+                    }
+                    postData("print.aspx", data, function(rlt) {
+                        if (rlt.ret == 1) {
+                          if (works == lists.length) {
+                         plus.nativeUI.closeWaiting();
+                               mui.toast("上传成功");
+                               works = 1;
+                               lists = [];
+                               f2 = [];
+                               imgList = [];
+                               curimg = 0;
+                          var pages  = document.getElementsByClassName("rt-model")
+                         gRouter.back(function() {
+                           if (pages.length == 1) {
+                           	app.showPrintConfirm(); 
+                           } else{
+                           	 gRouter.back(function() {
+                     app.showPrintConfirm(); 
+                      });
+                           }
+                  
+                });
+                          }else{
+                          	works ++;
+                          	plus.nativeUI.showWaiting("正在上传第"+works+"张");
+                          }
+                        }
+                        else {
+//                          msgBox(rlt.msg);
+                     plus.nativeUI.closeWaiting();
+                   mui.alert(rlt.msg, '', function(){},"div");
+                        }
+                    }, function() {
+                        showInfo("正在生成任务...");
+                    }, function() {
+//                      plus.nativeUI.closeWaiting();
+                    });
+                    return;
+                } else {
+//                  msgBox(rlt ? rlt.msg : "上传文件失败");
+                       plus.nativeUI.closeWaiting();
+                     mui.alert(rlt ? rlt.msg : "上传文件失败", '', function(){},"div");
+                }
+            } else {
+               plus.nativeUI.closeWaiting();
+                console.log("上传文件失败：" + status + "/" + rltText);
+//              msgBox("上传文件失败");
+                mui.alert("上传文件失败", '', function(){},"div");
+            }
+            //上传未成功
+            plus.nativeUI.closeWaiting();
+        }
+        function preparePrint(sn, callback) {
+
+        }
+            function outputPrint(id) {
+                var opt = gOptions;
+                var data = {
+                    act: "output_task",
+                    task_id: id,
+                    dev_sn: opt.devSN,
+                    stamp: opt.stamp
+                }
+            }
+//          function serverLog(msg) {
+//              postData("util.aspx", { act: "log", msg: msg });
+//          }
+            function msgBox(msg, v) {
+                if (!v) {
+                    v = "消息";
+                }
+               app.msgBox(msg,v);
+            }
+            function showInfo(i) {
+                var t = $(".weui-toast_content:visible");
+                (t.length > 0) && t.html(i);
+            }
+            function gotoPrintList() {
+                mui.openWindow({
+                  url: photo_task + ".html",
+                  id: photo_task,
+                  show: ANISHOW_AUTO,
+                });
+            }
+            function gotoErrorMsg(msg) {
+                gRouter.goto("error_msg", function() {
+                    $("#jp_msg").html(msg);
+                });
+            }
+            function backIndex() {
+                gRouter.back(function() {
+                    $("input[type=file]").val("");
+                });
+            }
+          
+          //多图选择
+            var nums = 5;
+            var f1 = new Array();
+            function pickImg() {
+               plus.gallery.pick(function(e) {
+                 plus.nativeUI.showWaiting("预览图片加载中")
+                   f2 = e.files;
+                   console.log(f2);
+                  gRouter.goto("photo_normal", showNormal);
+                  $("#myCrop").css("display","none");
+                }, function(e) {
+                    mui.toast("取消选择图片");
+                }, {
+                    maximum:nums,
+                    system:false,
+                    filter: "image",
+                    multiple: true
+                });
+            }
+ </script>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.u-act-top {
+				background: #FFFFFF;
+				display: table;
+				width: 100%;
+				font-size: 18px;
+				padding: 6px 0;
+				text-align: center;
+			}
+			
+			.u-act-top .cell {
+				display: table-cell;
+				position: relative;
+				padding: 6px 0;
+			}
+			
+			.u-act-top .time:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 100%;
+				width: 1px;
+				background: #CCCCCC;
+			}
+			
+			.mui-table-view-cell div {
+				margin: 3px 2px;
+			}
+			
+			.u-caret-top {
+				top: 16px;
+				right: 8%;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			
+			.mui-popover {
+				height: 140px;
+				width: 120px;
+			}
+			
+			.mui-table-view-cell:after {
+				left: 5px;
+				right: 5px;
+			}
+			
+			.mui-table-view-cell>a {
+				text-align: center;
+			}
+			.u-rec-time{
+				color: #666;
+				font-weight: bold;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<h1 class="mui-title">复印记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="u-line-down mui-hidden" style="margin-bottom: 10px;">
+				<div class="u-act-top">
+					<div class="cell time mui-col-xs-7">1年内记录</div>
+					<div class="cell select mui-col-xs-5"><a href="#topPopover" style="color: #666666;">时间范围<span class="u-caret-top"></span></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="u-record-list">
+				<div id="u-rec-list" class="u-record init-waiting">
+				</div>
+			</div>
+		</div>
+		<!--右上角弹出菜单-->
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell"><a href="#">3月内记录</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">半年内记录</a>
+						</li>
+						<li class="mui-table-view-cell"><a href="#">1年内记录</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+		<!--template7-->
+		<script id="tpl-rec" class="htm-template" type="text/html">
+			<ul class="mui-table-view u-table-view">
+				{{#list}}
+				<li class="mui-table-view-cell">
+					<div class="u-rec-time">{{datetime}}</div>
+					<div>份数: <span class="orange size">{{copies}}</span></div>
+					<div>费用: <span class="red">¥ {{fee}}</span></div>
+					<div class="mui-hidden">地点: <span class="grey">{{site}}</span></div>
+					<div>配置: <span class="grey">{{options}}</span></div>
+				</li>
+				{{/list}}
+			</ul>
+		</script>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/template7.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var compRec = Template7.compile(document.getElementById("tpl-rec").innerHTML);
+			mui.init();
+			mui.plusReady(function() {
+				mui(".mui-popover").on("tap", "a", function(e) {
+					mui("#topPopover").popover("hide");
+				});
+				app.onPageLoad(function() {
+					proj.query.getCopyRec(function(rlt) {
+						var list = rlt.data;
+						if (!list) {
+							return;
+						}
+						var arr = [];
+						for (var i = 0; i < list.length; i++) {
+							var rec = list[i];
+							var li = {};
+							li.copies = rec.dwPages;
+							li.fee = app.cvtFee(rec.dwUsedCardMoney + rec.dwUsedMoney + rec.dwUsedFreeMoney);
+							li.site = "[缺少地点]";
+							var options = "";
+							options += (rec.dwProperty & 8) > 0 ? "彩色" : "黑白";
+							options += " | ";
+							if (rec.dwPaperID == 8) options += "A3";
+							if (rec.dwPaperID == 9) options += "A4";
+							options += " | ";
+							options += (rec.dwProperty & 2) > 0 ? "双面" : "单面";
+							li.options = options;
+							var subDate = app.cvt.toDate(rec.dwOpDate);
+							li.datetime = subDate + " " + app.cvt.toTime(rec.dwOpTime);
+							arr.push(li);
+						}
+						var content;
+						if(arr.length>0){
+							content=compRec({
+							list: arr
+						});
+						}
+						else{
+							content="<div class='u-none-data'>没有数据</div>";
+						}
+						document.getElementById("u-rec-list").innerHTML = content;
+					},"","",function(e){
+								if(e.msg){
+									app.msgBox(e.msg);
+								}
+								else{
+									app.toast("连接异常");
+								}
+								document.getElementById("u-rec-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+							});
+				});
+			});
+		</script>
+	</body>
+
+</html>

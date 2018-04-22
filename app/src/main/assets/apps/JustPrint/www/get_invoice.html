@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet" />
+    <link href="fonts/iconfont.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      .u-next {
+        flex: none;
+        width: 80px;
+        position: relative;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      
+      .u-next:before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #DDDDDD;
+      }
+      
+      .u-next .iconfont {
+        margin: 12px 0 6px 0;
+      }
+      
+      .u-next .iconfont:before {
+        font-size: 30px;
+      }
+      
+      .u-next .mui-btn {
+        font-size: 12px;
+        padding: 3px;
+        min-width: 50px;
+      }
+      
+      .u-next .u-fee {
+        margin-top: 5px;
+        font-size: 14px;
+      }
+      
+      .u-next input.u-checkbox {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin-top: 26%;
+      }
+      .u-my-wallet {
+        background: #fff;
+        padding: 5px 10px;
+        font-size: 14px;
+        color: #666;
+        min-height: 123px;
+      }
+      
+      .u-my-wallet .iconfont {
+        font-size: 30px;
+        margin-right: 5px;
+      }
+      
+      img.revolve {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+      }
+      
+      .u-action-list {
+        padding: 0;
+        text-align: center;
+        position: fixed;
+      }
+      
+      .u-action-list .u-item-btn {
+        padding: 15px 0;
+        width: 30%;
+      }
+      
+      .u-action-list .u-item-btn a {
+        color: #fff;
+        line-height: 1;
+      }
+      
+      .u-action-list .u-item-btn span {
+        font-size: 24px;
+        display: inline-block;
+      }
+      
+      .u-action-list .u-item-btn:active {
+        opacity: .7;
+      }
+      
+      .u-action-list .u-item-fee {
+        font-size: 16px;
+        line-height: 1;
+        height: 24px;
+        font-size: 22px;
+      }
+      
+      .u-item-fee .u-text {
+        font-size: 12px;
+        color: #999999;
+      }
+      
+      #u-cur-device {
+        margin-top: 5px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+        color: #666666;
+      }
+      
+      .u-fee-info {
+        min-height: 25px;
+        padding-top: 5px;
+      }
+      
+      .u-fee-info .fee-item {
+        display: inline-block;
+        margin: 2px;
+        /*border: 1px solid #EEEEEE;*/
+        box-shadow: 0 0 1px #CCCCCC;
+        overflow: hidden;
+        height: 22px;
+      }
+      
+      .fee-item span {
+        font-size: 12px;
+        line-height: 1;
+        padding: 5px;
+      }
+      
+      .fee-item span.name {
+        color: #FFFFFF;
+      }
+      
+      #u-act-sel {
+        font-size: 16px;
+       /* color: #FFFFFF;*/
+      }
+      
+      #u-act-sel:active {
+        color: #FFFFFF;
+        opacity: .9;
+      }
+      
+      .u-cp {
+        font-weight: bold;
+        font-size: 14px;
+        color: darkorange;
+      }
+      
+      #u-cur-fee-std {
+        font-size: 10px;
+        line-height: 16px;
+        color: #999999;
+        text-align: center;
+      }
+      
+      .mui-checkbox input[type=checkbox]:checked:before {
+        color: #00A0E9;
+      }
+      
+      .mui-checkbox input[type=checkbox]:before {
+        content: '\e442';
+        color: #ccc;
+      }
+      
+      .u-del-btn {
+        padding: 10px 14px;
+        font-size: 16px;
+        background: rgb(255, 39, 0);
+        color: #FFFFFF;
+        border: none;
+        border-radius: 0;
+        width: 30%;
+      }
+      
+      .u-sel-all {
+        width: 70%;
+        padding: 10px 14px;
+        font-size: 16px;
+        text-align: center;
+        color: #777;
+      }
+      
+      .u-sel-all:active {
+        background: #F9F9F9;
+      }
+      .company{
+        width: 50%;
+        display: inline-block;
+      }
+      .u-info-top{
+        height: 25px;
+        width: 100%;
+        line-height:30px;
+      }
+      .fl{
+        float: right;
+      }
+     .mui-input-group .mui-input-row:after{
+       left: 0;
+     }
+     .allFee{
+       display:inline-block;
+       height: 100%;
+       line-height:40px;
+     }
+     .mui-input-row label{
+       width: 25%;
+     }
+     .mui-input-row label{
+       padding-right: 0;
+     }
+     .mui-input-row label ~ input, .mui-input-row label ~ select, .mui-input-row label ~ textarea{
+       width: 75%;
+     }
+     .invoice-title{
+       margin-bottom: 0;
+       margin-left: 15px;
+       height:25px;
+       line-height: 28px;
+     }
+    </style>
+    <!--  初始化方法-->
+    <script src="js/init.js"></script>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+      <h1 class="mui-title">打印任务</h1>
+      <a id="u-act-sel" class="u-act-sel u-all mui-pull-right mui-hidden">全选</a>
+    </header>
+    <div class="mui-content">
+      <div style="padding-bottom: 60px;" id="choose">
+        <div id="u-info-panel" class="u-my-wallet mui-hidden">
+          <div id="u-cur-device"></div>
+          <div id="u-cur-fee-std"></div>
+          <div class="u-line-top"></div>
+          <div id="u-cur-fee-info" class="u-fee-info">
+          </div>
+        </div>
+        <div class="u-info-top">
+          <p><span style="margin-left:15px;">共<span id="amount" class="orange"></span>个文印订单 </span><span class="fl" style="margin-right:15px;" onclick="app.showInvoiceRec()">开票历史</span><span class="fl" style="margin-right:5px;">|</span><span class="fl" style="margin-right:5px;" onclick="app.showGuide()">开票说明</span></p>
+        </div>
+        <div id="u-task-list" class="u-file-list init-waiting">
+        </div>
+      </div>
+       <div style="padding-bottom: 60px;" id="invoice-data" class="mui-hidden">
+         <p class="invoice-title">发票详情</p>
+         <form id="u-form1" class="mui-input-group">
+            <div class="mui-input-row">
+              <label>公司名称</label>
+              <input type="text" id="u-buyer-name" class="mui-input-clear init-none"  placeholder="请输入企业名称" list="buyer"  oninput="myFunction()">
+            <datalist id ="buyer" >
+        </datalist>
+            </div>
+            <div class="mui-input-row">
+              <label>企业税号</label>
+              <input type="text" id="u-buyer-id" class="mui-input-clear init-none"  placeholder="请填写纳税人识别号" list="num">
+            <datalist id ="num" >
+        </datalist>  
+            </div>
+            <!--<div class="mui-input-row">-->
+            <ul class="mui-table-view" id="mui-table-view"> 
+             <li class="mui-table-view-cell mui-collapse" id="chose">
+            <a class="mui-navigate-right" href="#">选填内容</a>
+            <div class="mui-collapse-content">
+                <div class="mui-input-row">
+              <label style="padding-left: 0;">地址电话</label>
+              <input type="text" id="u-address" class="mui-input-clear init-none"  placeholder="请输入地址,电话"
+>
+            </div>
+            <div class="mui-input-row" style="position: static;">
+              <label style="padding-left: 0;width: 33%;padding-right:0;">开户行及账号</label>
+              <input type="text" id="u-account" class="mui-input-clear init-none"  placeholder="请输入开户行及账号" style="width:67%;">
+            </div>
+            </div>
+            </li>
+           </ul>
+            <!--</div>-->
+            <div class="mui-input-row">
+              <label>发票金额</label>
+              <p class="allFee"><span id="invoice-fee" class="orange"></span>元</p>
+            </div>
+            <div class="mui-input-row u-input-verify">
+              <label>发票内容</label>
+               <p id="invoice-type" class="allFee"></p>
+            </div>
+          </form>
+           <!--<p class="invoice-title">收件信息</p>
+           <form id="u-form1" class="mui-input-group">
+           <div class="mui-input-row">
+              <label>邮箱地址</label>
+              <input type="text" id="u-email" class="mui-input-clear init-none" name="pwd" placeholder="请填写邮箱地址">
+            </div>
+            </form>-->
+        </div> 
+       <div id="u-dft-panel" class="u-action-list u-flex mui-hidden" style="bottom:40%;width:80%;margin-left: 10%;">
+          <button class="mui-btn u-btn-primary mui-btn-full" onclick="apply()">申请发票</button>
+        </div>
+        <table id="u-submit-panel" class="u-action-list mui-hidden">
+        <tr>
+          <td>
+            <a id="u-act-sel" class="u-act-sel u-all">反选</a>
+          </td>
+          <td class="u-item-fee">
+            <span class="red bold">¥ <span id="u-fee">0.00</span></span>
+            <div class="u-line-top" style="margin:0 15%;"></div>
+            <span class="u-text">您已选择<span class='orange' id="hint">0</span>个打印任务</span>
+          </td>
+          <td class="u-item-btn bg-yellow" onclick="submitClick()" id="sub">
+            <a>申请发票<span class="mui-icon mui-icon-arrowright"></span></a>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+    <!--template7-->
+    <script id="tpl-task" class="htm-template" type="text/html">
+      <div class="u-task-list">
+        {{#list}}
+        <div class="u-pr-card u-line-down u-line-top card-{{id}}">
+          <div class="u-file-info" data-id="{{id}}">
+            <div class="detail" style="font-size: 14px;">
+               <div class="" data-id="{{id}}">{{info}}</div>
+                <div class="time">{{subTime}}</div>
+              <div class="mui-ellipsis" style="">配置：<span class="green">{{options}}</span></div>
+              <div class="options">费用：<span class="red">{{opt}}</span></div>
+            </div>
+          </div>
+          <div class="u-next mui-checkbox" data-id="{{id}}">
+            <input name="task-check" class="u-checkbox" value="{{id}}" data-fee="{{charge}}" type="checkbox">
+            {{#if output}}
+            <div class="u-fee red">{{fee}}</div>
+            {{/if}}
+          </div>
+        </div>
+        {{/list}}
+      </div>
+    </script>
+    <!-- page code -->
+    <script src="js/mui.min.js"></script>
+    <script src="js/template7.min.js"></script>
+    <script src="js/uni.lib.js"></script>
+    <script src="js/pro.lib.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript">
+      var myBalance = 0;
+      var mySubsidy = 0;
+      var totalFee = 0;
+      var times ;
+      var devSN = null;
+      var isChecked = false;
+      var paySucCallback;
+      var myBal = document.getElementById("u-my-balance");
+      var mySub = document.getElementById("u-my-subsidy");
+      var rate;
+      var price;
+      var type;
+      var mount;
+      var name;
+      var recList = [];
+      var flag;
+      var  buyList;
+      (function() {
+        var compTask = Template7.compile(document.getElementById("tpl-task").innerHTML);
+        mui.init({
+          preloadPages: [{
+            url: "print_config.html",
+            id: "print_config"
+          }]
+        });
+        mui.plusReady(function() { //初始化
+          mui(".u-act-sel").each(function() {
+            this.addEventListener("tap", function() {
+              if(this.classList.contains("u-all")) {
+                mui(".u-next input").each(function() {
+                  this.checked = false;
+                });
+                this.innerHTML = "全选";
+                this.classList.remove("u-all");
+              } else {
+                mui(".u-next input").each(function() {
+                  if(this.checked) {
+                    this.checked = false;
+                  } else {
+                    this.checked = true;
+                  }
+                });
+                this.innerHTML = "反选";
+                this.classList.add("u-all");
+              }
+              isChecked = true;
+              updateFee();
+            });
+          });
+         app.curView.addEventListener("hide", function() {
+          document.getElementById("u-fee").innerHTML = 0.00;
+        });
+        window.addEventListener('resize', function() {
+    document.getElementById("u-dft-panel").style.display = document.body.clientHeight <= 400 ? 'none' : 'block';
+}, false);
+          app.onPageLoad(function(para) {
+              document.getElementById("u-submit-panel").classList.remove("mui-hidden");
+              getPrintTask();
+            function getPrintTask(extra) {
+              proj.invoice.getInvoiceRec(function(rlt) {
+                var list = rlt.data;
+                document.getElementById("amount").innerHTML = list.length;
+//              alert(JSON.stringify(list));
+                var arr = [];
+                var today = new Date();
+                for(var i = 0; i < list.length; i++) {
+                  var rec = list[i];
+                  var task = {};
+                  task.id = rec.dwSID;
+                  var format = uni.getExt(task.name);
+                  task.isImg = uni.isImg(format);
+                  if(task.isImg) {
+                    if(rec.szJobFileName) {
+                      var ff = rec.szJobFileName.split("\\");
+                      var src = pro.mapUrl("temp/" + ff[ff.length - 1] + "_v/b_1.png");
+                      task.src = src;
+                    }
+                  } else {
+                    task.format = app.cvt.getFmtIcon(format);
+                  }
+                  task.size = "[文件大小]";
+                  task.opt ="¥" + app.cvtFee(rec.dwPlatFormMoney);
+                  var options = "";
+                 if ((rec.dwPrintType&1)>0) {
+                    options += "打印";
+                  }else if ((rec.dwPrintType&2)>0) {
+                    options += "复印";
+                  }else if ((rec.dwPrintType&4)>0) {
+                    options += "扫描";
+                  }
+                  var allPages = parseInt(rec.dwBWPages) + parseInt(rec.dwColorPages)
+                  options += " | ";
+//                if (rec.dwPaperID == 8) options += "A3";
+//                if (rec.dwPaperID == 9) options += "A4";
+                  options += allPages+"页";
+                  options += " | ";
+//                options += (rec.dwProperty & 2) > 0 ? "双面" : "单面";
+                  options += (rec.dwProperty & 8) > 0 ? "彩色" : "黑白";
+                  task.options = options;
+                  var subDate = app.cvt.toDate(rec.dwUseDate);
+                  task.subTime = subDate + " " + app.cvt.toTime(rec.dwUseTime);
+                  task.leftDay = 7 - uni.compareDate(today, subDate);
+                  task.info = rec.szUseDev;
+                   task.charge = rec.dwPlatFormMoney;
+                  arr.push(task);
+                }
+                var content;
+                if(arr.length > 0) {
+                  content = compTask({
+                    list: arr
+                  });
+                } else {
+                  content = "<div class='u-none-data'>没有数据</div>";
+                }
+                document.getElementById("u-task-list").innerHTML = content;
+                mui("#u-task-list input[type=checkbox]").each(function(){
+                   this.checked = true;
+                    updateFee();
+                })
+                //操作
+                mui("#u-task-list .u-pr-card").on("change", "input[type=checkbox]", function() {
+                  updateFee();
+                });
+              }, extra, function(e) {
+                if(e.msg) {
+                  app.msgBox(e.msg);
+                } else {
+                  app.toast("连接异常");
+                }
+                document.getElementById("u-task-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+              });
+            }
+          });
+          app.curView.addEventListener("hide", function() {
+            //状态还原
+            document.getElementById("u-info-panel").classList.add("mui-hidden");
+            document.getElementById("u-submit-panel").classList.add("mui-hidden");
+            document.getElementById("u-dft-panel").classList.add("mui-hidden");
+            document.getElementById("u-act-sel").classList.add("mui-hidden");
+            recList.splice(0,recList.length);
+            mui(".u-act-sel").each(function(){
+              this.classList.add("u-all");
+              this.innerHTML="反选";
+            });
+            myBalance = 0;
+            mySubsidy = 0;
+            totalFee = 0;
+            devSN = null;
+            paySucCallback = null;
+          });
+        });
+      })();
+      document.getElementById("mui-table-view").addEventListener("tap",function(){
+         if(document.getElementById("chose").classList.contains("mui-active")){
+           document.getElementById("u-dft-panel").style.bottom = "40%";
+//         flag = false;
+         }else{
+           document.getElementById("u-dft-panel").style.bottom = "30%";
+//         flag = true;
+         }
+      });
+      function myFunction(){
+        for (var i = 0; i < buyList.length; i++) {
+          if (document.getElementById("u-buyer-name").value == buyList[i].szBuyerName) {
+          	document.getElementById("u-buyer-id").value = buyList[i].szBuyerTaxiID
+          }       	
+        }
+
+      }
+      function submitClick() {
+         mui("#u-task-list input[type=checkbox]:checked").each(function() {
+                recList.push(this.value);
+          });
+          var iList =mui("#u-task-list input[type=checkbox]:checked");
+          if (iList.length == 0 ) {
+          	app.msgBox("请至少选择一张发票")
+          } else{
+//          alert(JSON.stringify(pro.acc))
+         document.getElementById("choose").classList.add("mui-hidden");
+         document.getElementById("invoice-data").classList.remove("mui-hidden");
+         document.getElementById("u-dft-panel").classList.remove("mui-hidden");
+         document.getElementById("u-submit-panel").classList.add("mui-hidden");
+         document.getElementById("invoice-fee").innerHTML = app.cvtFee(totalFee);
+//       document.getElementById("u-email").value = pro.acc.email;
+         proj.invoice.getItem(function(rlt){
+//          alert(JSON.stringify(rlt))
+//          console.log(rlt.data.szItemName);
+            name = rlt.data[0].szItemName;
+            document.getElementById("invoice-type").innerHTML = rlt.data[0].szItemName;
+            rate = rlt.data[0].dwTaxiRate;
+            price  = rlt.data[0].dwUnitPrice;
+            type = rlt.data[0].dwItemType;
+         }),
+         proj.invoice.getBuyer(function(rlt){
+//         alert(JSON.stringify(rlt))
+           buyList = rlt.data
+           if(buyList.length >0){
+             for (var i=0;i<buyList.length;i++) {
+               var op=document.createElement("option"); 
+                op.value = buyList[i].szBuyerName;
+              document.getElementById("buyer").appendChild(op);
+              var nop = document.createElement("option"); 
+              nop.value = buyList[i].szBuyerTaxiID;
+              document.getElementById("num").appendChild(nop);
+             }
+           }
+            
+         })
+          
+          }
+      }
+      function apply(){
+        plus.nativeUI.showWaiting();
+        proj.invoice.apply(function(rlt){
+//         alert(JSON.stringify(rlt))
+        plus.nativeUI.closeWaiting();
+         app.toast("开票成功");
+         app.showInvoiceRec();
+         },{
+           rec_list:recList,
+           szBuyerName:document.getElementById("u-buyer-name").value,
+           szBuyerTaxiID:document.getElementById("u-buyer-id").value,
+           szAddress:document.getElementById("u-address").value,
+           szBankName:document.getElementById("u-account").value,
+           szItemName:document.getElementById("invoice-type").innerHTML,
+          dwItemType:type,
+          dwBuyNum:1,
+          dwUnitPrice:price,
+          dwPurchase:app.cvtFee(totalFee),
+          dwTaxiRate:rate
+         }, function(e) {
+            plus.nativeUI.closeWaiting();
+                if(e.msg) {
+                  app.msgBox(e.msg);
+                } else {
+                  app.toast("连接异常");
+                }
+              })
+      }
+
+      function updateMybalance(fee, bal) {
+        myBalance = bal.dwBalance + bal.dwSubsidy;
+        mySubsidy = bal.dwSubsidy;
+        myBal.innerHTML = "¥" + fee;
+        if(bal.dwSubsidy) {
+          comSN = bal.comSN;
+          mySub.innerHTML = "(补助¥" + app.cvtFee(bal.dwSubsidy) + ")";
+        } else {
+          comSN = 0;
+          mySub.innerHTML = "";
+        }
+      }
+      function updateFee() {
+         //扫过机器才算费
+          totalFee = 0;
+          mui("#u-task-list input[type=checkbox]:checked").each(function() {
+            totalFee += parseInt(this.dataset.fee);
+          });  
+           times =mui("#u-task-list input[type=checkbox]:checked");
+          document.getElementById("hint").innerHTML = times.length; 
+          document.getElementById("u-fee").innerHTML = app.cvtFee(totalFee);
+      }
+    </script>
+  </body>
+
+</html>

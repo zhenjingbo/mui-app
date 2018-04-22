@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.u-img {
+				width: 100%;
+				transition: All 0.4s ease-in-out;
+				-webkit-transition: All 0.4s ease-in-out;
+			}
+			
+			/*.u-img.rotate {
+				transform: rotate(180deg);
+				-webkit-transform: rotate(180deg);
+			}*/
+			
+			.u-other-action {
+				position: fixed;
+				bottom: 0;
+				width: 100%;
+				background: #F7F7F7;
+				-webkit-box-shadow: 0 -1px 1px #EEEEEE;
+				box-shadow: 0 -1px 1px #EEEEEE;
+				padding: 0;
+				margin: 0;
+				text-align: center;
+			}
+			
+			.u-action-flex {
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				display: -webkit-flex;
+				display: flex;
+				flex-wrap: wrap;
+				-webkit-flex-wrap: wrap;
+				justify-content: space-around;
+				-webkit-justify-content: space-around;
+				margin: 6px;
+			}
+			
+			.u-action-flex a {
+				display: block;
+				text-align: center;
+			}
+			
+			.u-action-flex a {
+				font-size: 30px;
+				padding: 5px;
+				border-radius: 4px;
+				width: 100px;
+			}
+			
+			.u-action-flex a:active {
+				background: #F3F3F3;
+				opacity: .8;
+			}
+			
+			.u-action-flex a span {
+				display: block;
+				color: #666;
+				font-size: 12px;
+				line-height: 1.2;
+				margin-top: 5px;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">查看文件</h1>
+		</header>
+		<div class="mui-content">
+			<div id="u-content" style="padding-bottom: 68px;"></div>
+			<div class="u-other-action">
+				<div class="u-action-flex">
+					<a id="u-act-forward" class="mui-icon mui-icon-upload blue forward" href="#"><span>第三方应用打开</span></a>
+					<a id="u-act-rotate" class="mui-icon mui-icon-refresh blue rotate" href="#"><span>旋转</span></a>
+				</div>
+			</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var curSRC;
+			mui.init();
+			mui.plusReady(function() {
+				document.getElementById("u-act-forward").addEventListener("tap", function() {
+					if(curSRC) {
+						plus.runtime.openFile(curSRC, {}, function(e) {
+							app.msgBox("无法打开此文件：" + e.emssage);
+						});
+					}
+				});
+				document.getElementById("u-act-rotate").addEventListener("tap", function() {
+					var img = mui(".u-img")[0];
+					var deg = (typeof img.deg === "undefined") ? 90 : img.deg;
+					img.style.transform = "rotate(" + deg + "deg)";
+					img.style.webkitTransform = "rotate(" + deg + "deg)";
+					img.deg = ((deg + 90) % 360);
+					//					if(img.classList.contains("rotate")){
+					//						img.classList.remove("rotate");
+					//					}
+					//					else{
+					//						img.classList.add("rotate");
+					//					}
+				});
+				var content = document.getElementById("u-content");
+				app.onPageLoad(function(para) {
+					if(para.src) {
+						console.log("src:" + para.src);
+						curSRC = para.src;
+						content.innerHTML = "<img class='u-img' src='" + plus.io.convertLocalFileSystemURL(para.src) + "'/>";
+					}
+				});
+				app.curView.addEventListener("hide", function() {
+					curSRC = null;
+					content.innerHTML = "";
+				});
+			});
+		</script>
+	</body>
+
+</html>

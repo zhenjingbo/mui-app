@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			.u-next {
+				flex: none;
+				width: 80px;
+				position: relative;
+				text-align: center;
+				margin-bottom: 10px;
+			}
+			
+			.u-next:before {
+				content: "";
+				position: absolute;
+				width: 1px;
+				height: 100%;
+				top: 0;
+				left: 0;
+				background: #DDDDDD;
+			}
+			
+			.u-next .iconfont {
+				margin: 12px 0 6px 0;
+			}
+			
+			.u-next .iconfont:before {
+				font-size: 30px;
+			}
+			
+			.u-next .mui-btn {
+				font-size: 12px;
+				padding: 3px;
+				min-width: 50px;
+			}
+			
+			.u-next .u-fee {
+				font-size: 14px;
+			}
+			/*.u-file-info .iconfont {
+				margin-right: 15px;
+			}
+			
+			.u-file-info .iconfont span {
+				font-size: 14px;
+				color: grey;
+			}
+			
+			.u-file-info .iconfont:before {
+				font-size: 20px;
+			}*/
+			
+			.u-my-wallet {
+				background: #fff;
+				padding: 5px 10px;
+				font-size: 14px;
+				color: #666;
+			}
+			
+			.u-my-wallet .iconfont {
+				font-size: 30px;
+				margin-right: 5px;
+			}
+			
+			img.revolve {
+				-webkit-transform: rotate(180deg);
+				transform: rotate(180deg);
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">打印任务</h1>
+		</header>
+		<div class="mui-content">
+			<!-- style="padding-bottom: 70px;"-->
+			<div class="u-my-wallet"><span class='iconfont icon-qianbao yellow'></span> 打印余额(¥)：
+				<span id="u-my-balance" class="orange" style="font-size: 20px;"></span><span id="u-my-subsidy" style="color: #103E5C;font-size: 16px;"></span></div>
+			<div id="u-task-list" class="u-file-list init-waiting">
+				<!--<div class="u-pr-card u-line-down u-line-top">
+					<div class="u-media" data-id="{{id}}">
+						<a class="preview">
+							<img class="u-media-object" src="img/dft.jpg"></a>
+					</div>
+					<div class="u-file-info">
+						<div class="detail">
+							<div class="mui-ellipsis title">P20160827.jpg</div>
+							<div class="orange size">1.90 MB</div>
+							<p class="time">2016-08-30 11:20</p>
+						</div>
+						<div class="act">
+							<a class="iconfont icon-yulan green preview"><span>预览</span></a>
+							<a class="iconfont icon-shanchu red delete"><span>删除</span></a>
+						</div>
+					</div>
+					<div class="u-next">
+						<div class="iconfont blue icon-qujian"></div>
+						<div><button type="button" class="mui-btn u-btn-default">取件</button></div>
+						<span class="u-fee red">¥ 1.00</span>
+					</div>
+				</div>-->
+			</div>
+			<div class="u-action-list u-flex mui-hidden">
+				<a onclick="app.galleryImg()">
+					<span class="round bg-red">
+									<span class="iconfont icon-tupian"></span></span>
+					<div class="u-act-text">相册图片</div>
+				</a>
+				<a href="mailto:hkp@unifound.net">
+					<span class="round bg-green">
+									<span class="iconfont icon-youjian"></span></span>
+					<div class="u-act-text">邮箱附件</div>
+				</a>
+				<a onclick="app.getFile()">
+					<span class="round bg-yellow">
+									<span class="iconfont icon-kongbaiwd"></span></span>
+					<div class="u-act-text">本地文件</div>
+				</a>
+			</div>
+		</div>
+		<!--template7-->
+		<script id="tpl-task" class="htm-template" type="text/html">
+			<div class="u-task-list">
+				{{#list}}
+				<div class="u-pr-card u-line-down u-line-top card-{{id}}">
+					<div class="u-media" data-id="{{id}}">
+						<a class="preview">
+							<img class="u-media-object {{revolve}}" src="{{src}}" data-format="{{format}}" onerror="init.convertImg(this);"></a>
+					</div>
+					<div class="u-file-info">
+						<div class="detail">
+							<div class="mui-ellipsis title" style="margin-bottom: 5px;">{{name}}</div>
+							<div class="options orange" style="font-size: 14px;">{{opt}}</div>
+							<p class="time">{{subTime}}</p>
+						</div>
+						<div class="act" data-id="{{id}}">
+							<a class="iconfont icon-yulan green preview {{revolve}}"><span>预览</span></a>
+							<a class="iconfont icon-shanchu red delete"><span>删除</span></a>
+						</div>
+					</div>
+					{{#if output}}
+					<div class="u-next" data-id="{{id}}">
+						<div class="iconfont blue icon-{{#if output}}qujian{{else}}shezhi{{/if}}"></div>
+						<div><button type="button" class="mui-btn u-btn-default">{{#if output}}取件{{else}}配置{{/if}}</button></div>
+						<span class="u-fee red">{{#if output}}{{fee}}{{/if}}</span>
+					</div>
+					{{/if}}
+				</div>
+				{{/list}}
+			</script>
+		</script>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/template7.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var myBalance=0;
+			var mySubsidy=0;
+			var paySucCallback;
+			var myBal = document.getElementById("u-my-balance");
+			var mySub = document.getElementById("u-my-subsidy");
+			(function() {
+				var compTask = Template7.compile(document.getElementById("tpl-task").innerHTML);
+				mui.init({
+					preloadPages: [{
+						url: "print_config.html",
+						id: "print_config"
+					}]
+				});
+				mui.plusReady(function() {
+					app.onPreload(function(para) {
+						myBal.parentNode.classList.add("mui-hidden");
+						paySucCallback = null;
+					});
+					app.onPageLoad(function(para) {
+						if(para.staSN) {
+							pro.staSN = para.staSN;
+						}
+						if(para.devSN) {
+							app.getBalance(function(fee, bal) {
+								updateMybalance(fee, bal);
+							}, {
+								dev_sn: para.devSN
+							});
+							myBal.parentNode.classList.remove("mui-hidden");
+						} else {
+							myBal.parentNode.classList.add("mui-hidden");
+						}
+						//document.getElementById("u-task-list").innerHTML = "";
+						proj.print.getPrintTask(function(rlt) {
+							var list = rlt.data;
+							var arr = [];
+							var today = new Date();
+							for(var i = 0; i < list.length; i++) {
+								var rec = list[i];
+								var task = {};
+								task.id = rec.dwJobId;
+								task.name = rec.szDocument;
+								task.revolve = isRevolve(task.name) ? "revolve" : ""; //图片翻转显示
+								if(rec.szJobFileName && task.revolve == "revolve") { //图片才显示
+									var ff = rec.szJobFileName.split("\\");
+									var src = pro.mapUrl("temp/" + ff[ff.length - 1] + "_v/b_1.png");
+									task.src = src;
+								}
+								task.size = "[文件大小]";
+								task.opt = getOptions(rec);
+								var subDate = app.cvt.toDate(rec.dwSubmitDate);
+								task.subTime = subDate + " " + app.cvt.toTime(rec.dwSubmitTime);
+								task.leftDay = 7 - uni.compareDate(today, subDate);
+								if(para.devSN) {
+									if((rec.dwStatus&32)>0){
+										task.fee = "已支付";
+									}
+									else{
+										task.fee ="¥ "+ app.cvtFee(rec.dwInfoCharges);
+									}
+									task.output = true;
+								}
+								arr.push(task);
+							}
+							var content;
+							if(arr.length > 0) {
+								content = compTask({
+									list: arr
+								});
+							} else {
+								content = "<div class='u-none-data'>没有数据</div>";
+							}
+							document.getElementById("u-task-list").innerHTML = content;
+							//操作
+							mui("#u-task-list .u-pr-card").on("tap", ".u-next", function() {
+								var item = this;
+								var id = parseInt(this.dataset.id);
+								var task;
+								for(var i = 0; i < list.length; i++) {
+									if(list[i].dwJobId == id) {
+										task = list[i];
+										break;
+									}
+								}
+								if(para.devSN) { //输出文件
+									if(myBalance && task.dwInfoCharges <= myBalance) {
+										outputTask(id, para.devSN, task.dwInfoCharges);
+									} else {
+										var sum = task.dwInfoCharges - myBalance;
+										paySucCallback = function() {
+											app.getBalance(function(fee, bal) {
+												updateMybalance(fee, bal);
+												if(task.dwInfoCharges <= myBalance) {
+													outputTask(id, para.devSN, task.dwInfoCharges);
+												}
+											}, {
+												dev_sn: para.devSN
+											});
+										};
+										app.confirm("余额不足，需充值¥" + app.cvtFee(sum), function() {
+											app.showRecharge({
+												sum: sum,
+												paySucCallback: true
+											});
+										});
+									}
+								} else {
+									app.showPrintConfig({
+										task: task
+									});
+								}
+							});
+							//预览
+							mui("#u-task-list .u-pr-card").on("tap", ".preview", function() {
+								var id = parseInt(this.parentNode.dataset.id);
+								var isRev = this.classList.contains("revolve");
+								var task;
+								for(var i = 0; i < list.length; i++) {
+									if(list[i].dwJobId == id) {
+										task = list[i];
+										break;
+									}
+								}
+								var para = {
+									taskID: id,
+									file: task.szJobFileName,
+									color: (task.dwProperty & 8) > 0 ? "1" : "0",
+									isRevolve: isRev
+								}
+								app.showPreview(para);
+							});
+							//删除
+							mui("#u-task-list .u-pr-card").on("tap", ".delete", function() {
+								var id = parseInt(this.parentNode.dataset.id);
+								app.confirm("确定要删除本打印任务？", function() {
+									proj.print.delPrintTask(id, function() {
+										var my = document.getElementById("u-task-list").querySelector(".card-" + id);
+										my.parentNode.removeChild(my);
+										app.toast("删除成功");
+									});
+								});
+							});
+						},{dev_sn: para.devSN});
+					});
+				});
+			})();
+
+			function updateMybalance(fee, bal) {
+				myBalance = bal.dwBalance + bal.dwSubsidy;
+				mySubsidy=bal.dwSubsidy;
+				myBal.innerHTML = fee;
+				if(bal.dwSubsidy) {
+					comSN = bal.comSN;
+					mySub.innerHTML = " +补助 " + app.cvtFee(bal.dwSubsidy);
+				} else {
+					comSN = 0;
+					mySub.innerHTML = "";
+				}
+			}
+
+			function isRevolve(name) {
+				if(name) {
+					var arr = name.split('.'); //无后缀名默认是图片
+					var v = arr[arr.length - 1].toLowerCase();
+					if(arr.length == 1 || v == "jpg" || v == "jpeg" || v == "png" || v == "gif" || v == "bmp") {
+						return true;
+					}
+				}
+				return false;
+			}
+
+			function outputTask(task_id, dev_sn, fee) {
+				proj.print.output({
+					task_id: task_id,
+					dev_sn: dev_sn,
+					fee: fee,
+					subsidy: mySubsidy
+				}, function(rlt) {
+					app.showInfo({
+						icon: "<img src='img/icon-LOGO.svg'>",
+						msg: "已提交打印"
+					});
+				});
+			}
+
+			function getOptions(task) {
+				var str = "";
+				str += task.dwCopies + "份 | " + task.dwPages + "页"
+				if((task.dwProperty & (2 | 4)) > 0) {
+					str += " | 双面";
+				} else {
+					str += " | 单面";
+				}
+				if((task.dwProperty & 8) > 0) {
+					str += " | 彩色";
+				} else {
+					str += " | 黑白";
+				}
+				if(task.dwPaperID == 9) {
+					str += " | A4";
+				} else if(task.dwPaperID == 8) {
+					str += " | A3";
+				}
+				return str;
+			}
+		</script>
+	</body>
+
+</html>

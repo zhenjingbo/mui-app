@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			body {
+				background: transparent;
+			}
+			
+			.u-action-panel {
+				line-height: 40px;
+				border-radius: 50%;
+			}
+			
+			.u-back-icon {
+				position: absolute;
+				top: 14px;
+				left: 16px;
+				color: #FFFDF9;
+			}
+			
+			.u-act-back {
+				height: 40px;
+				width: 40px;
+				margin-top: 5px;
+				margin-left: 10px;
+				opacity: .5;
+				background: #000;
+			}
+			
+			.u-act-back:active {
+				opacity: .7;
+			}
+			
+			.u-act-loc {
+				height: 30px;
+				width: 30px;
+				margin-top: 20px;
+				margin-left: 15px;
+				opacity: .96;
+				box-shadow: 0 0 1px #999;
+				background: #eee;
+				position: relative;
+			}
+			
+			.u-act-loc:active {
+				box-shadow: none;
+			}
+			
+			.u-act-loc.loading {
+				background: #ccc;
+			}
+			
+			.u-dot {
+				display: inline-block;
+				background: #999;
+				border-radius: 50%;
+				height: 12px;
+				width: 12px;
+				position: absolute;
+				top: 9px;
+				left: 9px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="overflow: hidden;">
+			<a id="u-map-back" class="u-action-panel mui-pull-left u-act-back">
+				<span class="mui-icon mui-icon-left-nav u-back-icon"></span></a>
+		</div>
+		<!--<div>
+			<a id="u-my-location" class="u-action-panel mui-pull-left u-act-loc">
+				<span class="u-dot"></span></a>
+		</div>-->
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript">
+		document.getElementById("u-map-back").addEventListener("tap", function() {
+			plus.webview.currentWebview().opener().evalJS("mui.back()");
+		});
+//		var myLoc = document.getElementById("u-my-location");
+//		myLoc.addEventListener("tap", function() {
+//			if(locState != "doing") {
+//				locState = "doing";
+//				myLoc.classList.add("loading");
+//				plus.webview.currentWebview().opener().evalJS("myLocation()");
+//			}
+//		});
+//		var locState;
+
+//		function locCallback() {
+//			locState = "complete";
+//			myLoc.classList.remove("loading");
+//		}
+	</script>
+
+</html>

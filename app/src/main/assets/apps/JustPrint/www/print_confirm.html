@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			/*.u-confirm .mui-table-view-cell {
+				display: -webkit-flex;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding-top: 15px;
+				padding-bottom: 15px;
+			}
+			
+			.u-confirm .mui-table-view-cell label {
+				width: 80px;
+				flex: none;
+			}
+			
+			.u-confirm .mui-table-view-cell.mui-active {
+				background: initial;
+			}*/
+			
+			.u-action-list {
+				position: relative;
+				box-shadow: 0 0 1px #ddd;
+			}
+			
+			.u-action-list a {
+				width: 30%;
+			}
+			
+			.u-info {
+				text-align: center;
+				margin-bottom: 10px;
+				padding-bottom: 10px;
+				background: #fff;
+				box-shadow: 0 1px 1px #ddd;
+			}
+			
+			.u-info img {
+				width: 45%;
+				margin: 10px auto;
+			}
+			
+			.u-info p {
+				text-align: center;
+				font-size: 16px;
+				color: #333;
+			}
+			
+			#u-icon-balance {
+				font-size: 10px;
+				position: absolute;
+				top: 5px;
+				left: 5px;
+			}
+			.u-msg{
+				font-size: 28px;
+				color: #333;
+				margin-bottom: 10px;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" id="backbtn"><span style="font-size: 18px;">返回</span></a> 
+			<!--app.showPrintTask({type:1})-->
+			<h1 class="mui-title">提交结果</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-text-center u-info">
+				<img src="img/print-complete.png">
+				<div class="u-msg">提交成功 前往取件</div>
+			</div>
+			<div class="u-action-list u-flex" style="position:relative">
+			  <!--<a onclick="app.showPrintTask({devSN: dev_sn})" id="toTask">
+          <span class="round bg-blue">
+                  <span class="iconfont icon-yulan"></span></span>
+          <div class="u-act-text">查看任务</div>
+        </a>-->
+				<a onclick="app.showQRCode()" id="toScan">
+					<span class="round bg-blue">
+									<span class="iconfont icon-saoyisao"></span></span>
+					<div class="u-act-text">立即取件</div>
+				</a>
+				<a onclick="app.showLocation()">
+					<span class="round bg-green">
+									<span class="iconfont icon-tubiao"></span></span>
+					<div class="u-act-text">去取件点</div>
+				</a>
+				<a onclick="app.showRecharge()">
+					<span class="round bg-cyan">
+		    			<span id="u-icon-balance">余额</span>
+					</span>
+					<div class="u-act-text">¥ <span id="u-balance">--</span></div>
+				</a>
+			</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				preloadPages: [{
+					url: "recharge.html",
+					id: "recharge"
+				}],
+				  beforeback: function(){
+    //获得列表界面的webview
+    var list = plus.webview.getWebviewById('print_task');
+    //触发列表界面的自定义事件（refresh）,从而进行数据刷新
+    list.reload();
+    //返回true，继续页面关闭逻辑
+    return true;
+    }
+			})
+			mui.plusReady(function(){
+			   plus.key.addEventListener('backbutton',function(){
+//       plus.webview.getWebviewById("HBuilder").show();
+          mui.openWindow({
+            url: 'index.html', 
+            id:'index',
+          })
+            });
+       document.getElementById("backbtn").addEventListener("tap",function(){
+//      plus.webview.getWebviewById("HBuilder").show();
+            mui.openWindow({
+            url: 'index.html', 
+            id:'index',
+          })
+                },false);
+
+				app.onPageLoad(function(para){
+					app.getBalance(function(fee){
+						document.getElementById("u-balance").innerHTML=fee;
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

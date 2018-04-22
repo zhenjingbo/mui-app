@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#u-pre-content div{margin: 5px;}
+			img.revolve {
+				-webkit-transform: rotate(180deg);
+				transform: rotate(180deg);
+			}
+			
+			img.mono {
+				-webkit-filter: grayscale(100%);
+				-moz-filter: grayscale(100%);
+				-ms-filter: grayscale(100%);
+				-o-filter: grayscale(100%);
+				filter: grayscale(100%);
+				filter: gray;
+			}
+			img.rotate{
+				-webkit-transform:rotate(-90deg);
+				transform:rotate(-90deg);
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">预览</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded mui-hidden">
+				<ul class="mui-pager">
+					<li class="mui-disabled">
+						<span> 上一页 </span>
+					</li>
+					<li class="mui-disabled">
+						<a href="#">
+							下一页
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div id="u-pre-content">
+				<p class="mui-text-center">正在准备预览文件...</p>
+			</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			//预览页面不要预加载
+			var prepared = false;
+			mui.init();
+			mui.plusReady(function() {
+				app.onPageLoad(function(para) {
+					if(para.file && para.taskID) {
+						var data = {};
+						data.file = para.file;
+						data.task_id = para.taskID;
+						data.color = para.color;
+						data.page_num = 1;
+						proj.print.getPreview(data, function(rlt) {
+							var p = rlt.data;
+							var list = "";
+							for(var i = 0; i < p.total; i++) {
+								console.log("路径：" + p.dir);
+								list += "<div><img onload='checkImg(this)' class='" + (para.isRevolve ? "revolve" : "") +"' style='width:100%' src='" + pro.mapUrl(p.dir + "b_" + (i + 1) + ".png") + "'></div>";
+							}
+							document.getElementById("u-pre-content").innerHTML = list;
+						}, function(msg) {
+							app.msgBox(msg);
+						});
+					}
+				});
+				app.curView.addEventListener("hide", function() {
+					document.getElementById("u-pre-content").innerHTML = '<p class="mui-text-center">正在准备预览文件...</p>';
+				});
+			});
+			function checkImg(img){
+				var h=img.height;
+				var w=img.width;
+				if(w>h){
+					//img.classList.add("rotate");
+				}
+			}
+		</script>
+	</body>
+
+</html>

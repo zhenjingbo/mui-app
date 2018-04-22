@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<!--<link href="css/mui.picker.all.css" rel="stylesheet" />-->
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			/*.u-config {margin: 0;}*/
+			
+			.u-config .mui-table-view-cell {
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				align-items: center;
+				-webkit-box-pack: justify;
+				justify-content: space-between;
+				height: 65px;
+			}
+			
+			.u-config .mui-table-view-cell label {
+				width: 80px;
+				flex: none;
+			}
+			
+			.u-config .mui-table-view-cell.mui-active {
+				background: initial;
+			}
+			
+			.u-config .mui-table-view-cell .u-table-select {
+				position: relative;
+			}
+			
+			.u-config .mui-table-view-cell .u-table-select:active {
+				opacity: .7;
+			}
+			
+			.u-config .mui-table-view-cell select {
+				width: auto;
+				margin: 0;
+			}
+			
+			.u-config .u-caret-top {
+				top: 16px;
+			}
+			
+			.u-item {
+				text-align: center;
+				padding: 8px 0;
+				position: relative;
+				flex-grow: 1;
+			}
+			/*.u-item:after {
+				content: "";
+				height: 100%;
+				width: 1px;
+				background: #CCCCCC;
+				position: absolute;
+				top: 0;
+				right: 0;
+			}*/
+			
+			.u-item .u-fee {
+				font-size: 16px;
+				line-height: 1;
+				height: 24px;
+			}
+			
+			.u-item .u-fee span {
+				font-size: 22px;
+			}
+			
+			.u-item p {
+				margin: 0;
+				font-size: 11px;
+				line-height: 1;
+			}
+			.u-d-config{
+				font-size: 16px;
+				line-height: 1;
+				height: 24px;
+			}
+			.u-action-list {
+				padding: 0;
+			}
+			
+			.u-action-list a {
+				padding: 15px 0;
+				width: 30%;
+				color: #fff;
+				line-height: 1;
+			}
+			
+			.u-action-list a span {
+				font-size: 24px;
+				display: inline-block;
+			}
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<h1 class="mui-title">打印配置</h1>
+		</header>
+		<div class="mui-content" style="padding-bottom: 70px;">
+			<!--<ul class="u-step-panel u-flex u-line-top">
+										<li><div class="u-step-text">选择文件</div>
+								<div class="u-step">
+									<span class="round active"></span><span class="line active" style="right: 0;"></span></div>
+							</li>
+							<li><div class="u-step-text">打印配置</div>
+								<div class="u-step">
+								<span class="line active" style="left: 0;"></span>
+								<span class="round active"></span>
+								<span class="line active" style="right: 0;"></span>
+								</div>
+							</li>
+							<li><div class="u-step-text">任务生成</div>
+								<div class="u-step">
+									<span class="line" style="left: 0;"></span>
+									<span class="round"></span></div>
+							</li>
+		</ul>-->
+			<div class="u-config">
+				<ul class="mui-table-view u-table-view">
+					<li class="mui-table-view-cell">
+						<label>文件</label>
+						<div class="mui-ellipsis" id="u-filename"></div>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>打印份数</label>
+						<div class="mui-numbox" data-numbox-min='1' data-numbox-max='99'>
+							<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+							<input id="u-copies" name="copies" class="mui-input-numbox" type="number" />
+							<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+						</div>
+					</li>
+					<!--<li class="mui-table-view-cell">
+						<label>打印页码</label>
+					</li>-->
+					<li class="mui-table-view-cell">
+						<label>单／双面</label>
+						<div class="u-table-select">
+							<select id="u-double">
+								<option value="">单面</option>
+								<option value="default">双面</option>
+								<!--<option value="duphorizontal">双面(短边翻页)</option>-->
+							</select><span class="u-caret-top"></span></div>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>彩色</label>
+						<div id="u-color" class="mui-switch mui-switch-blue mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell" id="li-paperid">
+						<label>纸型</label>
+						<div class="u-table-select">
+							<select id="u-paperid">
+								<option value="9">A4</option>
+								<option value="8">A3</option>
+							</select>
+							<span class="u-caret-top"></span></div>
+					</li>
+				</ul>
+			</div>
+			<div style="margin-top: 10px;display: none;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" onclick="app.showShopList()">
+							<div class="mui-ellipsis" style="line-height: 26px;padding-right: 20px;">
+								计费标准 : <span id="u-std-name" class="orange u-fee-standard" style="font-size: 14px;"></span>
+							</div>
+							<p>查看附近文印点计费标准</p>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!--<div style="margin-top: 10px;">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<label>配置</label>
+						<span id="u-d-config" class="mui-pull-right">--</span>
+					</li>
+				</ul>
+			</div>-->
+			<div id="progressNumber"></div>
+			<div class="u-action-list u-flex">
+				<!--<a class="mui-action-back">
+								<span class="round">
+									<span class="mui-icon mui-icon-arrowleft"></span></span>
+								<div class="u-act-text">上一步</div>
+							</a>-->
+				<div class="u-item">
+					<!--<div class="u-fee"><span class="red bold">¥ <span id="u-fee">--</span></span>
+					</div>-->
+					<div id="u-d-config" class="u-d-config">--</div>
+					<p>费用在取件时收取</p>
+				</div>
+				<a onclick="showPreview()" class="bg-orange mui-hidden">
+					<span class="iconfont icon-yulan"><span>预览</span></span>
+
+				</a>
+				<a onclick="submitClick()" class="bg-yellow">
+					下一步<span class="mui-icon mui-icon-arrowright"></span>
+
+				</a>
+			</div>
+		</div>
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var uCopies = document.getElementById("u-copies");
+			var uDouble = document.getElementById("u-double");
+			var uColor = document.getElementById("u-color");
+			var uPaperID = document.getElementById("u-paperid");
+			var uFileName = document.getElementById("u-filename");
+			//var feeStandard;
+			//var curStandard;
+			//var curTask;
+			var curFile;
+			 var dev_sn;
+			//初始化费率
+			function updateFee(sn) {
+				return;//弃用
+				if(feeStandard) {
+					curStandard = [];
+					if(!sn) { //未指定sn则取优先级最大者
+						var max = 0;
+						for(var i = 0; i < feeStandard.length; i++) {
+							var fs = feeStandard[i];
+							if(fs.dwPriority > max) {
+								max = fs.dwPriority;
+								sn = fs.dwSN;
+							}
+						}
+					}
+					for(var i = 0; i < feeStandard.length; i++) {
+						var fs = feeStandard[i];
+						if(fs.dwSN == sn) {
+							curStandard.push(fs);
+						}
+					}
+					calcFee();
+				}
+			}
+			//计算费用
+			function calcFee() {
+				return;//弃用 不在这里获取费率
+				if(feeStandard !== undefined) { //费率获取过
+					var std = curStandard;
+					var opt = getOptions();
+					var stdName = document.getElementById("u-std-name");
+					var uFee = document.getElementById("u-fee");
+					if(std && std.length > 0) {
+						var cur;
+						for(var i = 0; i < std.length; i++) {
+							if(parseInt(opt.paper_id) == std[i].dwPaperID) {
+								cur = std[i];
+								break;
+							}
+						}
+						if(cur) {
+							stdName.innerText = cur.szName;
+							var fee;
+							if(opt.color == "1") {
+								fee = cur.dwColorFee;
+							} else {
+								fee = cur.dwMonoFee;
+							}
+							if(opt.double == "dupvertical" || opt.double == "duphorizontal") {
+								fee = fee * 2;
+							}
+							fee += cur.dwMaterialFee;
+							fee = fee * parseInt(opt.copies);
+							uFee.innerHTML = app.cvtFee(fee);
+							return;
+						}
+					}
+					console.log("缺少收费标准");
+					stdName.innerText = "";
+					uFee = "--";
+				} else {
+					app.getPrintFeeSTD(function(rlt) {
+						feeStandard = rlt.data;
+						updateFee();
+					});
+				}
+			}
+			function isOffice(s){
+				var p=s.split('.');
+				var e=p[p.length-1];
+				var arr="doc,docx,xls,xlsx,ppt,pptx".split(',');
+				for (var i=0;i<arr.length;i++) {
+					if(e==arr[i]){
+						return true;
+					}
+				}
+				return false;
+			}
+			function getOptions() {
+				var opt = {};
+				var str = "";
+				opt.copies = uCopies.value;
+				str += opt.copies + "份"
+				opt.double = uDouble.value;
+				if(opt.double == "") {
+					str += " | 单面";
+				} else {
+					str += " | 双面";
+				}
+				if(uColor.classList.contains("mui-active")) {
+					opt.color = "1";
+					str += " | 彩色";
+				} else {
+					str += " | 黑白";
+				}
+				if(!document.getElementById("li-paperid").classList.contains("mui-hidden")){
+					opt.paper_id = uPaperID.value;
+				if(opt.paper_id == "9") {
+					str += " | A4";
+				} else if(opt.paper_id == "8") {
+					str += " | A3";
+				}
+				}
+				document.getElementById("u-d-config").innerHTML = str;
+				return opt;
+			}
+
+			function submitClick() {
+//				if(curTask) {
+//					var opt = getOptions();
+//					opt.task_id = curTask.dwJobId;
+//					proj.print.setPrintTask(opt, function() {
+//						app.msgBox("成功(＝。＝)其实并没有");
+//					});
+//				} else
+             plus.nativeUI.showWaiting("正在处理，请稍候...");
+				if(curFile) {
+					var opt = getOptions();
+					opt.file = curFile.file;
+					opt.fileName = curFile.fileName;
+					proj.print.newPrintTask(opt, function(rlt) {
+					if (localStorage.getItem("devsn") == "null") {
+            app.showPrintConfirm({
+              msg: "ok"
+            });
+      } else{
+             dev_sn = localStorage.getItem("devsn");
+             app.showPrintTask({devSN: dev_sn,flag:"1"});
+             localStorage.removeItem("devsn");
+
+      }
+					}, function (res) {
+						alert(JSON.stringify(res))
+					}, {
+						beforeSend:function(){
+
+						},
+						complete:function(){
+
+							plus.nativeUI.closeWaiting();
+						},
+						outTime: 60000
+					});
+				}
+			};
+
+			function showPreview() {
+//				if(curTask) {
+//					var para = {
+//						taskID: curTask.dwJobId,
+//						file: curTask.szJobFileName,
+//						color: uColor.classList.contains("mui-active") ? "1" : "0"
+//					}
+//					app.showPreview(para);
+//				} else {
+//					app.msgBox("任务提交前，暂不支持预览");
+//				}
+			}
+			mui.init({
+				preloadPages: [{
+					url: "print_confirm.html",
+					id: "print_confirm"
+				}, {
+					url: "shop_list.html",
+					id: "shop_list"
+				}]
+			});
+			mui.plusReady(function() {
+				//获取费率
+//				app.getPrintFeeSTD(function(rlt) {
+//					feeStandard = rlt.data;
+//					updateFee();
+//				});
+				uCopies.addEventListener("change", function() {
+					//calcFee();
+					getOptions();
+				});
+				uDouble.addEventListener("change", function() {
+					//calcFee();
+					getOptions();
+				});
+				uColor.addEventListener("toggle", function() {
+					//calcFee();
+					getOptions();
+				});
+				uPaperID.addEventListener("change", function() {
+					//calcFee();
+					getOptions();
+				});
+				app.onPageLoad(function(para) {
+					if(para.file) { //新建
+						//初始化
+						curFile = para.file;
+						uFileName.innerHTML = curFile.fileName;
+						if(isOffice(curFile.fileName)){
+							//document.getElementById("li-paperid").classList.add("mui-hidden");
+						}
+						else{
+							//document.getElementById("li-paperid").classList.remove("mui-hidden");
+						}
+						getOptions();
+					}
+				});
+				app.curView.addEventListener("hide", function() {
+					//curTask = null;
+					curFile =null;
+					uFileName.innerHTML ="";
+					uCopies.value = "1";
+					uDouble.value = "";
+					uColor.classList.contains("mui-active") && mui("#u-color").switch().toggle();
+					uPaperID.value = "9";
+					getOptions();
+				});
+			});
+		</script>
+	</body>
+
+</html>

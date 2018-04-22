@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="fonts/iconfont.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">.u-tm-tag {
+  text-align: center;
+  margin: 0;
+  padding: 5px;
+}
+
+#segmentedControl {
+  background: #FFFFFF;
+  padding: 0 10px;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+  color: #777777;
+  padding-top: 6px;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+  color: #00A0E9;
+  border-bottom-color: #00A0E9;
+}
+
+.u-deleted .u-file-info {
+  opacity: .5;
+}
+
+#error {
+  color: red;
+}
+
+.botBtn {
+  /*position: absolute;*/
+  width: 100%;
+  height: 30px;
+  display: flex;
+  background: #FFFFFF;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.bot-item {
+  flex: 1;
+  text-align: center;
+  line-height: 35px;
+  border-right: 1px solid #f0f2f5;
+  overflow: hidden;
+}
+
+.bot-item span {
+  color: #666666;
+  font-size: 13px!important;
+}
+
+#email {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.u-deleted .act {
+  visibility: hidden;
+}
+
+.u-del-sign {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  color: red;
+  font-size: 50px;
+}
+
+.u-deleted .u-del-sign {
+  display: block;
+}
+
+.u-deleted .next a {
+  visibility: hidden;
+}
+
+.u-act-tag {
+  font-size: 14px;
+  color: #999;
+  margin-right: 10px;
+}
+		 input[type=text]{
+        margin-bottom:0;
+      }
+      .mui-popup-inner{
+        padding-bottom:0;
+      }
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+			<h1 class="mui-title">扫描件</h1>
+		</header>
+		<div class="mui-content">
+			<div class="u-pr-list" style="margin-top: 50px;">
+				<div id="item1" class="mui-control-content mui-active">
+					<p class="u-tm-tag mui-hidden">我的邮箱 <span id="u-my-email"></span>
+						<a style="color: #00A0E9;text-decoration: underline;" onclick="app.showEmail()">修改</a>
+					</p>
+					<div id="u-task-list" class="init-waiting">
+					</div>
+				</div>
+				<div id="item2" class="mui-control-content">
+					<div id="u-file-list"></div>
+				</div>
+			</div>
+			<div class="u-org-panel u-fixed" style="position: fixed;top: 44px;box-shadow: 0 1px 1px #CCCCCC;">
+				<div id="segmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1">
+						云端
+					</a>
+					<a class="mui-control-item" href="#item2">
+						本地
+					</a>
+				</div>
+			</div>
+		</div>
+		<!--资源-->
+		<div id="u-sel-forward" class="mui-popover u-popover-box">
+			<div id="u-pop-title" class="u-popover-title">
+				分享扫描件
+			</div>
+			<ul class="u-table-view u-popover-flex">
+				<li class="u-popover-cell" data-type="qq">
+					<a class="mui-icon mui-icon-qq blue qq" href="#">
+						<span>分享到QQ</span>
+					</a>
+				</li>
+				<li class="u-popover-cell" data-type="weixin">
+					<a class="mui-icon mui-icon-weixin green weixin" href="#"><span>分享到微信</span></a>
+				</li>
+				<li class="u-popover-cell" data-type="email">
+					<a class="mui-icon mui-icon-email yellow email" href="#"><span>分享到邮件</span></a>
+				</li>
+			</ul>
+			<div class="u-popover-cancel">
+				<a href="#u-sel-forward"><b>取消</b></a>
+			</div>
+		</div>
+
+		<!--template7-->
+		<script id="tpl-task" class="htm-template" type="text/html">
+			<div class="u-task-list">
+				{{#list}}
+				<div class="u-pr-card u-line-down u-line-top u-rec-{{id}}">
+					<div class="u-media">
+						<a class="preview" data-name="{{name}}">
+							{{#if isImg}}
+							<img class="u-media-object" src="{{src}}" onerror="init.convertImg(this)">{{else}}
+							<span class='iconfont {{format}}'></span> {{/if}}
+						</a>
+					</div>
+					<div class="u-file-info" style="line-height:30px;">
+						<div class="detail">
+							<div class="mui-ellipsis title">{{name}}</div>
+							<span class="orange size">{{size}}</span>
+							<p class="time">{{subTime}}</p>
+						</div>
+						<!--<div class="act" data-id="{{id}}">
+							<a class="iconfont icon-xiazai green download" data-name="{{name}}"><span>下载到本地</span></a>
+							<a class="iconfont icon-shanchu red delete"><span>删除</span></a>
+							{{#if iOS}}
+							<a class="iconfont icon-youjian blue forward" data-name="{{name}}"><span>转发</span></a>
+							{{/if}}
+							 <a class="iconfont icon-dianziyoujian blue forward" data-id="{{id}}"><span>发送邮箱</span></a>
+						</div>-->
+						<div>
+						</div>
+						<div class="u-line-top add mui-hidden">
+							<p>将于<span class="red">{{leftDay}}</span>日后过期</p>
+							<!--<p>消费：¥ {{fee}}</p>-->
+							<p>{{email}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="botBtn btn-{{id}}"data-id="{{id}}" id="btns-{{id}}">
+            <div class="bot-item" data-id="{{id}}" id="download" data-name="{{name}}">
+              <a class="iconfont icon-xiazai green download"><span>下载</span></a>
+            </div>
+              <div class="bot-item" data-id="{{id}}" id="delete">
+                <a class="iconfont icon-shanchu red delete"><span id="del">删除</span></a>
+              </div>
+              <div class="bot-item" data-id="{{id}}" id="send">
+              <a class="iconfont icon-dianziyoujian blue forward" data-id="{{id}}"><span>转发邮箱</span></a>
+          </div>
+              </div>
+          </div>
+				{{/list}}
+			</div>
+		</script>
+		<script id="tpl-file" class="htm-template" type="text/html">
+			{{#list}}
+			<div class="u-pr-card u-line-down u-line-top u-available">
+				<div class="u-media">
+					<a class="preview">
+						<img class="u-media-object" src="{{src}}" data-format="{{format}}" onerror="init.convertImg(this)"></a>
+				</div>
+				<div class="u-file-info">
+					<div class="detail">
+						<div class="mui-ellipsis title">{{name}}</div>
+						<div class="orange size">{{size}}</div>
+						<p class="time">{{dwTime}}</p>
+					</div>
+				</div>
+			</div>
+			{{/list}}
+		</script>
+		<!-- page code -->
+		<script src="js/mui.js"></script>
+		<script src="js/template7.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">var curFile;
+var myFiles = [];
+var compTask = Template7.compile(document.getElementById("tpl-task").innerHTML);
+var compFile = Template7.compile(document.getElementById("tpl-file").innerHTML);
+mui.init({
+  preloadPages: [{
+    url: "scan_confirm.html",
+    id: "scan_confirm"
+  }]
+});
+mui.plusReady(function() {
+  //分享相关
+  //updateSerivces();
+  //注册分享
+  //				mui("#u-sel-forward").on("tap", ".u-popover-cell", function() {
+  //					if(curFile) {
+  //						var service;
+  //						if(this.dataset.type == "qq") {
+  //							service = shares["qq"];
+  //						} else if(this.dataset.type == "weixin") {
+  //							service = shares['weixin']
+  //						} else if(this.dataset.type == "email") {
+  //							app.msgBox("3");
+  //						}
+  //						if(service) {
+  //							var msg = {
+  //								title: "Justprint扫描件分享",
+  //								content: "Justprint扫描件分享：" + curFile.name
+  //							};
+  //							if(curFile.type == "pdf") {
+  //								msg.href = curFile.href;
+  //								shareAction(service, msg);
+  //							} else if(curFile.type == "img") {
+  //								msg.pictures = ["_downloads/scan/" + curFile.name];
+  //								shareAction(service, msg);
+  //							} else {
+  //								app.toast("不支持的格式");
+  //							}
+  //						}
+  //					}
+  //					curFile = null;
+  //				});
+  //
+  app.onPageLoad(function() {
+    loadFile();
+    document.getElementById("u-my-email").innerHTML = pro.acc.email;
+    proj.scan.getScanRec(function(rlt) {
+      var list = rlt.data || [];
+      var arr = [];
+      var today = new Date();
+      for(var i = 0; i < list.length; i++) {
+        var rec = list[i];
+        var task = {};
+        task.id = rec.dwJobId;
+        task.name = rec.szDisplayName;
+        var suf = uni.getExt(rec.szDisplayName);
+        task.isImg = uni.isImg(suf);
+        if(task.isImg) {
+          task.src = plus.io.convertLocalFileSystemURL("_downloads/scan/" + pro.acc.accno + "/" + rec.szDisplayName);
+        } else {
+          task.format = app.cvt.getFmtIcon(suf);
+        }
+        task.iOS = (plus.os.name == "iOS");
+        task.size = app.getFileSize(rec.dwFileSize);
+        var subDate = app.cvt.toDate(rec.dwSubmitDate);
+        task.subTime = subDate + " " + app.cvt.toTime(rec.dwSubmitTime);
+        //task.fee = "[缺少字段]";
+        if((rec.dwStatus & 4) > 0) {
+          task.email = "已发邮箱：" + rec.szEmail;
+        }
+        task.leftDay = 7 - uni.compareDate(today, subDate);
+        arr.push(task);
+      }
+      var content;
+      if(arr.length > 0) {
+        content = compTask({
+          list: arr
+        });
+      } else {
+        content = "<div class='u-none-data'>没有数据</div>";
+      }
+      document.getElementById("u-task-list").innerHTML = content;
+      //打开
+      mui("#u-task-list .u-pr-card").on("tap", ".preview", function() {
+        var name = this.dataset.name;
+        var path = "_downloads/scan/" + pro.acc.accno + "/" + name;
+        plus.io.resolveLocalFileSystemURL(path, function(entry) {
+          openFile(path);
+        }, function() {
+          app.msgBox("打开前请下载");
+        });
+      });
+      //下载
+      mui("#u-task-list").on("tap", "#download", function() {
+        var id = this.parentNode.dataset.id;
+        var name = this.dataset.name;
+        var path = "_downloads/scan/" + pro.acc.accno + "/" + name;
+        plus.io.resolveLocalFileSystemURL(path, function(entry) {
+          openFile(path);
+        }, function() {
+          proj.scan.getScanFile(id, function(rlt) {
+            var url = rlt.data;
+            if(url) {
+              app.downloadFile(url, "scan/" + pro.acc.accno + "/" + name, function(path, entry) {
+                loadFile();
+                openFile(path);
+              });
+            }
+          });
+        });
+      });
+      //删除
+      mui("#u-task-list").on("tap", "#delete", function() {
+        var id = this.parentNode.dataset.id;
+        app.confirm("确定要删除云端文件？", function() {
+          proj.scan.delScanRec(id, function() {
+            var my = document.getElementById("u-task-list").querySelector(".u-rec-" + id);
+            var btn =  document.getElementById("u-task-list").querySelector(".btn-" + id);
+            my.parentNode.removeChild(my);
+            btn.parentNode.removeChild(btn);
+            app.toast("删除成功");
+          });
+        });
+      });
+      //云端文件分享转发
+      mui("#u-task-list").on("tap", "#send", function(e) {
+        var id = this.dataset.id;
+        var myEmail = pro.acc.email || '';
+        mui.confirm('<input type="text" id="email" /><span id="error" class="mistake">&nbsp</span>', '文件将发送到以下邮箱', null, function(event) {
+          var index = event.index;
+          if(index === 1) {
+            var myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+            var pwd = document.getElementById('email').value;
+            if(myReg.test(pwd)) {
+              proj.scan.sendEmail(id, pwd, function() {
+                app.toast("发送成功");
+              });
+            } else {
+              document.getElementById('error').innerText = "邮箱格式不正确";
+              return false;
+            }
+          }
+        }, 'div');
+        document.getElementById('email').value = myEmail;
+      });
+    }, "", "", function(e) {
+      if(e.msg) {
+        app.msgBox(e.msg);
+      } else {
+        app.toast("连接异常");
+      }
+      document.getElementById("u-task-list").innerHTML = "<div class='u-none-data'>获取失败</div>";
+    });
+    //					mui(".u-pr-card.u-available").on("tap", ".detail", function() {
+    //						app.showScanConfirm();
+    //					});
+    //					mui("#item1").on("tap", ".u-deleted", function() {
+    //						mui.confirm("任务已过期，是否删除？", "提醒");
+    //					});
+  });
+});
+
+function openFile(path) {
+  console.log(path);
+  if(mui.os.ios) {
+    var arr = path.split('.');
+    if(arr.length > 1 && arr[arr.length - 1].toLowerCase() == "pdf") {
+      plus.runtime.openFile(path, {}, function(e) {
+        app.msgBox("无法打开此文件：" + e.emssage);
+      });
+    } else {
+      app.showWatch({
+        src: path
+      });
+    }
+  } else {
+    plus.runtime.openFile(path, {}, function(e) {
+      app.msgBox("无法打开此文件：" + e.emssage);
+    });
+  }
+}
+
+function delFile(path, it) {
+  app.confirm("确定要删除本地文件？", function() {
+    plus.io.resolveLocalFileSystemURL(path, function(entry) {
+      entry.remove(function() {
+        app.toast("删除成功");
+        var p = it.parentNode.parentNode;
+        p.parentNode.removeChild(it.parentNode.parentNode.previousSibling);
+        p.parentNode.removeChild(p);
+      });
+    });
+  });
+}
+
+function loadFile() {
+  plus.io.resolveLocalFileSystemURL("_downloads/scan/" + pro.acc.accno + "/", function(dir) {
+    if(dir.isDirectory) {
+      var dirReader = dir.createReader();
+      dirReader.readEntries(function(entries) {
+        myFiles = entries;
+        showFileList();
+      }, function() {
+        app.msgBox("获取下载文件失败");
+      });
+    }
+  }, function() {
+    //app.msgBox("获取下载文件失败");
+  });
+}
+
+function showFileList() {
+  var fList = document.getElementById("u-file-list");
+  fList.innerHTML = "";
+  for(var i = 0; i < myFiles.length; i++) {
+    var entry = myFiles[i];
+    if(entry.isFile) {
+      entry.file(function(file) {
+          var suf = uni.getExt(file.name);
+          var path = "_downloads/scan/" + pro.acc.accno + "/" + file.name;
+          var img;
+          if(uni.isImg(suf)) {
+            img = '<img class="u-media-object" src="' + file.fullPath + '" onerror="init.convertImg(this)">';
+          } else {
+            img = "<span class='iconfont " + app.cvt.getFmtIcon(suf) + "'></span>";
+          }
+          var str = '<div class="u-media"><a class="preview" onclick="openFile(\'' + path + '\')">' + img + '</a></div>' +
+            '<div class="u-file-info" style="line-height:30px;"><div class="detail"><div class="mui-ellipsis title">' + file.name + '</div><div class="orange size">' + app.getFileSize(file.size) + '</div>' +
+            '<p class="time">' + file.lastModifiedDate.format("yyyy-MM-dd HH:mm") + '</p></div>' +
+            '<div class="act" style="display:none;"><a class="iconfont icon-yulan green" onclick="openFile(\'' + path + '\')"><span>打开</span></a><a class="iconfont icon-shanchu red" onclick="delFile(\'' + path + '\',this)"><span>删除</span></a>' +
+            ((plus.os.name == "iOS") ? '<a style="" class="iconfont icon-youjian blue" onclick="sendEmail(\'' + file.name + '\')"><span>转发</span></a>' : '')+ 
+            '</div>'
+            +'</div>'+'</div>';
+          var btn = '<div class="botBtn btn-{{id}}"data-id="{{id}}" id="btns-{{id}}">'+'<div class="bot-item" data-id="{{id}}" id="download" onclick="openFile(\'' + path + '\')">'+
+              '<a class="iconfont icon-yulan green"><span>打开</span></a>'+
+            '</div>'
+             + '<div class="bot-item" data-id="{{id}}" id="delete" onclick="delFile(\'' + path + '\',this)">'
+             +   '<a class="iconfont icon-shanchu red" ><span>删除</span></a>'
+             + '</div>';  
+          var div = document.createElement("div");
+          var div2 = document.createElement("div");
+          div.className = "u-pr-card u-line-down u-line-top";
+          div.innerHTML = str;
+          div2.innerHTML = btn;
+          fList.appendChild(div);
+          fList.appendChild(div2);
+        },
+        function(e) {
+          console.log(e.message);
+        });
+    }
+  }
+}
+/**
+ * 更新分享服务
+ */
+var shares;
+
+function updateSerivces() {
+  plus.share.getServices(function(s) {
+    shares = {};
+    for(var i in s) {
+      var t = s[i];
+      shares[t.id] = t;
+    }
+  }, function(e) {
+    app.toast("获取分享服务列表失败：" + e.message);
+  });
+}
+/**
+ * 分享操作
+ * @param {plus.share.ShareService} service 分享通道对象
+ * @param {JSON} msg 分享消息对象
+ */
+function shareAction(service, msg) {
+  if(!service || !msg) {
+    console.log("无效的分享！");
+    return;
+  }
+  // 发送分享
+  if(service.authenticated) {
+    shareMessage(msg, service);
+  } else {
+    service.authorize(function() {
+      shareMessage(msg, service);
+    }, function(e) {
+      console.log("认证授权失败：" + e.code + " - " + e.message);
+    });
+  }
+}
+/**
+ * 发送分享消息
+ * @param {JSON} msg
+ * @param {plus.share.ShareService} s
+ */
+function shareMessage(msg, s) {
+  console.log(JSON.stringify(msg));
+  s.send(msg, function() {
+    console.log("分享到\"" + s.description + "\"成功！ ");
+  }, function(e) {
+    console.log("分享到\"" + s.description + "\"失败: " + JSON.stringify(e));
+  });
+}</script>
+	</body>
+
+</html>

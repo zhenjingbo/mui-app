@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#bcid {
+				height: 100%;
+				text-align: center;
+			}
+			
+			.tip {
+				color: #FFFFFF;
+				font-weight: bold;
+				text-shadow: 0px -1px #103E5C;
+			}
+			/*footer {
+	width: 100%;
+	height: 44px;
+	position: absolute;
+	bottom: 0px;
+	line-height: 44px;
+	text-align: center;
+	color: #FFF;
+}*/
+			/*.fbt {
+	width: 50%;
+	height: 100%;
+	background-color: #FFCC33;
+	float: left;
+}
+.fbt:active {
+  	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+}*/
+		</style>
+		<!--	初始化方法-->
+		<script src="js/init.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="background: #444;">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="uBack();"></a>
+			<h1 class="mui-title">扫一扫</h1>
+		</header>
+		<div class="mui-content" style="height: 100%;background: #000000;">
+			<div id="bcid">
+				<div style="height:40%"></div>
+				<p class="tip">载入中...</p>
+			</div>
+		</div>
+		<!--<footer>
+			<div class="fbt" onclick="app.back();">取　 消</div>
+			<div class="fbt" onclick="scanPicture();">从相册选择二维码</div>
+		</footer>-->
+		<!-- page code -->
+		<script src="js/mui.min.js"></script>
+		<script src="js/uni.lib.js"></script>
+		<script src="js/pro.lib.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript">
+			var ws = null;
+			var scan = null;
+			mui.init();
+			// H5 plus事件处理
+			mui.plusReady(function() {
+				ws = plus.webview.currentWebview();
+				app.onPageLoad(function() {
+					//初始化
+					if(!window.inited) {
+						window.inited = true;
+							scan = new plus.barcode.Barcode('bcid', [plus.barcode.QR], {
+								frameColor: "#00A0E9",
+								scanbarColor: "#00A0E9"
+							});
+							//成功
+							scan.onmarked = onmarked;
+							//失败
+							scan.onerror = function() {
+								console.log("扫描出错");
+							};
+					}
+					// 开始扫描
+					scan.start();
+				});
+				ws.addEventListener("hide", function() {
+					//scan.cancel();
+				});
+			});
+			// 监听DOMContentLoaded事件
+			//document.addEventListener("DOMContentLoaded",function(){
+			//	domready=true;
+			//	plusReady();
+			//},false);
+			//返回
+			function uBack() {
+				//scan.cancel();
+				mui.back();
+			}
+			// 二维码扫描成功
+			function onmarked(type, result, file) {
+				switch(type) {
+					case plus.barcode.QR:
+						var rlt = result.replace(/\n/g, '');
+						//wo.evalJS("actQRCode('" + type + "','" + rlt + "');");
+						//mui.back();
+						actQRCode(type, rlt);
+						break;
+					default:
+						break;
+				}
+			}
+			
+    //base64解码			
+			function base64ToBin(data) {
+         var result = '';                                                                                    
+     var base64Pad = '=';                                                                                                   
+    var leftbits = 0; // number of bits decoded, but yet to be appended                                                                                                                                 
+    var leftdata = 0; // bits decoded, but yet to be appended                                                                                                                                            
+    var toBinaryTable = [                                                                                                                                                                             
+    -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,                                                 
+                                                                                                    
+    -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,                                                 
+                                                                                                     
+    -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,62, -1,-1,-1,63,                                                 
+                                                                                                     
+    52,53,54,55, 56,57,58,59, 60,61,-1,-1, -1, 0,-1,-1,                                                 
+                                                                                                     
+    -1, 0, 1, 2,  3, 4, 5, 6,  7, 8, 9,10, 11,12,13,14,                                                 
+                                                                                                    
+    15,16,17,18, 19,20,21,22, 23,24,25,-1, -1,-1,-1,-1,                                                 
+                                                                                                     
+    -1,26,27,28, 29,30,31,32, 33,34,35,36, 37,38,39,40,                                                 
+                                                                                                    
+    41,42,43,44, 45,46,47,48, 49,50,51,-1, -1,-1,-1,-1                                                  
+                                                                                                     
+];                                                                                                                                                                                                                                                                                                                                                                               
+    for (var i = 0; i < data.length; i++) {                                                                                                                                                         
+        var c = toBinaryTable[data.charCodeAt(i) & 0x7f];                                                                                                                                                
+        var padding = (data.charCodeAt(i) == base64Pad.charCodeAt(0));                                                                                                                                
+        // Skip illegal characters and whitespace                                                                                                                                                           
+        if (c == -1) continue;                                                                                                                                                                           
+        // Collect data into leftdata, update bitcount                                                                                                                                                      
+        leftdata = (leftdata << 6) | c;                                                                                                                                                                     
+        leftbits += 6;                                                                                                                                                                                                                                                       
+        // If we have 8 or more bits, append 8 bits to the result                                                                                                                                      
+        if (leftbits >= 8) {                                                                                                                                                                   
+            leftbits -= 8;                                                                                                                                                                    
+            // Append if not padding.                                                                                                                                                       
+            if (!padding)                                                                                                                                                                 
+                result += String.fromCharCode((leftdata >> leftbits) & 0xff);                                                                                                              
+            leftdata &= (1 << leftbits) - 1;                                                                                                                                                  
+        }                                                                                                                                                                                           
+    }                                                                                                   
+                                                                                                     
+                                                                                                    
+                                                                                                    
+    // If there are any bits left, the base64 string was corrupted                                                                                                                          
+    if (leftbits)                                                                                                                                                                             
+        throw Components.Exception('Corrupted base64 string');                                                                                                                                                                                                                                                                                                                  
+    return result;                     
+      }
+    
+			//处理扫描
+			function actQRCode(type, rlt) {
+				if(app.isLogin()) {
+					var req = uni.getReq(rlt);
+					var org = req["org"];
+					var cstr = req["c"];
+					if(cstr) {
+						var arr = cstr.split("_");
+						if(arr.length > 2) {
+							var act = arr[0];
+							var staSN = arr[1];
+							var state = arr[2];
+							var devSN = arr[3];
+							var ext;
+							var rest = null;
+							if(arr.length>4){
+								ext=arr[4];
+								rest = arr[5];
+							}
+							if(act == "print" && devSN) {
+								uBack();
+								app.showPrintTask({
+									staSN: staSN,
+									devSN: devSN
+								});
+								return;
+							}
+							else if(act=="recharge"){
+								app.showRecharge({
+									sum: ext
+								});
+								return;
+							}
+							else if(act == "user") {
+								app.showWallet({
+									staSN: staSN,
+									devSN: devSN
+								});
+								return;
+							}
+							else if(act == "route") {
+							  if (staSN == "photo") {
+                 
+                   proj.print.getPrintTask(function(rlt) {
+                     if (rlt.data.length>0) {
+                     	app.showPhotoTask({
+                     	  devSN:state
+                     	})
+                     } else{
+                     proj.cac.getCode(function(rlt){  
+                     	  app.showWX({
+                     code:rlt.data.code,
+                     devSN:state,
+                   });
+                },function(err){
+                   
+                 },{
+                   
+                 })
+                     }
+                   },{type:"photo"}, function(e) {
+                if(e.msg) {
+                  app.msgBox(e.msg);
+                } else {
+                  app.toast("连接异常");
+                }
+              });
+                 
+
+							  } else if(staSN == "invoice"){
+//							    app.msgBox("正在顽命开发中...")
+							  	 proj.cac.getCode(function(rlt){
+                   app.showInvocie({
+                     code:rlt.data.code,
+                     dev_sn:state,
+                     sid:devSN
+                   });
+                 },function(err){
+                   
+                 },{
+                   
+                 })
+							  
+                return;
+              }
+							  else if(staSN == "func"){
+							     proj.cac.getCode(function(rlt){
+                   app.showFunc({
+                  code:rlt.data.code,   
+                  state: state,
+                  normal: devSN,
+                  ext:ext,
+                  rest:rest
+                });
+                 },function(err){
+                   
+                 },{
+                   
+                 })
+							    
+                return;
+							  }
+						}
+							else if(devSN || org) {
+							  proj.cac.getCode(function(rlt){
+							     proj.cac.appAuth(state, rlt.data.code, function(rlt) {
+                  var data=rlt.data||{};
+                  app.showAuthResult({state:"success",msg:data.info||"",warning:data.warning||"",devSN:devSN,ext:ext});
+                }, function(rlt) {
+                  console.log(rlt.msg);
+                  app.msgBox("认证失败", function() {
+                    uBack();
+                  });
+                }, {
+                  sta_sn: staSN,
+                  org: org,
+                  dev_sn: devSN,
+                  c:cstr
+                });
+							  },function(){
+							    
+							  },{})
+								return;
+							}
+						}
+				      else{
+					  if(arr.length = 2){				    
+					   var qr = arr[1];
+					   var qstr=base64ToBin(qr);
+					   var str = qstr.split("_");
+					   var ct = str[0];
+              var sn = str[1];
+              var te = str[2];
+              if(ct == "route") {
+                if (sn == "photo") {
+                 proj.cac.getCode(function(rlt){
+                   app.showWX({
+                     code:rlt.data.code,
+                     devSN:te,
+                   });
+                 },function(err){
+                   
+                 },{
+                   
+                 })
+
+                } else if(sn == "invoice"){
+                  
+                   proj.cac.getCode(function(rlt){
+                   app.showInvocie({
+                     code:rlt.data.code,
+                     dev_sn:te,
+                     sid:sn
+                   });
+                 },function(err){
+                   
+                 },{
+                   
+                 })
+                
+                return;
+              }
+            }
+					  }else{
+					    app.msgBox("无效二维码");
+					  }
+					
+					}
+				};
+			}
+			}	
+			// 从相册中选择二维码图片 
+			//function scanPicture() {
+			//  plus.gallery.pick(function(path){
+			//	    plus.barcode.scan(path,onmarked,function(error){
+			//			plus.nativeUI.alert( "无法识别此图片" );
+			//		});
+			//  },function(err){
+			//      plus.nativeUI.alert("Failed: "+err.message);
+			//  });
+			//}
+		</script>
+	</body>
+
+</html>

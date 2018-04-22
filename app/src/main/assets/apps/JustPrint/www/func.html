@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      .userInfo{
+        height: 30px;
+        width: 100%;
+        font-size: 14px;
+        line-height:30px;
+        background: #FFFFFF;
+        margin-bottom:3px;
+      }
+      .btnlist{
+        width:100%;
+        height:130px;
+        background:#FFFFFF;
+        box-shadow:  2px 2px 5px  #d3d5d7;
+      }
+      .btn-item{
+        width: 33%;
+        height: 100%;
+        float: left;
+        text-align: center;
+      }
+      .btn-item img{
+        height:50%;
+        margin-top:20%;
+      }
+      .ml-20{
+        margin-left: 20px;
+      }
+      .ml-50{
+        margin-left:60px;
+      }
+      .reach{
+        margin-left:2%;
+      }
+      .tips{
+        height: 50px;
+        width: 100%;
+        background: #fff;
+        margin-top:7px;
+        box-shadow:  2px 2px 5px #d3d5d7;
+        overflow: hidden;
+      }
+      .tips img{
+        height: 80%;
+        margin-left: 20px;
+        margin-top: 5px;
+        float: left;
+      }
+      .tips p{
+        margin-bottom: 0;
+        margin-left:68px;
+      }
+      .mt-5{
+        margin-top: 5px;
+      }
+    </style>
+    <!--	初始化方法-->
+    <script src="js/init.js"></script>
+  </head>
+
+  <body>
+    <header class="mui-bar mui-bar-nav">
+      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"><span style="font-size: 18px;">返回</span></a>
+      <h1 class="mui-title">自助打印</h1>
+    </header>
+    <div class="mui-content" style="overflow: hidden;">
+      <div class="mui-slider">
+  <div class="mui-slider-group mui-slider-loop">
+    <!--支持循环，需要重复图片节点-->
+    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="img/banner2@2x.png" /></a></div>
+    <div class="mui-slider-item"><a href="#"><img src="img/banner@2x.png" /></a></div>
+    <div class="mui-slider-item"><a href="#"><img src="img/banner2@2x.png" /></a></div>
+    <!--支持循环，需要重复图片节点-->
+    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="img/banner@2x.png" /></a></div>
+  </div>
+</div>
+    <div class="userInfo">
+      <span class="ml-20">账户：</span>
+      <span id="user">
+        
+      </span>
+      <span class="ml-50">余额：￥</span>
+      <span id="bal">
+        
+      </span>
+      <a href="recharge.html" class="reach">去充值</a>
+    </div>
+    <div class="btnlist">
+      <div class="btn-item" id="file" onclick="app.showPrintTask({devSN:devsn})">
+        <img src="img/funcPrint@2x.png"/>
+        <p>文件打印</p>
+      </div>
+      <div class="btn-item" id="invoice" onclick="app.showInvoice({code:code,dev_sn:devsn,sid:sid})">
+        <img src="img/{F76014F7-9736-0DCA-3F6F-A2A31FEBEDE0}.png"/>
+        <p>电子发票打印</p>
+      </div>
+      <div class="btn-item" id="photo" onclick="app.showPhoto({dev:devsn})">
+        <img src="img/f_photoPrint@2x.png"/>
+        <p>照片打印</p>
+      </div>
+    </div>
+    <div class="tips">
+      <img src="img/tips.png"/>
+      <p class="mt-5">温馨提示</p>
+      <p>充值后,使用效果更流畅</p>
+    </div>
+    </div>
+    <!-- page code -->
+    <script src="js/mui.min.js"></script>
+    <script src="js/uni.lib.js"></script>
+    <script src="js/pro.lib.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript">
+      var sid = null;
+      var code ;
+      var devsn;
+      mui.init();
+      mui.plusReady(function() {
+          app.onPreload(function(para){
+            code = para.code;
+            devsn = para.normal.substring(1);
+            alert(devsn);
+//          alert(JSON.stringify(para));
+            if(para.state == "0"){
+              document.getElementById("invoice").classList.add("mui-hidden");
+              document.getElementById("file").style.marginLeft = "17%";
+            }
+            else{
+              sid = para.state;
+//            document.getElementById("#invoice").style.display = "block";
+              
+            }
+            if ((para.normal.indexOf("a")<0)&&(para.ext.indexOf("a")<0)&&(para.rest.indexOf("a")<0)) {
+            	document.getElementById("file").classList.add("mui-hidden");
+            	document.getElementById("invoice").style.marginLeft = "17%";
+            } 
+//          else{
+//          	document.getElementById("#file").style.display = "none";
+//          }
+            if ((para.ext.indexOf("b")<0)&&(para.normal.indexOf("b")<0)&&(para.rest.indexOf("b")<0)) {
+            	document.getElementById("pho").classList.add("mui-hidden");
+            	document.getElementById("file").style.marginLeft = "17%";
+            }
+//          else{
+//          	document.getElementById("#pho").style.display = "none";
+//          }
+            var gallery = mui('.mui-slider');
+          gallery.slider({
+            interval:1000//自动轮播周期，若为0则不自动播放，默认为0；
+          });
+          if(app.isLogin()){
+          var acc =  JSON.parse(localStorage["acc"]);
+          document.getElementById("user").innerHTML = acc.nickname==null?app.cvt.getEncName(pro.acc.pid):acc.nickname;
+          app.getBalance(function(fee) {
+              document.getElementById("bal").innerHTML = fee;
+            });
+          }
+          })
+      });
+    </script>
+  </body>
+</html>
